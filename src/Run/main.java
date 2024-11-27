@@ -5,6 +5,7 @@ import List.DanhSachPhieuNhap;
 import List.DSKhachHang;
 import List.DanhSachCTPN;
 import List.DanhSachDienThoai;
+import List.DanhSachChiTietHoaDon;
 
 import java.util.Scanner;
 public class main {
@@ -15,6 +16,7 @@ public class main {
         DanhSachPhieuNhap danhSachPhieuNhap = new DanhSachPhieuNhap();
         DanhSachNhanVien danhsachNV=new DanhSachNhanVien();
         DSKhachHang dskh = new DSKhachHang();
+        DanhSachChiTietHoaDon dscthd = new DanhSachChiTietHoaDon();
         while (true)
         {
             System.out.println("-------------------- MENU --------------------");
@@ -44,11 +46,14 @@ public class main {
                     dskh.menu();
                     break;
                 case 5:
-
+                    dscthd.menu();
+                    break;
                 case 6:
                     danhSachNCC.docFile();
                     danhSachPhieuNhap.docFile();
                     danhsachNV.docTuFile();
+                    dskh.docFile("src/data/danhsachkhachhang.txt");
+                    dscthd.docFile("src/data/danhsachchitiethoadon.txt");
                     System.out.println("Đọc file thành công !!!");
                     System.out.println("\n");
                     break;
