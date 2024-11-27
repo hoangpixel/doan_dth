@@ -42,6 +42,9 @@ public class main {
                     break;
                 case 4:
                     dskh.menu();
+                    break;
+                case 5:
+
                 case 6:
                     danhSachNCC.docFile();
                     danhSachPhieuNhap.docFile();
