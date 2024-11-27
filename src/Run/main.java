@@ -6,6 +6,7 @@ import List.DSKhachHang;
 import List.DanhSachCTPN;
 import List.DanhSachDienThoai;
 import List.DanhSachChiTietHoaDon;
+import List.DanhSachHoaDon;
 
 import java.util.Scanner;
 public class main {
@@ -17,6 +18,7 @@ public class main {
         DanhSachNhanVien danhsachNV=new DanhSachNhanVien();
         DSKhachHang dskh = new DSKhachHang();
         DanhSachChiTietHoaDon dscthd = new DanhSachChiTietHoaDon();
+        DanhSachHoaDon danhsachHD=new DanhSachHoaDon();
         while (true)
         {
             System.out.println("-------------------- MENU --------------------");
@@ -24,7 +26,7 @@ public class main {
             System.out.println("| 2. Nhập và quản lý danh sách phiếu nhập    |");
             System.out.println("| 3. Nhập và quản lý nhân viên               |");
             System.out.println("| 4. Nhập và quản lý khách hàng              |");
-            System.out.println("| 5. Nhập và quản lý chi tiết hóa đơn        |");
+            System.out.println("| 5. Nhập và quản lý hoá đơn                 |");
             System.out.println("| 6. Đọc dữ liệu từ file                     |");
             System.out.println("| 7. Xuất tất cả dữ liệu ra file             |");
             System.out.println("| 8. Thoát                                   |");
@@ -46,12 +48,43 @@ public class main {
                     dskh.menu();
                     break;
                 case 5:
-                    dscthd.menu();
+                    int lc;
+                    do{
+                        Scanner nhap=new Scanner(System.in);
+                        System.out.println("\n------- Nhập và quản lý hoá đơn -------");
+                        System.out.println("| 1. Nhập và quản lý danh sách hoá đơn                 |");
+                        System.out.println("| 2. Nhập và quản lý danh sách chi tiết hoá đơn        |");
+                        System.out.println("| 3. Thoát                                             |");
+                        System.out.print("Nhập lựa chọn (1 -> 3): ");
+                        lc=nhap.nextInt();
+                        switch(lc){
+                            case 1:
+                            {
+                                danhsachHD.menu(danhsachNV, dskh);
+                                break;
+                            }
+                            case 2:
+                            {
+                                dscthd.menu();
+                                break;
+                            }
+                            case 3:
+                            {
+                                System.out.println("Bạn chọn thoát");
+                                break;
+                            }
+                            default:
+                            {
+                                System.out.println("Lựa chọn không hợp lệ (1->3)");
+                            }
+                        }
+                    }while(lc!=3);
                     break;
                 case 6:
                     danhSachNCC.docFile();
                     danhSachPhieuNhap.docFile();
                     danhsachNV.docTuFile();
+	            danhsachHD.docFile();
                     dskh.docFile("src/data/danhsachkhachhang.txt");
                     dscthd.docFile("src/data/danhsachchitiethoadon.txt");
                     System.out.println("Đọc file thành công !!!");
@@ -61,6 +94,7 @@ public class main {
                     danhSachNCC.ghiFile();
                     danhSachPhieuNhap.ghiFile();
                     danhsachNV.xuatRaFile();
+		    danhsachHD.ghiFile();
                     System.out.println("Ghi file thành công !!!");
                     System.out.println("\n");
                     break;
