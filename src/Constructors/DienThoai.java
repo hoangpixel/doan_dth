@@ -117,7 +117,6 @@ public abstract class DienThoai {
 		System.out.println("Nhập màu: ");
 		this.mau = sc.nextLine();
 	}
-
 	public void xuat() {
 		System.out.println("Mã điện thoại: " + this.maDT
 		+ "\nTên: " + this.tenDT
