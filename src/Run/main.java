@@ -14,15 +14,18 @@ public class main {
         DanhSachNCC danhSachNCC = new DanhSachNCC();
         DanhSachPhieuNhap danhSachPhieuNhap = new DanhSachPhieuNhap();
         DanhSachNhanVien danhsachNV=new DanhSachNhanVien();
+        DSKhachHang dskh = new DSKhachHang();
         while (true)
         {
             System.out.println("-------------------- MENU --------------------");
             System.out.println("| 1. Nhập và quản lý danh sách nhà cung cấp  |");
             System.out.println("| 2. Nhập và quản lý danh sách phiếu nhập    |");
             System.out.println("| 3. Nhập và quản lý nhân viên               |");
-            System.out.println("| 4. Đọc dữ liệu từ file                     |");
-            System.out.println("| 5. Xuất tất cả dữ liệu ra file             |");
-            System.out.println("| 6. Thoát                                   |");
+            System.out.println("| 4. Nhập và quản lý khách hàng              |");
+            System.out.println("| 5. Nhập và quản lý chi tiết hóa đơn        |");
+            System.out.println("| 6. Đọc dữ liệu từ file                     |");
+            System.out.println("| 7. Xuất tất cả dữ liệu ra file             |");
+            System.out.println("| 8. Thoát                                   |");
             System.out.println("----------------------------------------------");
             System.out.print("Vui lòng chọn một tùy chọn: ");
             int choice = sc.nextInt();
@@ -38,20 +41,22 @@ public class main {
                     danhsachNV.menu();
                     break;
                 case 4:
+                    dskh.menu();
+                case 6:
                     danhSachNCC.docFile();
                     danhSachPhieuNhap.docFile();
                     danhsachNV.docTuFile();
                     System.out.println("Đọc file thành công !!!");
                     System.out.println("\n");
                     break;
-                case 5:
+                case 7:
                     danhSachNCC.ghiFile();
                     danhSachPhieuNhap.ghiFile();
                     danhsachNV.xuatRaFile();
                     System.out.println("Ghi file thành công !!!");
                     System.out.println("\n");
                     break;
-                case 6:
+                case 8:
                     System.out.println("Cảm ơn đã sử dụng chương trình. Tạm biệt!");
                     return;
                 default:

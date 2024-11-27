@@ -270,7 +270,7 @@ public String[] layDanhSachMaKh() {
         Scanner sc = new Scanner(System.in);
         
         while (true) {
-            System.out.println("=== Menu ===");
+            System.out.println("-----------------Quản lý khách hàng------------------");
             System.out.println("1. Thêm khách hàng");
             System.out.println("2. Sửa thông tin khách hàng");
             System.out.println("3. Xóa khách hàng");
@@ -305,7 +305,7 @@ public String[] layDanhSachMaKh() {
     
     public static void main(String[] args){
         DSKhachHang kh = new DSKhachHang();
-        String filePath = "danhsachkhachhang.txt";
+        String filePath = "src/data/danhsachkhachhang.txt";
         kh.docFile(filePath);
         kh.menu();
     }
