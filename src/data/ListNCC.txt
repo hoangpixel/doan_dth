@@ -1,0 +1,2 @@
+Mã NCC: 123, Tên NCC: 123, Số điện thoại: 123, Địa chỉ: 123, Quốc gia: 123
+Mã NCC: 234, Tên NCC: 234, Số điện thoại: 234, Địa chỉ: 234
