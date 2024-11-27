@@ -342,24 +342,61 @@ public class DanhSachNhanVien
             }
         }
     }
-
+    
+    public void thongKeLuong(){
+	    int[] lg=new int[3];
+	    for(int i=0; i<3; i=i+1)
+	    lg[i]=0;
+	    for(int i=0; i<n; i=i+1){
+	        if(dsnv[i].getLuong()<=10000000)
+	        lg[0]=lg[0]+1;
+	        if(dsnv[i].getLuong()<=20000000&&dsnv[i].getLuong()>=10000001)
+	        lg[1]=lg[1]+1;
+	        if(dsnv[i].getLuong()>=21000001)
+	        lg[2]=lg[2]+1;
+	    }
+	    System.out.println("Số lượng nhân viên có lương từ 10 triệu trở xuống: "+lg[0]);
+	    System.out.println("Số lượng nhân viên có lương trên 10 triệu và đến 20 triệu: "+lg[1]);
+	    System.out.println("Số lượng nhân viên có lương từ 20 triệu trở xuống: "+lg[2]);
+	}
+    
+    void thongKeMinMax(){
+        if(dsnv.length==0){
+            System.out.println("Danh sách nhân viên trống");
+            return;
+        }
+        float min=dsnv[0].getLuong();
+        float max=dsnv[0].getLuong();
+        for(int i=0; i<n; i=i+1){
+            if(min>dsnv[i].getLuong())
+                min=dsnv[i].getLuong();
+            if(max<dsnv[i].getLuong())
+                max=dsnv[i].getLuong();
+        }
+        System.out.println("Lương cao nhất của nhân viên: "+max);
+        System.out.println("Lương thấp nhất của nhân viên: "+min);
+        System.out.println("Chênh lệch lương cao nhất và thấp nhất: "+(max-min));
+    }
+    
     public void menu() {
         int choice;
         Scanner nhap = new Scanner(System.in);
         do {
             System.out.println("\n------- Quản lý danh sách nhân viên -------");
-            System.out.println("| 1. Nhập danh sách nhân viên                |");
-            System.out.println("| 2. Xuất danh sách nhân viên                |");
-            System.out.println("| 3. Thêm nhân viên                          |");
-            System.out.println("| 4. Xoá nhân viên theo mã nhân viên         |");
-            System.out.println("| 5. Tìm nhân viên theo mã nhân viên         |");
-            System.out.println("| 6. Tìm nhân viên theo họ nhân viên         |");
-            System.out.println("| 7. Tìm nhân viên theo tên nhân viên        |");
-            System.out.println("| 8. Sửa thông tin nhân viên                 |");
-            System.out.println("| 9. Thống kê số nhân viên                   |");
-            System.out.println("| 10. Thoát                                   |");
+            System.out.println("| 1. Nhập danh sách nhân viên                          |");
+            System.out.println("| 2. Xuất danh sách nhân viên                          |");
+            System.out.println("| 3. Thêm nhân viên                                    |");
+            System.out.println("| 4. Xoá nhân viên theo mã nhân viên                   |");
+            System.out.println("| 5. Tìm nhân viên theo mã nhân viên                   |");
+            System.out.println("| 6. Tìm nhân viên theo họ nhân viên                   |");
+            System.out.println("| 7. Tìm nhân viên theo tên nhân viên                  |");
+            System.out.println("| 8. Sửa thông tin nhân viên                           |");
+            System.out.println("| 9. Thống kê số nhân viên                             |");
+            System.out.println("| 10. Thống kê lương của nhân viên                     |");
+            System.out.println("| 11. Thống kê lương cao nhất, thấp nhất của nhân viên |");
+            System.out.println("| 12. Thoát                                            |");
             System.out.println("----------------------------------------------");
-            System.out.print("Vui lòng nhập lựa chọn của bạn (1->10): ");
+            System.out.print("Vui lòng nhập lựa chọn của bạn (1->12): ");
             choice = nhap.nextInt();
             switch (choice) {
                 case 1:
@@ -390,11 +427,17 @@ public class DanhSachNhanVien
                     thongKe();
                     break;
                 case 10:
+                    thongKeLuong();
+                    break;
+                case 11:
+                    thongKeMinMax();
+                    break;
+                case 12:
                     System.out.println("Bạn chọn thoát");
                     break;
                 default:
-                    System.out.println("Lưa chọn không hợp lệ (1 -> 10)");
+                    System.out.println("Lưa chọn không hợp lệ (1 -> 12)");
             }
-        } while (choice != 10);
+        } while (choice != 12);
     }
 }
