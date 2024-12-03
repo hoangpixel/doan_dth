@@ -23,6 +23,7 @@ public class DienThoaiThongMinh extends DienThoai{
 		this.dungluongluutru = dungluongluutru;
 	}
 
+	@Override
 	public String layLoaiDienThoai() {
 		return "Điện thoại thông minh";
 	}
