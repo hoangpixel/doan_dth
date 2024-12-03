@@ -2,6 +2,9 @@ package List;
 import java.util.Scanner;
 import java.util.Arrays;
 import Constructors.PhieuNhap;
+import Constructors.NhaCungCap;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import Interfaces.InterfaceDocGhi;
 import java.io.IOException;
 import java.io.BufferedReader;
@@ -267,23 +270,26 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
         }
         System.out.println("Có " + d + " phiếu nhập trong danh sách");
     }
-    public void docFile()
-    {
+    public void docFile() {
         try (BufferedReader reader = new BufferedReader(new FileReader("src/data/ListPhieuNhap.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                if (line.trim().isEmpty()) continue;  // Bỏ qua dòng trống
+                if (line.trim().isEmpty()) continue; // Bỏ qua dòng trống
 
-                String[] parts = line.split(", ");
+                // Tách chuỗi bằng dấu `;`
+                String[] parts = line.split(";");
                 if (parts.length == 5) {
                     try {
+                        // Tạo đối tượng PhieuNhap từ dữ liệu
                         PhieuNhap pn = new PhieuNhap(
-                                parts[0].split(": ")[1],
-                                parts[1].split(": ")[1],
-                                parts[2].split(": ")[1],
-                                parts[3].split(": ")[1],
-                                Float.parseFloat(parts[4].split(": ")[1])
+                                parts[0], // Mã phiếu nhập
+                                parts[1], // Ngày nhập
+                                parts[2], // Mã nhà cung cấp
+                                parts[3], // Mã nhân viên
+                                Float.parseFloat(parts[4]) // Tổng tiền
                         );
+
+                        // Thêm đối tượng vào danh sách
                         dspn = Arrays.copyOf(dspn, dspn.length + 1);
                         dspn[dspn.length - 1] = pn;
                     } catch (NumberFormatException e) {
@@ -293,23 +299,83 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
                     System.out.println("Dòng dữ liệu không hợp lệ: " + line);
                 }
             }
+            System.out.println("Dữ liệu phiếu nhập đã được đọc thành công.");
         } catch (IOException e) {
             System.out.println("Lỗi khi đọc từ file: " + e.getMessage());
         }
     }
+
+
     public void ghiFile()
     {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/data/ListPhieuNhap.txt"))) {
             for (PhieuNhap pn : dspn)
             {
                 if (pn != null) {
-                    String data = String.format("Mã phiếu nhập: %s, Ngày nhập: %s, Mã NCC: %s, Mã nhân viên: %s, Tổng tiền: %s%n",
-                            pn.getMaPN(), pn.getNgayNhap(), pn.getMaNCC(), pn.getMaNV(), pn.getTongTien());
+                    String data = pn.getMaPN() + ";" +
+                            pn.getNgayNhap() + ";" +
+                            pn.getMaNCC() + ";" +
+                            pn.getMaNV() + ";" +
+                            pn.getTongTien() + "\n";
                     writer.write(data);  // Ghi dữ liệu vào file
                 }
             }
         } catch (IOException e) {
             System.out.println("Lỗi khi ghi vào file: " + e.getMessage());
+        }
+    }
+
+    public void timKiemTieuChi(DanhSachNCC danhSachNCC, String maNCC,
+                               String ngayBatDau, String ngayKetThuc, float tienMin, float tienMax, String maNV) {
+        boolean found = false;
+
+        // Định dạng ngày
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+
+        for (PhieuNhap pn : dspn) {
+            // Kiểm tra tiêu chí phiếu nhập
+            if (!maNV.isEmpty() && !pn.getMaNV().equalsIgnoreCase(maNV)) continue;
+
+            // Kiểm tra khoảng thời gian
+            try {
+                LocalDate ngayNhap = LocalDate.parse(pn.getNgayNhap(), formatter);
+                LocalDate startDate = ngayBatDau.isEmpty() ? null : LocalDate.parse(ngayBatDau, formatter);
+                LocalDate endDate = ngayKetThuc.isEmpty() ? null : LocalDate.parse(ngayKetThuc, formatter);
+
+                // Kiểm tra nếu ngày nhập không nằm trong khoảng thời gian
+                if (startDate != null && ngayNhap.isBefore(startDate)) continue;  // Trước ngày bắt đầu
+                if (endDate != null && ngayNhap.isAfter(endDate)) continue;  // Sau ngày kết thúc
+
+            } catch (Exception e) {
+                System.out.println("Lỗi khi xử lý ngày: " + e.getMessage());
+                continue;
+            }
+
+            // Kiểm tra tiền
+            if (tienMin >= 0 && pn.getTongTien() < tienMin) continue;
+            if (tienMax >= 0 && pn.getTongTien() > tienMax) continue;
+
+            // Tìm nhà cung cấp tương ứng
+            NhaCungCap ncc = danhSachNCC.timNhaCungCapTheoMa(pn.getMaNCC());
+            if (ncc != null) {
+                boolean match = true;
+
+                // Kiểm tra tiêu chí nhà cung cấp
+                if (!maNCC.isEmpty() && !ncc.getMaNCC().equalsIgnoreCase(maNCC)) {
+                    match = false;
+                }
+
+                // Nếu tất cả tiêu chí khớp, in thông tin
+                if (match) {
+                    if (!found) System.out.println("Kết quả tìm kiếm:");
+                    pn.xuatPhieuNhap();
+                    found = true;
+                }
+            }
+        }
+
+        if (!found) {
+            System.out.println("Không tìm thấy kết quả phù hợp.");
         }
     }
 
@@ -320,17 +386,17 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
             System.out.println("Danh sách phiếu nhập trống.");
             return;
         }
-        String format = "| %-15s | %-20s | %-15s | %-30s | %-15s |\n";
-        System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+\n");
+        String format = "| %-15s | %-20s | %-15s | %-15s | %-15s |\n";
+        System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
         System.out.format(format, "Mã phiếu nhập", "Ngày nhập", "Mã NCC", "Mã NV", "Tổng tiền");
-        System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+\n");
+        System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
 
         for (int i = 0; i < dspn.length; i++) {
             System.out.format(format, dspn[i].getMaPN(), dspn[i].getNgayNhap(), dspn[i].getMaNCC(),
                     dspn[i].getMaNV(), dspn[i].getTongTien());
         }
 
-        System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+\n");
+        System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
         System.out.println("\n");
     }
 
