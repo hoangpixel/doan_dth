@@ -10,25 +10,34 @@ import List.DanhSachHoaDon;
 
 import java.util.Scanner;
 public class main {
-	public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         DanhSachNCC danhSachNCC = new DanhSachNCC();
         DanhSachPhieuNhap danhSachPhieuNhap = new DanhSachPhieuNhap();
-        DanhSachNhanVien danhsachNV=new DanhSachNhanVien();
+        DanhSachNhanVien danhsachNV = new DanhSachNhanVien();
         DSKhachHang dskh = new DSKhachHang();
         DanhSachChiTietHoaDon dscthd = new DanhSachChiTietHoaDon();
-        DanhSachHoaDon danhsachHD=new DanhSachHoaDon();
-        while (true)
-        {
+        DanhSachHoaDon danhsachHD = new DanhSachHoaDon();
+
+        System.out.println();
+        danhSachNCC.docFile();
+        danhSachPhieuNhap.docFile();
+        danhsachNV.docTuFile();
+        danhsachHD.docFile();
+        dskh.docFile("src/data/danhsachkhachhang.txt");
+        dscthd.docFile("src/data/danhsachchitiethoadon.txt");
+        System.out.println("Đọc file thành công !!!");
+        System.out.println();
+
+        while (true) {
             System.out.println("-------------------- MENU --------------------");
             System.out.println("| 1. Nhập và quản lý danh sách nhà cung cấp  |");
             System.out.println("| 2. Nhập và quản lý danh sách phiếu nhập    |");
             System.out.println("| 3. Nhập và quản lý nhân viên               |");
             System.out.println("| 4. Nhập và quản lý khách hàng              |");
             System.out.println("| 5. Nhập và quản lý hoá đơn                 |");
-            System.out.println("| 6. Đọc dữ liệu từ file                     |");
-            System.out.println("| 7. Xuất tất cả dữ liệu ra file             |");
+            System.out.println("| 6. Xuất tất cả dữ liệu ra file             |");
+            System.out.println("| 7. Tìm kiếm nâng cao                       |");
             System.out.println("| 8. Thoát                                   |");
             System.out.println("----------------------------------------------");
             System.out.print("Vui lòng chọn một tùy chọn: ");
@@ -49,54 +58,43 @@ public class main {
                     break;
                 case 5:
                     int lc;
-                    do{
-                        Scanner nhap=new Scanner(System.in);
+                    do {
+                        Scanner nhap = new Scanner(System.in);
                         System.out.println("\n------- Nhập và quản lý hoá đơn -------");
                         System.out.println("| 1. Nhập và quản lý danh sách hoá đơn                 |");
                         System.out.println("| 2. Nhập và quản lý danh sách chi tiết hoá đơn        |");
                         System.out.println("| 3. Thoát                                             |");
                         System.out.print("Nhập lựa chọn (1 -> 3): ");
-                        lc=nhap.nextInt();
-                        switch(lc){
-                            case 1:
-                            {
+                        lc = nhap.nextInt();
+                        switch (lc) {
+                            case 1: {
                                 danhsachHD.menu(danhsachNV, dskh);
                                 break;
                             }
-                            case 2:
-                            {
+                            case 2: {
                                 dscthd.menu();
                                 break;
                             }
-                            case 3:
-                            {
+                            case 3: {
                                 System.out.println("Bạn chọn thoát");
                                 break;
                             }
-                            default:
-                            {
+                            default: {
                                 System.out.println("Lựa chọn không hợp lệ (1->3)");
                             }
                         }
-                    }while(lc!=3);
+                    } while (lc != 3);
                     break;
                 case 6:
-                    danhSachNCC.docFile();
-                    danhSachPhieuNhap.docFile();
-                    danhsachNV.docTuFile();
-	            danhsachHD.docFile();
-                    dskh.docFile("src/data/danhsachkhachhang.txt");
-                    dscthd.docFile("src/data/danhsachchitiethoadon.txt");
-                    System.out.println("Đọc file thành công !!!");
-                    System.out.println("\n");
-                    break;
-                case 7:
                     danhSachNCC.ghiFile();
                     danhSachPhieuNhap.ghiFile();
                     danhsachNV.xuatRaFile();
-		    danhsachHD.ghiFile();
+                    danhsachHD.ghiFile();
                     System.out.println("Ghi file thành công !!!");
                     System.out.println("\n");
+                    break;
+                case 7:
+                    timKiemNangCaoThuNhat(danhSachNCC,danhSachPhieuNhap);
                     break;
                 case 8:
                     System.out.println("Cảm ơn đã sử dụng chương trình. Tạm biệt!");
@@ -173,10 +171,10 @@ public class main {
             sc.nextLine();
             switch (choice) {
                 case 1:
-                    danhSachPhieuNhap.themKPhantu(danhSachNCC,danhSachNhanVien);
+                    danhSachPhieuNhap.themKPhantu(danhSachNCC, danhSachNhanVien);
                     break;
                 case 2:
-                    danhSachPhieuNhap.themkNcoHoi(danhSachNCC,danhSachNhanVien);
+                    danhSachPhieuNhap.themkNcoHoi(danhSachNCC, danhSachNhanVien);
                     break;
                 case 3:
                     danhSachPhieuNhap.xoaPhanTu();
@@ -202,6 +200,48 @@ public class main {
                     System.out.println("Tùy chọn không hợp lệ! Vui lòng chọn lại.");
             }
         }
+    }
+
+    private static void timKiemNangCaoThuNhat(DanhSachNCC dsncc, DanhSachPhieuNhap dspn)
+    {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("---------- Tìm kiếm nâng cao ----------");
+        System.out.print("Nhập mã nhà cung cấp : ");
+        String maNCC=sc.nextLine().trim();
+        System.out.print("Nhập tên nhà cung cấp : ");
+        String tenNCC=sc.nextLine().trim();
+        System.out.println("Chọn loại nhà cung cấp : ");
+        System.out.println("1. Nội địa");
+        System.out.println("2. Quốc tế");
+        System.out.println("3. Bỏ qua");
+        int loaiNCC=sc.nextInt();
+        sc.nextLine();
+        String quocgia="";
+        if(loaiNCC == 2)
+        {
+            System.out.print("Nhập quốc gia của nhà cung cấp : ");
+            quocgia=sc.nextLine().trim();
+        }
+        System.out.print("Nhập mã phiếu nhập : ");
+        String maPN=sc.nextLine().trim();
+        System.out.print("Nhập mã nhân viên : ");
+        String maNV=sc.nextLine().trim();
+        String ngayNhap;
+        while(true)
+        {
+            System.out.print("Ngày nhập phiếu : ");
+            ngayNhap = sc.nextLine().trim();
+            if(ngayNhap.matches("\\d{4}/\\d{2}/\\d{2}"))
+            {
+                break;
+            }
+            else
+            {
+                System.out.println("Vui lòng nhập theo kiểu định dạng (yyyy/mm/dd)");
+            }
+        }
+        System.out.println("Đang tiến hành thực hiện chức năng tìm kiếm ...");
+        dspn.timKiemTieuChi(dsncc,maNCC,tenNCC,loaiNCC,quocgia,maPN,ngayNhap,maNV);
     }
     
     public void menuDT(DanhSachDienThoai danhSachDT) {

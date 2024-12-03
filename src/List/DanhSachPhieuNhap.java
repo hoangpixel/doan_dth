@@ -2,6 +2,9 @@ package List;
 import java.util.Scanner;
 import java.util.Arrays;
 import Constructors.PhieuNhap;
+import Constructors.NhaCungCap;
+import TypeNCC.NhaCungCapQuocTe;
+import TypeNCC.NhaCungCapNoiDia;
 import Interfaces.InterfaceDocGhi;
 import java.io.IOException;
 import java.io.BufferedReader;
@@ -310,6 +313,76 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
             }
         } catch (IOException e) {
             System.out.println("Lỗi khi ghi vào file: " + e.getMessage());
+        }
+    }
+
+//    public void tieuChiTimKiem(DanhSachNCC dsncc,String maNCC,String tenNCC,int LoaiNCC,String quocgia,String maPN,String maNV)
+//    {
+//        boolean found = false;
+//        for(PhieuNhap pn : this.dspn)
+//        {
+//            if(!maPN.isEmpty() && !pn.getMaPN().equalsIgnoreCase(maPN))
+//            {
+//                continue;
+//            }
+//            if(!maNV.isEmpty() && !pn.getMaNV().equalsIgnoreCase(maNV))
+//            {
+//                continue;
+//            }
+//        }
+//    }
+
+    public void timKiemTieuChi(DanhSachNCC danhSachNCC, String maNCC, String tenNCC, int loaiNCC, String quocGia,
+                               String maPN, String ngayNhap, String maNV) {
+        boolean found = false;
+
+        for (PhieuNhap pn : dspn) { // `dspn` là danh sách phiếu nhập
+            // Kiểm tra tiêu chí phiếu nhập
+            if (!maPN.isEmpty() && !pn.getMaPN().equalsIgnoreCase(maPN)) continue;
+            if (!ngayNhap.isEmpty() && !pn.getNgayNhap().equals(ngayNhap)) continue;
+            if (!maNV.isEmpty() && !pn.getMaNV().equalsIgnoreCase(maNV)) continue;
+
+            // Tìm nhà cung cấp tương ứng
+            NhaCungCap ncc = danhSachNCC.timNhaCungCapTheoMa(pn.getMaNCC());
+            if (ncc != null) {
+                boolean match = true;
+
+                // Kiểm tra tiêu chí nhà cung cấp
+                if (!maNCC.isEmpty() && !ncc.getMaNCC().equalsIgnoreCase(maNCC)) {
+                    match = false;
+                }
+
+                if (!tenNCC.isEmpty() && !ncc.getTenNCC().toLowerCase().contains(tenNCC.toLowerCase())) {
+                    match = false;
+                }
+
+                if (loaiNCC == 1 && !(ncc instanceof NhaCungCapNoiDia)) {
+                    match = false;
+                }
+
+                if (loaiNCC == 2) {
+                    if (!(ncc instanceof NhaCungCapQuocTe)) {
+                        match = false;
+                    } else {
+                        NhaCungCapQuocTe nccQuocTe = (NhaCungCapQuocTe) ncc;
+                        if (!quocGia.isEmpty() && !nccQuocTe.getQuocGia().toLowerCase().contains(quocGia.toLowerCase())) {
+                            match = false;
+                        }
+                    }
+                }
+
+                // Nếu tất cả tiêu chí khớp, in thông tin
+                if (match) {
+                    if (!found) System.out.println("Kết quả tìm kiếm:");
+                    pn.xuatPhieuNhap();
+                    ncc.xuat();
+                    found = true;
+                }
+            }
+        }
+
+        if (!found) {
+            System.out.println("Không tìm thấy kết quả phù hợp.");
         }
     }
 

@@ -339,6 +339,15 @@ public class DanhSachNCC implements InterfaceDocGhi
             System.out.println("Không tìm thấy nhà cung cấp cần tìm !!!");
         }
     }
+    public NhaCungCap timNhaCungCapTheoMa(String maNCC) {
+        for (NhaCungCap ncc : dsncc) {
+            if (ncc != null && ncc.getMaNCC().equalsIgnoreCase(maNCC)) {
+                return ncc;
+            }
+        }
+        return null; // Không tìm thấy
+    }
+
     public void xuat() {
         if (dsncc.length == 0) {
             System.out.println("Danh sách nhà cung cấp trống.");
