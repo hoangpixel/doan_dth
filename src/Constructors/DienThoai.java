@@ -127,5 +127,7 @@ public abstract class DienThoai {
 		+"\nMàu: " + this.mau);
 	}
 	
+	public abstract String layLoaiDienThoai();
+	
 	
 }

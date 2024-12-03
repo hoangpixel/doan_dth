@@ -190,6 +190,96 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 		return -1;
 	}
 	
+	public void timKiemNangCao() {
+	    // Biến lưu các tiêu chí tìm kiếm
+	    String maDT = null, tenDT = null, hang = null, heDieuHanh = null, mau = null;
+	    int loai = -1; // 1: Thông minh, 2: Phím
+	    float giaMin = -1, giaMax = -1;
+
+	    int luaChon;
+	    do {
+	        System.out.println("---Tìm kiếm nâng cao---");
+	        System.out.println("1. Tìm theo mã điện thoại");
+	        System.out.println("2. Tìm theo điện thoại");
+	        System.out.println("3. Tìm theo hãng");
+	        System.out.println("4. Tìm theo khoảng giá");
+	        System.out.println("5. Tìm theo hệ điều hành");
+	        System.out.println("6. Tìm theo loại điện thoại");
+	        System.out.println("7. Tìm theo màu sắc");
+	        System.out.println("8. Thực hiện tìm kiếm");
+	        System.out.println("0. Thoát");
+	        System.out.println("-----------------------");
+	        System.out.print("Nhập lựa chọn: ");
+	        luaChon = sc.nextInt();
+	        sc.nextLine();
+
+	        switch (luaChon) {
+	            case 1:
+	                System.out.print("Nhập mã điện thoại: ");
+	                maDT = sc.nextLine();
+	                break;
+	            case 2:
+	                System.out.print("Nhập tên điện thoại: ");
+	                tenDT = sc.nextLine();
+	                break;
+	            case 3:
+	                System.out.print("Nhập hãng điện thoại: ");
+	                hang = sc.nextLine();
+	                break;
+	            case 4:
+	                System.out.print("Nhập khoảng giá (min max): ");
+	                giaMin = sc.nextFloat();
+	                giaMax = sc.nextFloat();
+	                sc.nextLine();
+	                break;
+	            case 5:
+	                System.out.print("Nhập hệ điều hành: ");
+	                heDieuHanh = sc.nextLine();
+	                break;
+	            case 6:
+	                System.out.println("Chọn loại điện thoại (1: Thông minh, 2: Phím): ");
+	                loai = sc.nextInt();
+	                sc.nextLine();
+	                break;
+	            case 7:
+	                System.out.print("Nhập màu sắc: ");
+	                mau = sc.nextLine();
+	                break;
+	            case 8:
+	                // Thực hiện tìm kiếm
+	                System.out.println("Kết quả tìm kiếm:");
+	                tenDT = tenDT.trim();
+	                for (DienThoai dt : dsdt) {
+	                    // Kiểm tra từng tiêu chí
+	                    if ((maDT == null || dt.getMaDT().equals(maDT)) &&
+	                        (tenDT == null || dt.getTenDT().toLowerCase().contains(tenDT.toLowerCase())) &&
+	                        (hang == null || dt.getHang().toLowerCase().contains(hang.toLowerCase())) &&
+	                        (giaMin == -1 || (dt.getDongia() >= giaMin && dt.getDongia() <= giaMax)) &&
+	                        (heDieuHanh == null || dt.getHedieuhanh().toLowerCase().contains(heDieuHanh.toLowerCase())) &&
+	                        (loai == -1 || (loai == 1 && dt instanceof DienThoaiThongMinh) || 
+	                                       (loai == 2 && dt instanceof DienThoaiPhim)) &&
+	                        (mau == null || dt.getMau().toLowerCase().contains(mau.toLowerCase()))) {
+	                        dt.xuat();
+	                
+	                    }
+	                    if (dt.getTenDT().toLowerCase().contains(tenDT.toLowerCase())) {
+	                        System.out.println("dung");
+	                    } else {
+	                        System.out.println("sai");
+	                    }
+	                    
+	                }
+	                break;
+	            case 0:
+	                System.out.println("Thoát tìm kiếm nâng cao.");
+	                break;
+	            default:
+	                System.out.println("Lựa chọn không hợp lệ.");
+	        }
+	    } while (luaChon != 0);
+	}
+
+	
 	public void suaTheoMa() {
 		System.out.print("Nhập mã điện thoại cần sửa: ");
 		String maDT = sc.nextLine();
@@ -399,7 +489,11 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 		}
 	}
 	
-	
+	public static void main(String[] args) {
+		DanhSachDienThoai dsdt = new DanhSachDienThoai();
+		dsdt.docFile();
+		dsdt.timKiemNangCao();
+	}
 	
 	
 }

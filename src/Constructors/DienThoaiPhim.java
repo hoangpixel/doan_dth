@@ -44,5 +44,10 @@ public class DienThoaiPhim extends DienThoai{
 		System.out.println("Loại bàn phím: " + this.loaibanphim);
 	}
 	
+	@Override
+	public String layLoaiDienThoai() {
+		return "Điện thoại phím";
+	}
+	
 	
 }
