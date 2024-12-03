@@ -7,7 +7,6 @@ import List.DanhSachCTPN;
 import List.DanhSachDienThoai;
 import List.DanhSachChiTietHoaDon;
 import List.DanhSachHoaDon;
-
 import java.util.Scanner;
 public class main {
     public static void main(String[] args) {
@@ -202,47 +201,36 @@ public class main {
         }
     }
 
-    private static void timKiemNangCaoThuNhat(DanhSachNCC dsncc, DanhSachPhieuNhap dspn)
-    {
-        Scanner sc=new Scanner(System.in);
+    private static void timKiemNangCaoThuNhat(DanhSachNCC dsncc, DanhSachPhieuNhap dspn) {
+        Scanner sc = new Scanner(System.in);
         System.out.println("---------- Tìm kiếm nâng cao ----------");
+
         System.out.print("Nhập mã nhà cung cấp : ");
-        String maNCC=sc.nextLine().trim();
-        System.out.print("Nhập tên nhà cung cấp : ");
-        String tenNCC=sc.nextLine().trim();
-        System.out.println("Chọn loại nhà cung cấp : ");
-        System.out.println("1. Nội địa");
-        System.out.println("2. Quốc tế");
-        System.out.println("3. Bỏ qua");
-        int loaiNCC=sc.nextInt();
-        sc.nextLine();
-        String quocgia="";
-        if(loaiNCC == 2)
-        {
-            System.out.print("Nhập quốc gia của nhà cung cấp : ");
-            quocgia=sc.nextLine().trim();
-        }
-        System.out.print("Nhập mã phiếu nhập : ");
-        String maPN=sc.nextLine().trim();
+        String maNCC = sc.nextLine().trim();
+
         System.out.print("Nhập mã nhân viên : ");
-        String maNV=sc.nextLine().trim();
-        String ngayNhap;
-        while(true)
-        {
-            System.out.print("Ngày nhập phiếu : ");
-            ngayNhap = sc.nextLine().trim();
-            if(ngayNhap.matches("\\d{4}/\\d{2}/\\d{2}"))
-            {
-                break;
-            }
-            else
-            {
-                System.out.println("Vui lòng nhập theo kiểu định dạng (yyyy/mm/dd)");
-            }
-        }
+        String maNV = sc.nextLine().trim();
+
+        // Nhập khoảng thời gian
+        String ngayBatDau = "";
+        String ngayKetThuc = "";
+        System.out.print("Nhập ngày bắt đầu (yyyy/mm/dd) : ");
+        ngayBatDau = sc.nextLine().trim();
+        System.out.print("Nhập ngày kết thúc (yyyy/mm/dd) : ");
+        ngayKetThuc = sc.nextLine().trim();
+
+        // Nhập tiền min, max
+        System.out.print("Nhập tiền min : ");
+        float tienMin = sc.nextFloat();
+        System.out.print("Nhập tiền max : ");
+        float tienMax = sc.nextFloat();
+
         System.out.println("Đang tiến hành thực hiện chức năng tìm kiếm ...");
-        dspn.timKiemTieuChi(dsncc,maNCC,tenNCC,loaiNCC,quocgia,maPN,ngayNhap,maNV);
+
+        // Gọi hàm tìm kiếm theo tiêu chí
+        dspn.timKiemTieuChi(dsncc, maNCC, ngayBatDau, ngayKetThuc, tienMin, tienMax, maNV);
     }
+
     
     public void menuDT(DanhSachDienThoai danhSachDT) {
 		Scanner sc = new Scanner(System.in);

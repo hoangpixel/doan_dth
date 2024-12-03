@@ -1,2 +1,6 @@
-Mã NCC: 123, Tên NCC: 123, Số điện thoại: 123, Địa chỉ: 123, Quốc gia: 123
-Mã NCC: 234, Tên NCC: 234, Số điện thoại: 234, Địa chỉ: 234
+NCC01;Phạm Minh Hoàng;1900 6743;128 Trần Quang Khải, P.Tân Định, Q.1, TP.Hồ Chí Minh;Nhật Bản
+NCC02;Nguyễn Tấn Khang;1900 6677;208 Phạm Hùng, P.Bình Thạnh, Q.1, TP.Hồ Chí Minh;
+NCC03;Nguyễn Khiết Đan;1900 4589;350-352 Võ Văn Kiệt, P.Cô Giang, Quận 1, Hồ Chí Minh;
+NCC04;Cristiano Messi;51754491;St. Regis Red Sea, Saudi Arabia;Bồ Đào Nha
+NCC05;Jame Bold;1497733;34 Sunny Isles Beach;Vương Quốc Anh
+NCC06;Trương Thế Quân;1800 9234;124 Hương Lộ 2, P.Bình Thạnh, Bình Tân, Hồ Chí Minh;

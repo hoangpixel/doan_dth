@@ -354,20 +354,23 @@ public class DanhSachNCC implements InterfaceDocGhi
             return;
         }
 
-        String format = "| %-5s | %-15s | %-20s | %-15s | %-30s | %-15s |\n";
-        System.out.format("+-------+-----------------+----------------------+-----------------+--------------------------------+-----------------+\n");
+        String format = "| %-5s | %-15s | %-20s | %-15s | %-55s | %-15s |\n";
+        System.out.format("+-------+-----------------+----------------------+-----------------+---------------------------------------------------------+-----------------+\n");
         System.out.format(format, "STT", "Mã NCC", "Tên NCC", "SĐT", "Địa chỉ", "Quốc gia");
-        System.out.format("+-------+-----------------+----------------------+-----------------+--------------------------------+-----------------+\n");
+        System.out.format("+-------+-----------------+----------------------+-----------------+---------------------------------------------------------+-----------------+\n");
 
         for (int i = 0; i < dsncc.length; i++) {
-            String quocGia = (dsncc[i] instanceof NhaCungCapQuocTe)
-                    ? ((NhaCungCapQuocTe) dsncc[i]).getQuocGia()
-                    : "Nội địa";
-            System.out.format(format, i + 1, dsncc[i].getMaNCC(), dsncc[i].getTenNCC(),
-                    dsncc[i].getSdtNCC(), dsncc[i].getDiachiNCC(), quocGia);
+            if(dsncc[i] != null)
+            {
+                String quocGia = (dsncc[i] instanceof NhaCungCapQuocTe)
+                        ? ((NhaCungCapQuocTe) dsncc[i]).getQuocGia()
+                        : "Nội địa";
+                System.out.format(format, i + 1, dsncc[i].getMaNCC(), dsncc[i].getTenNCC(),
+                        dsncc[i].getSdtNCC(), dsncc[i].getDiachiNCC(), quocGia);
+            }
         }
 
-        System.out.format("+-------+-----------------+----------------------+-----------------+--------------------------------+-----------------+\n");
+        System.out.format("+-------+-----------------+----------------------+-----------------+---------------------------------------------------------+-----------------+\n");
         System.out.println("\n");
     }
 
@@ -378,36 +381,46 @@ public class DanhSachNCC implements InterfaceDocGhi
         }
         return maNCCs;
     }
-    public void docFile()
-    {
+    public void docFile() {
         try (BufferedReader reader = new BufferedReader(new FileReader("src/data/ListNCC.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                if (line.trim().isEmpty()) continue;
+                if (line.trim().isEmpty()) continue; // Bỏ qua dòng trống
 
-                String[] parts = line.split(", ");
+                // Tách các phần từ dòng đọc được
+                String[] parts = line.split(";");
+
+                // Kiểm tra nếu dữ liệu không đủ phần tử
                 if (parts.length < 4) {
                     System.out.println("Dòng dữ liệu không hợp lệ: " + line);
                     continue;
                 }
-                String maNCC = parts[0].split(": ")[1];
-                String tenNCC = parts[1].split(": ")[1];
-                String sdtNCC = parts[2].split(": ")[1];
-                String diachiNCC = parts[3].split(": ")[1];
 
-                // Tạo đối tượng NhaCungCap hoặc NhaCungCapQuocTe
-                NhaCungCap ncc = (line.contains("Quốc gia"))
-                        ? new NhaCungCapQuocTe(maNCC, tenNCC, sdtNCC, diachiNCC, parts[4].split(": ")[1])
-                        : new NhaCungCap(maNCC, tenNCC, sdtNCC, diachiNCC);
+                // Đọc các thuộc tính chung
+                String maNCC = parts[0];
+                String tenNCC = parts[1];
+                String sdtNCC = parts[2];
+                String diachiNCC = parts[3];
+
+                // Kiểm tra xem nhà cung cấp có phải là NhaCungCapQuocTe
+                NhaCungCap ncc;
+                if (parts.length > 4 && !parts[4].isEmpty()) {
+                    String quocGia = parts[4];
+                    ncc = new NhaCungCapQuocTe(maNCC, tenNCC, sdtNCC, diachiNCC, quocGia);
+                } else {
+                    ncc = new NhaCungCap(maNCC, tenNCC, sdtNCC, diachiNCC);
+                }
 
                 // Thêm đối tượng vào danh sách
                 dsncc = Arrays.copyOf(dsncc, dsncc.length + 1);
                 dsncc[dsncc.length - 1] = ncc;
             }
+            System.out.println("Dữ liệu đã được đọc thành công từ file.");
         } catch (IOException e) {
             System.out.println("Lỗi khi đọc từ file: " + e.getMessage());
         }
     }
+
     public void ghiFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/data/ListNCC.txt"))) {
             if (dsncc.length == 0) {
@@ -417,16 +430,20 @@ public class DanhSachNCC implements InterfaceDocGhi
 
             for (NhaCungCap ncc : dsncc) {
                 if (ncc != null) {
-                    String data = String.format("Mã NCC: %s, Tên NCC: %s, Số điện thoại: %s, Địa chỉ: %s%s\n",
-                            ncc.getMaNCC(), ncc.getTenNCC(), ncc.getSdtNCC(), ncc.getDiachiNCC(),
-                            (ncc instanceof NhaCungCapQuocTe) ? ", Quốc gia: " + ((NhaCungCapQuocTe) ncc).getQuocGia() : "");
+                    String data = ncc.getMaNCC() + ";" +
+                            ncc.getTenNCC() + ";" +
+                            ncc.getSdtNCC() + ";" +
+                            ncc.getDiachiNCC() + ";" +
+                            (ncc instanceof NhaCungCapQuocTe ? ((NhaCungCapQuocTe) ncc).getQuocGia() : "") + "\n";
                     writer.write(data);  // Ghi dữ liệu vào file
                 }
             }
+            System.out.println("Dữ liệu nhà cung cấp đã được ghi vào file thành công.");
         } catch (IOException e) {
             System.out.println("Lỗi khi ghi vào file: " + e.getMessage());
         }
     }
+
 
 }
 
