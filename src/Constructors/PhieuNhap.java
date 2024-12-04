@@ -1,14 +1,17 @@
 package Constructors;
+import List.DanhSachCTPN;
+
 import java.util.Scanner;
-import Constructors.NhaCungCap;
-import List.DanhSachNCC;
+
 public class PhieuNhap
 {
     private String maPN;
     private String ngayNhap;
     private String maNCC;
     private String maNV;
-    private float tongTien;
+    private float tongTien=0;
+    private ChiTietPhieuNhap[] ctpn;
+
     public PhieuNhap(){}
     public PhieuNhap(String maPN,String ngayNhap,String maNCC,String maNV,float tongTien)
     {
@@ -79,17 +82,24 @@ public class PhieuNhap
                 System.out.println("Lựa chọn không hợp lệ! Vui lòng chọn lại.");
             }
         }
-        System.out.print("Nhập tổng tiền hàng : ");
-        while (true) {
-            try {
-                this.tongTien = Float.parseFloat(sc.nextLine());  // Đọc và chuyển đổi thành số thực
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Vui lòng nhập tổng tiền hợp lệ!");
-            }
-        }
+        this.tinhTong();
         System.out.println("----------------------------------");
     }
+    public void tinhTong()
+    {
+
+        tongTien=0;
+        ChiTietPhieuNhap[] ctpn = DanhSachCTPN.getDsctpn();
+        for(int i = 0; i< ctpn.length; i++)
+        {
+            if(ctpn[i].getMaPN().equals(this.maPN))
+            {
+                tongTien+=ctpn[i].getThanhtien();
+            }
+        }
+        this.setTongTien(tongTien);
+    }
+
     public String getMaPN()
     {
         return maPN;
@@ -106,7 +116,6 @@ public class PhieuNhap
     {
         return maNV;
     }
-
     public float getTongTien() {
         return tongTien;
     }
@@ -126,17 +135,20 @@ public class PhieuNhap
     {
         this.maNV=maNV;
     }
-    public void setTongTien(float tongTien)
+    public float setTongTien(float tongTien)
     {
         this.tongTien=tongTien;
+        return tongTien;
     }
     public void xuatPhieuNhap() {
-        String format = "| %-15s | %-20s | %-15s | %-30s | %-15s |\n";
-        System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+\n");
+
+
+        String format = "| %-15s | %-20s | %-15s | %-15s | %-15s |\n";
+        System.out.format("+-----------------+----------------------+-----------------+----------------------+-----------------+\n");
         System.out.format(format, "Mã phiếu nhập", "Ngày nhập", "Mã NCC", "Mã NV", "Tổng tiền");
-        System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+\n");
+        System.out.format("+-----------------+----------------------+-----------------+----------------------+-----------------+\n");
         System.out.format(format, maPN, ngayNhap, maNCC, maNV, tongTien);
-        System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+\n");
+        System.out.format("+-----------------+----------------------+-----------------+----------------------+-----------------+\n");
     }
 
 

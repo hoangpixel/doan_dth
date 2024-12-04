@@ -1,4 +1,5 @@
 package Run;
+import Constructors.ChiTietPhieuNhap;
 import List.DanhSachNCC;
 import List.DanhSachNhanVien;
 import List.DanhSachPhieuNhap;
@@ -17,16 +18,20 @@ public class main {
         DSKhachHang dskh = new DSKhachHang();
         DanhSachChiTietHoaDon dscthd = new DanhSachChiTietHoaDon();
         DanhSachHoaDon danhsachHD = new DanhSachHoaDon();
+        DanhSachCTPN dsct = new DanhSachCTPN();
 
         System.out.println();
         danhSachNCC.docFile();
         danhSachPhieuNhap.docFile();
         danhsachNV.docTuFile();
         danhsachHD.docFile();
+        dsct.docFile();
         dskh.docFile("src/data/danhsachkhachhang.txt");
         dscthd.docFile("src/data/danhsachchitiethoadon.txt");
         System.out.println("Đọc file thành công !!!");
         System.out.println();
+
+        dsct.xuatDS();
 
         while (true) {
             System.out.println("-------------------- MENU --------------------");

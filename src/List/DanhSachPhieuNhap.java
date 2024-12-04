@@ -379,7 +379,13 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
         }
     }
 
-
+    public void xuat()
+    {
+        for(int i=0;i<dspn.length;i++)
+        {
+            dspn[i].xuatPhieuNhap();
+        }
+    }
     public void xuatDs() {
         if (dspn.length == 0)
         {

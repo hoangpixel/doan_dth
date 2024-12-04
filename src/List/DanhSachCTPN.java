@@ -15,7 +15,7 @@ import Constructors.DienThoaiThongMinh;
 import Interfaces.InterfaceDocGhi;
 
 public class DanhSachCTPN implements InterfaceDocGhi{
-	private ChiTietPhieuNhap[] dsctpn;
+	private static ChiTietPhieuNhap[] dsctpn;
 	
 	Scanner sc = new Scanner(System.in);
 
@@ -28,7 +28,7 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 	}
 	
 	
-	public ChiTietPhieuNhap[] getDsctpn() {
+	public static ChiTietPhieuNhap[] getDsctpn() {
 		return dsctpn;
 	}
 
