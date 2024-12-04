@@ -50,22 +50,15 @@ public class NhanVien {
         socancuoc=nhap.nextLine();
         System.out.print("Địa chỉ: ");
         diachinv=nhap.nextLine();
-        System.out.println("------------------------------");
+        System.out.println("---");
     }
-    @Override public String toString() {
-        return "Nhân Viên(" +
-                "Mã NV: " + manv  +
-                "; Họ NV: " + honv +
-                "; Tên NV: " + tennv +
-                "; Lương: " + luong +
-                "; Chức vụ:" + chucvu +
-                "; SDT: " + sdtnv +
-                "; Số CCCD: " + socancuoc +
-                "; Địa chỉ: " + diachinv +
-                ")";
-    }
-    public void xuat(NhanVien nhanvien){
-        System.out.println(nhanvien);
+    public void xuat(){
+        String format = "| %-15s | %-20s | %-15s | %-30s | %-15s | %-20s | %-15s | %-30s |\n";
+        System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+----------------------+-----------------+--------------------------------+\n");
+        System.out.format(format, "Mã nhân viên", "Họ nhân viên", "Tên nhân viên", "Lương", "Chức vụ", "Số điện thoại", "Số căn cước", "Địa chỉ");
+        System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+\n");
+        System.out.format(format, manv, honv, tennv, luong, chucvu, sdtnv, socancuoc, diachinv);
+        System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+----------------------+-----------------+--------------------------------+\n");
     }
     public String getMaNv(){
         return manv;
