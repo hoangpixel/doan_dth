@@ -217,6 +217,7 @@ public class DanhSachNhanVien
                 float lg;
                 lg=nhap.nextFloat();
                 dsnv[position-1].setLuong(lg);
+		nhap.nextLine();
                 break;
             }
             case 4:
