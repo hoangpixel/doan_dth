@@ -48,10 +48,17 @@ public class DanhSachNhanVien
     }
     void xuatdsnv(){
         System.out.print("\n");
-        for(int i=0; i<n; i=i+1){
-            System.out.println("------Nhân viên thứ "+(i+1)+"------");
-            dsnv[i].xuat(dsnv[i]);
+        if(n==0){
+        System.out.println("Danh sách nhân viên trống");
+        return;
         }
+        String format = "| %-15s | %-20s | %-15s | %-30s | %-15s | %-20s | %-15s | %-30s |\n";
+        System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+----------------------+-----------------+--------------------------------+\n");
+        System.out.format(format, "Mã nhân viên", "Họ nhân viên", "Tên nhân viên", "Lương", "Chức vụ", "Số điện thoại", "Số căn cước", "Địa chỉ");
+        System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+----------------------+-----------------+--------------------------------+\n");
+        for(int i=0; i<n; i=i+1)
+            System.out.format(format, dsnv[i].getMaNv(), dsnv[i].getHoNv(), dsnv[i].getTenNv(),dsnv[i].getLuong(), dsnv[i].getChucVu(), dsnv[i].getSdtNv(), dsnv[i].getSoCanCuoc(), dsnv[i].getDiaChiNv());
+        System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+----------------------+-----------------+--------------------------------+\n");
     }
     void them()
     {
@@ -105,7 +112,7 @@ public class DanhSachNhanVien
         for(int i=0; i<n; i=i+1)
             if(dsnv[i].getMaNv().equals(ma)){
                 System.out.println("Vị trí của nhân viên cần tìm là: "+(i+1));
-                dsnv[i].xuat(dsnv[i]);
+                dsnv[i].xuat();
                 return;
             }
         System.out.println("Không tìm thấy mã nhân viên");
@@ -137,7 +144,7 @@ public class DanhSachNhanVien
         }
         System.out.println("Có "+dai+" nhân viên theo họ bạn muốn tìm:");
         for(int i=0; i<dai; i=i+1)
-            findname[i].xuat(findname[i]);
+            findname[i].xuat();
     }
     void timTheoTen(){
         NhanVien[] findname=new NhanVien[0];
@@ -160,7 +167,7 @@ public class DanhSachNhanVien
         }
         System.out.println("Có "+dai+" nhân viên theo tên bạn muốn tìm:");
         for(int i=0; i<dai; i=i+1)
-            findname[i].xuat(findname[i]);
+            findname[i].xuat();
     }
     void suaTheoMa(){
         String ma;
@@ -172,7 +179,7 @@ public class DanhSachNhanVien
             return;
         }
         int position=timTheoMa(ma);
-        System.out.println("---------------Menu---------------");
+        System.out.println("--- Menu ---");
         System.out.println("1. Sửa đổi họ nhân viên");
         System.out.println("2. Sửa đổi tên nhân viên");
         System.out.println("3. Sửa đổi lương");
@@ -275,21 +282,18 @@ public class DanhSachNhanVien
                 }
 
                 // Phân tách dữ liệu nhân viên
-                String[] parts = line.split(", ");
+                String[] parts = line.split(";");
 
-                if (parts.length < 8) {
-                    System.out.println("Dòng dữ liệu không hợp lệ: " + line);
+                if (parts.length < 8) 
                     continue; // Bỏ qua dòng không hợp lệ
-                }
-
-                String manv = parts[0].split(": ")[1];
-                String honv = parts[1].split(": ")[1];
-                String tennv = parts[2].split(": ")[1];
-                float luong = Float.parseFloat(parts[3].split(": ")[1]);
-                String chucvu = parts[4].split(": ")[1];
-                String sdtnv = parts[5].split(": ")[1];
-                String socancuoc = parts[6].split(": ")[1];
-                String diachinv = parts[7].split(": ")[1];
+                String manv = parts[0];
+                String honv = parts[1];
+                String tennv = parts[2];
+                float luong = Float.parseFloat(parts[3]);
+                String chucvu = parts[4];
+                String sdtnv = parts[5];
+                String socancuoc = parts[6];
+                String diachinv = parts[7];
 
                 // Tạo đối tượng NhanVien từ dữ liệu đọc được
                 NhanVien nv = new NhanVien(manv, honv, tennv, luong, chucvu, sdtnv, socancuoc, diachinv);
@@ -322,10 +326,10 @@ public class DanhSachNhanVien
 
             for (NhanVien nv : dsnv) {
                 if (nv != null) {
-                    String data = "Mã NV: " + nv.getMaNv() + ", Họ NV: " + nv.getHoNv() +
-                            ", Tên NV: " + nv.getTenNv() + ", Lương: " + nv.getLuong() +
-                            ", Chức vụ: " + nv.getChucVu() + ", Số điện thoại: " + nv.getSdtNv() +
-                            ", Số CCCD: " + nv.getSoCanCuoc() + ", Địa chỉ: " + nv.getDiaChiNv() + "\n";
+                    String data = nv.getMaNv() + ";" + nv.getHoNv() +
+                            ";" + nv.getTenNv() + ";" + nv.getLuong() +
+                            ";" + nv.getChucVu() + ";" + nv.getSdtNv() +
+                            ";" + nv.getSoCanCuoc() + ";" + nv.getDiaChiNv() + "\n";
                     writer.write(data); // Ghi dữ liệu vào file
                 }
             }
@@ -352,12 +356,12 @@ public class DanhSachNhanVien
 	        lg[0]=lg[0]+1;
 	        if(dsnv[i].getLuong()<=20000000&&dsnv[i].getLuong()>=10000001)
 	        lg[1]=lg[1]+1;
-	        if(dsnv[i].getLuong()>=21000001)
+	        if(dsnv[i].getLuong()>=20000001)
 	        lg[2]=lg[2]+1;
 	    }
 	    System.out.println("Số lượng nhân viên có lương từ 10 triệu trở xuống: "+lg[0]);
 	    System.out.println("Số lượng nhân viên có lương trên 10 triệu và đến 20 triệu: "+lg[1]);
-	    System.out.println("Số lượng nhân viên có lương từ 20 triệu trở xuống: "+lg[2]);
+	    System.out.println("Số lượng nhân viên có lương từ 20 triệu trở lên: "+lg[2]);
 	}
     
     void thongKeMinMax(){
@@ -382,7 +386,7 @@ public class DanhSachNhanVien
         int choice;
         Scanner nhap = new Scanner(System.in);
         do {
-            System.out.println("\n------- Quản lý danh sách nhân viên -------");
+            System.out.println("\n--- Menu ---");
             System.out.println("| 1. Nhập danh sách nhân viên                          |");
             System.out.println("| 2. Xuất danh sách nhân viên                          |");
             System.out.println("| 3. Thêm nhân viên                                    |");
@@ -391,7 +395,7 @@ public class DanhSachNhanVien
             System.out.println("| 6. Tìm nhân viên theo họ nhân viên                   |");
             System.out.println("| 7. Tìm nhân viên theo tên nhân viên                  |");
             System.out.println("| 8. Sửa thông tin nhân viên                           |");
-            System.out.println("| 9. Thống kê số nhân viên                             |");
+            System.out.println("| 9. Thống kê số lượng nhân viên trong danh sách                            |");
             System.out.println("| 10. Thống kê lương của nhân viên                     |");
             System.out.println("| 11. Thống kê lương cao nhất, thấp nhất của nhân viên |");
             System.out.println("| 12. Thoát                                            |");
