@@ -14,12 +14,12 @@ public class HoaDon {
         System.out.print("Nhập mã hoá đơn: ");
         mahd=nhap.nextLine();
         while (true) {
-            System.out.print("Nhập ngày nhập hoá đơn (yyyy/mm/dd): ");
+            System.out.print("Nhập ngày nhập hoá đơn (yyyy-mm-dd): ");
             ngaylaphd = nhap.nextLine();
             if (ngaylaphd.matches("\\d{4}-\\d{2}-\\d{2}")) {
                 break;
             } else {
-                System.out.println("Vui lòng nhập đúng cấu trúc (yyyy/mm/dd)");
+                System.out.println("Vui lòng nhập đúng cấu trúc (yyyy-mm-dd)");
             }
         }
         System.out.println("Danh sách mã nhân viên:");
@@ -42,7 +42,7 @@ public class HoaDon {
         if(choice<1||choice>danhsachmakh.length)
         System.out.println("Vui lòng nhập đúng cấu trúc");
         }while(choice<1||choice>danhsachmakh.length);
-        makh=danhsachmanv[choice-1];
+        makh=danhsachmakh[choice-1];
         System.out.print("Nhập tổng tiền: ");
         tongtien=nhap.nextFloat();
         System.out.println("---");
