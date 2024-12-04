@@ -1,2 +1,10 @@
-123;123;123;123.0;123;123;123;123
-234;234;234;234.0;234;234;234;234
+NV01;Nguyễn;Minh Tuấn;8000000;Nhân viên;0987654321;123456789;Số 123, Đường Lê Văn Sỹ, Quận 3, Thành phố Hồ Chí Minh
+NV02;Trần;Bảo Linh;9500000;Quản lý;0912345678;987654321;Số 45, Đường Nguyễn Thị Minh Khai, Quận 1, Thành phố Hồ Chí Minh
+NV03;Phan;Thị Lan;7000000;Nhân viên;0945123456;564738291;Số 10, Đường Cách Mạng Tháng Tám, Quận 10, Thành phố Hồ Chí Minh
+NV04;Lê;Hoàng Nam;12000000;Giám đốc;0987432123;765432109;Số 88, Đường Nguyễn Văn Cừ, Quận 5, Thành phố Hồ Chí Minh
+NV05;Vũ;Thị Mai;6500000;Nhân viên;0923344556;876543210;Số 25, Đường Nguyễn Hữu Cảnh, Quận Bình Thạnh, Thành phố Hồ Chí Minh
+NV06;Đặng;Mạnh Cường;11000000;Trưởng phòng;0906123456;123098765;Số 67, Đường Lê Quang Định, Quận Gò Vấp, Thành phố Hồ Chí Minh
+NV07;Phạm;Thái Sơn;8500000;Nhân viên;0946567890;543210987;Số 78, Đường Phan Văn Trị, Quận Bình Thạnh, Thành phố Hồ Chí Minh
+NV08;Hoàng;Thành Công;9500000;Nhân viên;0978543210;678902345;Số 123, Đường Võ Thị Sáu, Quận 3, Thành phố Hồ Chí Minh
+NV09;Ngô;Tuyết Lan;7800000;Nhân viên;0916123456;654321098;Số 10, Đường Tô Hiến Thành, Quận 10, Thành phố Hồ Chí Minh
+NV10;Nguyễn;Tuấn Anh;9000000;Trưởng bộ phận;0934123456;987123456;Số 5, Đường Nguyễn Thị Minh Khai, Quận 1, Thành phố Hồ Chí Minh
