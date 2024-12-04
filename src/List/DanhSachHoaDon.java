@@ -34,6 +34,19 @@ public void check(HoaDon temp){
                     check(temp);
     }
 }
+public String taoMaHd() {
+    int maxNumber = 0; 
+    for (HoaDon hd : dshd) { 
+        if (hd != null) { 
+            String id = hd.getMaHd();
+            int number = Integer.parseInt(id.replaceAll("\\D", "")); 
+            if (number > maxNumber) {
+                maxNumber = number; 
+            }
+        }
+    }
+    return "HD" + (maxNumber + 1); 
+}
 public void nhapDanhSachHoaDon(DanhSachNhanVien temp1, DSKhachHang temp2){
     System.out.print("Nhập số lượng hoá đơn: ");
     Scanner nhap=new Scanner(System.in);
@@ -53,10 +66,17 @@ public void nhapDanhSachHoaDon(DanhSachNhanVien temp1, DSKhachHang temp2){
 }
 public void xuatDanhSachHoaDon(){
     System.out.println();
-    for(int i=0; i<n; i=i+1){
-        System.out.println("------Hoá đơn thứ "+(i+1)+"------");
-        dshd[i].xuat(dshd[i]);
+    if(n==0){
+        System.out.println("Danh sách hoá đơn trống");
+        return;
     }
+    String format = "| %-15s | %-20s | %-15s | %-10s | %-15s |\n";
+    System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
+    System.out.format(format, "Mã hoá đơn", "Ngày lập hoá đơn", "Mã nhân viên", "Mã khách hàng", "Tổng tiền");
+    System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
+    for (int i=0; i<n; i=i+1) 
+        System.out.format(format, dshd[i].getMaHd(), dshd[i].getNgayLapHd(), dshd[i].getMaNv(),dshd[i].getMaKh(), dshd[i].getTongTien());
+    System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
 }
 public void themHoaDon(DanhSachNhanVien temp1, DSKhachHang temp2){
     String choice;
@@ -135,7 +155,7 @@ public void timTheoMa(){
     for(int i=0; i<n; i=i+1)           
         if(dshd[i].getMaHd().equals(ma)){
             System.out.println("Vị trí của hoá đơn cần tìm là: "+(i+1));
-            dshd[i].xuat(dshd[i]);
+            dshd[i].xuat();
             return;
         }
     System.out.println("Không tìm thấy hoá đơn");
@@ -160,7 +180,7 @@ public void timTheoMaKh(){
     }
     System.out.println("Có "+dai+" hoá đơn theo mã khách hàng bạn muốn tìm:");
     for(int i=0; i<dai; i=i+1)
-        find[i].xuat(find[i]);
+        find[i].xuat();
 }
 public void timTheoMaNv(){
     String ma;
@@ -184,7 +204,7 @@ public void timTheoMaNv(){
     }
     System.out.println("Có "+dai+" hoá đơn theo mã nhân viên bạn muốn tìm");
     for(int i=0; i<dai; i=i+1)
-        find[i].xuat(find[i]);
+        find[i].xuat();
 }
 public void suaTheoMa(){
         String ma;
@@ -196,7 +216,7 @@ public void suaTheoMa(){
             return;
         }
         int position=timTheoMa(ma);
-        System.out.println("\n---------------Menu---------------");
+        System.out.println("\n--- Menu ---");
         System.out.println("1. Sửa đổi ngày lập hoá đơn");
         System.out.println("2. Sửa đổi mã nhân viên");
         System.out.println("3. Sửa đổi mã khách hàng");
@@ -264,22 +284,16 @@ public void docFile() {
                 if (line.trim().isEmpty()) {
                     continue;
                 }
-                String[] parts = line.split(", ");
+                String[] parts = line.split(";");
 
-                if (parts.length < 5) {
-                    System.out.println("Dòng dữ liệu không hợp lệ: " + line);
+                if (parts.length < 5)
                     continue; // Bỏ qua dòng không hợp lệ
-                }
-
-                String mahd = parts[0].split(": ")[1];
-                String ngaylaphd = parts[1].split(": ")[1];
-                String manv = parts[2].split(": ")[1];
-                String makh = parts[3].split(": ")[1];
-                float tongtien = Float.parseFloat(parts[4].split(": ")[1]);
-                // Tạo đối tượng NhanVien từ dữ liệu đọc được
+                String mahd = parts[0];
+                String ngaylaphd = parts[1];
+                String manv = parts[2];
+                String makh = parts[3];
+                float tongtien = Float.parseFloat(parts[4]);
                 HoaDon hd = new HoaDon(mahd, ngaylaphd, manv, makh, tongtien);
-
-                // Thêm nhân viên vào danh sách
                 temp = Arrays.copyOf(temp, temp.length + 1);
                 temp[temp.length - 1] = new HoaDon();
                 temp[temp.length - 1] = hd;
@@ -307,9 +321,9 @@ public void ghiFile() {
 
             for (HoaDon hd : dshd) {
                 if (hd != null) {
-                    String data = "Mã HĐ: " + hd.getMaHd() + ", Ngày lập HĐ: " + hd.getNgayLapHd()+
-                            ", Mã NV: " + hd.getMaNv()+ ", Mã KH: " + hd.getMaKh()+
-                            ", Tổng tiền: " + hd.getTongTien() + "\n";
+                    String data = hd.getMaHd() + ";" + hd.getNgayLapHd()+
+                            ";" + hd.getMaNv()+ ";" + hd.getMaKh()+
+                            ";" + hd.getTongTien() + "\n";
                     writer.write(data); // Ghi dữ liệu vào file
                 }
             }
@@ -327,12 +341,134 @@ public void ghiFile() {
         }
     }
 
+public int kiemtraQuy(int quy, int nam){
+    int dai=0;
+    for(int i=0; i<n; i=i+1){
+        if(quy==1){
+            if((dshd[i].getMonth()==1||dshd[i].getMonth()==2||dshd[i].getMonth()==3)&&dshd[i].getYear()==nam)
+                dai=dai+1;
+        }
+        if(quy==2){
+           if((dshd[i].getMonth()==4||dshd[i].getMonth()==5||dshd[i].getMonth()==6)&&dshd[i].getYear()==nam)
+                dai=dai+1;
+        }
+        if(quy==3){
+           if((dshd[i].getMonth()==7||dshd[i].getMonth()==8||dshd[i].getMonth()==9)&&dshd[i].getYear()==nam)
+                dai=dai+1;
+        }
+        if(quy==4){
+           if((dshd[i].getMonth()==10||dshd[i].getMonth()==11||dshd[i].getMonth()==12)&&dshd[i].getYear()==nam)
+                dai=dai+1;
+        }
+        if(quy!=1&&quy!=2&&quy!=3&&quy!=4)
+            return -1;
+    }
+    return dai;
+}
+
+public boolean checkNam(int[] mangnam, int num, int nam){
+    for(int i=0; i<num; i=i+1){
+        if(mangnam[i]==nam)
+            return false;
+    }
+    return true;
+}
+
+public int[] taoMangNam(){
+    int[] nam=new int[100];
+    nam[0]=dshd[0].getYear();
+    int dai=1;
+    for(int i=1; i<n; i=i+1)
+        if(checkNam(nam, dai, dshd[i].getYear())){
+            nam[dai]=dshd[i].getYear();
+            dai=dai+1;
+        }
+    int[] year=Arrays.copyOf(nam, dai);
+    return year;
+}
+
+public HoaDon[] quyI(int nam){
+    HoaDon[] quyI=new HoaDon[kiemtraQuy(1, nam)];
+    int j=0;
+    for(int i=0; i<n; i=i+1)
+        if((dshd[i].getMonth()==1||dshd[i].getMonth()==2||dshd[i].getMonth()==3)&&dshd[i].getYear()==nam){
+            quyI[j]=dshd[i];
+            j=j+1;
+        }
+    return quyI;
+}
+
+public HoaDon[] quyII(int nam){
+    HoaDon[] quyII=new HoaDon[kiemtraQuy(2, nam)];
+    int j=0;
+    for(int i=0; i<n; i=i+1)
+        if((dshd[i].getMonth()==3||dshd[i].getMonth()==4||dshd[i].getMonth()==5)&&dshd[i].getYear()==nam){
+            quyII[j]=dshd[i];
+            j=j+1;
+        }
+    return quyII;
+}
+
+public HoaDon[] quyIII(int nam){
+    HoaDon[] quyIII=new HoaDon[kiemtraQuy(3, nam)];
+    int j=0;
+    for(int i=0; i<n; i=i+1)
+        if((dshd[i].getMonth()==7||dshd[i].getMonth()==8||dshd[i].getMonth()==9)&&dshd[i].getYear()==nam){
+            quyIII[j]=dshd[i];
+            j=j+1;
+        }
+    return quyIII;
+}
+
+public HoaDon[] quyIV(int nam){
+    HoaDon[] quyIV=new HoaDon[kiemtraQuy(4, nam)];
+    int j=0;
+    for(int i=0; i<n; i=i+1)
+        if((dshd[i].getMonth()==10||dshd[i].getMonth()==11||dshd[i].getMonth()==12)&&dshd[i].getYear()==nam){
+            quyIV[j]=dshd[i];
+            j=j+1;
+        }
+    return quyIV;
+}
+
+public void thongKeTheoQuy(){
+    if(n==0){
+        System.out.println("Danh sách hoá đơn trống");
+        return;
+    }
+    int[] year=taoMangNam();
+    for(int i=0; i<year.length; i=i+1){
+        HoaDon[] quyI=quyI(year[i]);
+        HoaDon[] quyII=quyII(year[i]);
+        HoaDon[] quyIII=quyIII(year[i]);
+        HoaDon[] quyIV=quyIV(year[i]);
+        float tong1=0;
+        float tong2=0;
+        float tong3=0;
+        float tong4=0;
+        System.out.println("Năm "+year[i]+": ");
+        for(int temp=0; temp<quyI.length; temp=temp+1)
+            tong1=tong1+quyI[temp].getTongTien();
+        for(int temp=0; temp<quyII.length; temp=temp+1)
+            tong2=tong2+quyII[temp].getTongTien();
+        for(int temp=0; temp<quyIII.length; temp=temp+1)
+            tong3=tong3+quyIII[temp].getTongTien();
+        for(int temp=0; temp<quyIV.length; temp=temp+1)
+            tong4=tong4+quyIV[temp].getTongTien();
+        System.out.println("Tổng tiền theo quý I: "+tong1);
+        System.out.println("Tổng tiền theo quý II: "+tong2);
+        System.out.println("Tổng tiền theo quý III: "+tong3);
+        System.out.println("Tổng tiền theo quý IV: "+tong4);
+        System.out.println("---\n");
+    }
+}
+
 public void menu(DanhSachNhanVien temp1, DSKhachHang temp2){
     int choice;
     Scanner nhap=new Scanner(System.in);
     do
     {
-    System.out.println("\n---------------Menu---------------");
+    System.out.println("\n--- Menu ---");
     System.out.println("1. Nhập danh sách hoá đơn");
     System.out.println("2. Xuất danh sách hoá đơn");
     System.out.println("3. Thêm hoá đơn");
@@ -342,9 +478,10 @@ public void menu(DanhSachNhanVien temp1, DSKhachHang temp2){
     System.out.println("7. Tìm hoá đơn theo mã khách hàng");
     System.out.println("8. Sửa hoá đơn theo mã hoá đơn");
     System.out.println("9. Thống kê số hoá đơn hiện có trong danh sách");
-    System.out.println("10. Thoát");
+    System.out.println("10. Thống kê tổng tiền theo quý");
+    System.out.println("11. Thoát");
     System.out.println("----------------------------------");
-    System.out.print("Vui lòng nhập lựa chọn của bạn (1->10): ");
+    System.out.print("Vui lòng nhập lựa chọn của bạn (1->11): ");
     choice=nhap.nextInt();
     switch(choice)
             {
@@ -395,13 +532,17 @@ public void menu(DanhSachNhanVien temp1, DSKhachHang temp2){
             }
             case 10:
             {
+                thongKeTheoQuy();
+                break;
+            }
+            case 11:
+            {
                 System.out.println("Bạn chọn thoát");
                 break;
             }
             default:
-                System.out.println("Lưa chọn không hợp lệ (1 -> 10)");
+                System.out.println("Lưa chọn không hợp lệ (1 -> 11)");
             }
-    }while(choice!=10);
+    }while(choice!=11);
 }
 }
-
