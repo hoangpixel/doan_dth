@@ -231,10 +231,13 @@ public void suaTheoMa(){
             {
             case 1:
             {
-                System.out.print("Nhập ngày lập hoá đơn mới: ");
                 String ngay;
-                ngay=nhap.nextLine();
+                System.out.print("Nhập ngày nhập hoá đơn mới (yyyy-mm-dd): ");
+                ngay = nhap.nextLine();
+                if(ngay.matches("\\d{4}-\\d{2}-\\d{2}")) 
                 dshd[position-1].setNgayLapHd(ngay);
+                else 
+                System.out.println("Vui lòng nhập đúng cấu trúc (yyyy-mm-dd)");
                 break;
             }
             case 2:
@@ -259,6 +262,7 @@ public void suaTheoMa(){
                 float tong;
                 tong=nhap.nextFloat();
                 dshd[position-1].setTongTien(tong);
+                nhap.nextLine();
                 break;
             }
             case 5:
