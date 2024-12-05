@@ -22,24 +22,12 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
     {
         this.dspn=dspn;
     }
-<<<<<<< HEAD
-    
-    public static PhieuNhap[] getDspn() {
-		return dspn;
-	}
-	public void setDspn(PhieuNhap[] dspn) {
-		this.dspn = dspn;
-	}
-	
-	public boolean trungMaPN(String maPN) {
-=======
 
     public  static PhieuNhap[] getDspn() {
         return dspn;
     }
 
     public boolean trungMaPN(String maPN) {
->>>>>>> 4071a9e2c5b0d491b45f255aa55cebfa960e2d85
         for (PhieuNhap ds : dspn) {
             if (ds != null && ds.getMaPN().equals(maPN)) {
                 return true;
@@ -204,6 +192,7 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
     	}
     	return null;
     }
+    
     public void thongKeTien()
     {
         int s=0;

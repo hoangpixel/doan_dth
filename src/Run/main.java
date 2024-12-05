@@ -1,4 +1,5 @@
 package Run;
+import Constructors.ChiTietPhieuNhap;
 import List.DanhSachNCC;
 import List.DanhSachNhanVien;
 import List.DanhSachPhieuNhap;
@@ -18,15 +19,9 @@ public class main {
         DanhSachChiTietHoaDon dscthd = new DanhSachChiTietHoaDon();
         DanhSachHoaDon danhsachHD = new DanhSachHoaDon();
         DanhSachCTPN dsct = new DanhSachCTPN();
-<<<<<<< HEAD
         DanhSachDienThoai dsdt = new DanhSachDienThoai();
         
-=======
-        DanhSachDienThoai dsdth=new DanhSachDienThoai();
->>>>>>> 4071a9e2c5b0d491b45f255aa55cebfa960e2d85
 
-
-        dsdth.docFile();
         System.out.println();
         danhSachNCC.docFile();
         danhSachPhieuNhap.docFile();
@@ -67,14 +62,8 @@ public class main {
                 case 4:
                     danhsachNV.menu();
                     break;
-<<<<<<< HEAD
                 case 5:
                     dskh.menu();
-=======
-                case 4:
-                    menuCTPN(dsct,danhSachPhieuNhap);
-//                    dskh.menu();
->>>>>>> 4071a9e2c5b0d491b45f255aa55cebfa960e2d85
                     break;
                 case 6:
                     int lc;
@@ -321,11 +310,7 @@ public class main {
 		} while (luaChon != 0);
 	}
     
-<<<<<<< HEAD
     public static void menuCTPN(DanhSachCTPN danhSachCTPN) {
-=======
-    public static void menuCTPN(DanhSachCTPN danhSachCTPN, DanhSachPhieuNhap dspn) {
->>>>>>> 4071a9e2c5b0d491b45f255aa55cebfa960e2d85
 		Scanner sc = new Scanner(System.in);
 		int luaChon;
 		do {
@@ -347,8 +332,7 @@ public class main {
 				break;
 			}
 			case 2: {
-				danhSachCTPN.them_K_CTPN(dspn);
-                danhSachCTPN.capNhatTongTien();
+				danhSachCTPN.them_K_CTPN();
 				break;
 			}
 			case 3: {
