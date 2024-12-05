@@ -10,7 +10,7 @@ import java.io.FileWriter;
 public class DanhSachNhanVien
 {
     private int n=0;
-    private NhanVien[] dsnv=new NhanVien[0];
+    public static NhanVien[] dsnv=new NhanVien[0];
     public DanhSachNhanVien(){
     }
     public DanhSachNhanVien(int n, NhanVien[] dsnv){
@@ -21,6 +21,11 @@ public class DanhSachNhanVien
         n=dsnvtemp.n;
         dsnv=dsnvtemp.dsnv;
     }
+
+    public static NhanVien[] getDsnv() {
+        return dsnv;
+    }
+
     void check(NhanVien temp){
         for(int i=0; i<n; i=i+1)
             if(dsnv[i]!=null)

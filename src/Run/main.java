@@ -10,7 +10,7 @@ import List.DanhSachChiTietHoaDon;
 import List.DanhSachHoaDon;
 import java.util.Scanner;
 public class main {
-    public static void main(String[] args) {
+    public static void main() {
         Scanner sc = new Scanner(System.in);
         DanhSachNCC danhSachNCC = new DanhSachNCC();
         DanhSachPhieuNhap danhSachPhieuNhap = new DanhSachPhieuNhap();
