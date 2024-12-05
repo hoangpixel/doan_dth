@@ -1,5 +1,5 @@
 package List;
-
+import Constructors.PhieuNhap;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -59,6 +59,7 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 		} while (trungMa);
 		return ctpn;
 	}
+<<<<<<< HEAD
 	
 	// Hàm kiểm tra mã phiếu nhập đã có chưa (nếu chưa có nhập lại mã phiếu nhập)
 	// Trả về mã phiếu nhập 
@@ -77,12 +78,34 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 	
 	
 	public void nhap() {
+=======
+	public void capNhatTongTien()
+	{
+		PhieuNhap[] danhSachPhieuNhap = DanhSachPhieuNhap.getDspn();
+		for (PhieuNhap pn : danhSachPhieuNhap) {
+			float tongTienMoi = 0;
+			for (ChiTietPhieuNhap ctpn : dsctpn) {
+				if (ctpn.getMaPN().equals(pn.getMaPN())) {
+					tongTienMoi += ctpn.getThanhtien();
+				}
+			}
+			pn.setTongTien(tongTienMoi);
+		}
+	}
+
+
+
+
+
+	public void nhap(DanhSachPhieuNhap dspn) {
+>>>>>>> 4071a9e2c5b0d491b45f255aa55cebfa960e2d85
 		System.out.println("Nhập số lượng chi tiết phiếu nhập: ");
 		int n = sc.nextInt();
 		dsctpn = new ChiTietPhieuNhap[n];
+		String DanhSachPN[] = dspn.layDanhSachPN();
 		for(int i = 0; i < n; i++) {
 			ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap();
-			ctpn.nhap();
+			ctpn.nhap(DanhSachPN);
 			ctpn = kiemTraTrungMaDT(ctpn);
 			ctpn.setMaPN(kiemTraMaPN(ctpn.getMaPN()));
 			dsctpn[i] = ctpn;
@@ -92,26 +115,45 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 			}
 		}
 	}
-	
-	
-	public void them_K_CTPN() {
+
+
+	public void them_K_CTPN(DanhSachPhieuNhap dspn) {
 		System.out.println("Nhập số lượng cần thêm: ");
+<<<<<<< HEAD
 		int k = sc.nextInt();
 		sc.nextLine();
 		int n = dsctpn.length;
 		dsctpn = Arrays.copyOf(dsctpn, n + k);
 		for(int i = n; i < dsctpn.length; i++) {
+=======
+		int k = sc.nextInt(); // Số lượng cần thêm
+		int n = dsctpn.length; // Kích thước ban đầu của dsctpn
+
+		// Mở rộng mảng dsctpn
+		dsctpn = Arrays.copyOf(dsctpn, n + k);
+
+		// Lấy danh sách mã phiếu nhập từ dspn
+		String DanhSachPN[] = dspn.layDanhSachPN();
+
+		// Nhập các chi tiết phiếu nhập mới
+		for (int i = n; i < dsctpn.length; i++) {
+>>>>>>> 4071a9e2c5b0d491b45f255aa55cebfa960e2d85
 			ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap();
-			ctpn.nhap();
+			ctpn.nhap(DanhSachPN);
 			ctpn = kiemTraTrungMaDT(ctpn);
+<<<<<<< HEAD
 			ctpn.setMaPN(kiemTraMaPN(ctpn.getMaPN()));
 			dsctpn[n] = ctpn;
 			PhieuNhap pn = DanhSachPhieuNhap.timMaPhieu(ctpn.getMaPN());
 			if(pn != null) {
 				pn.tinhTong();
 			}
+=======
+			dsctpn[i] = ctpn; // Gán chi tiết phiếu nhập vào vị trí đúng trong dsctpn
+>>>>>>> 4071a9e2c5b0d491b45f255aa55cebfa960e2d85
 		}
 	}
+
 	
 	public void xuatDS() {
 		for(int i = 0; i < dsctpn.length; i++) {

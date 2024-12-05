@@ -22,6 +22,7 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
     {
         this.dspn=dspn;
     }
+<<<<<<< HEAD
     
     public static PhieuNhap[] getDspn() {
 		return dspn;
@@ -31,6 +32,14 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
 	}
 	
 	public boolean trungMaPN(String maPN) {
+=======
+
+    public  static PhieuNhap[] getDspn() {
+        return dspn;
+    }
+
+    public boolean trungMaPN(String maPN) {
+>>>>>>> 4071a9e2c5b0d491b45f255aa55cebfa960e2d85
         for (PhieuNhap ds : dspn) {
             if (ds != null && ds.getMaPN().equals(maPN)) {
                 return true;
@@ -322,7 +331,15 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
         }
     }
 
-
+    public String[] layDanhSachPN()
+    {
+        String[] ncc=new String[dspn.length];
+        for(int i=0;i< dspn.length;i++)
+        {
+            ncc[i]=dspn[i].getMaPN();
+        }
+        return ncc;
+    }
     public void ghiFile()
     {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/data/ListPhieuNhap.txt"))) {
@@ -422,6 +439,5 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
         System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
         System.out.println("\n");
     }
-
 
 }

@@ -74,10 +74,29 @@ public class ChiTietPhieuNhap {
 	
 
 	
-	public void nhap() {
+	public void nhap(String[] DanhSachPN) {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Nhập mã phiếu nhập: ");
-		this.maPN = sc.nextLine();
+		int choice;
+		do
+		{
+			System.out.println("Danh sách mã phiếu nhập : ");
+			for(int i=0;i< DanhSachPN.length;i++)
+			{
+				System.out.println((i+1) + "." + DanhSachPN[i]);
+			}
+			System.out.print("Nhập mã phiếu nhập tương ứng : ");
+			choice = sc.nextInt();
+			sc.nextLine();
+			if(choice >=1 && choice <= DanhSachPN.length)
+			{
+				this.maPN = DanhSachPN[choice - 1];
+				break;
+			}
+			else
+			{
+				System.out.println("Vui lòng chọn lại");
+			}
+		}while(choice >=1 && choice <= DanhSachPN.length);
 		System.out.println("Nhập mã điện thoại: ");
 		this.maDT = sc.nextLine();
 		System.out.println("Nhập số lượng: ");
