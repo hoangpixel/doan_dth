@@ -484,7 +484,6 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 			writer.close();
 			System.out.println("Đã ghi dữ liệu của danh sách điện thoại!");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -495,5 +494,12 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 		dsdt.timKiemNangCao();
 	}
 	
+	
+	public void xuatMaDT_TenDT() { 
+		for(int i = 0 ; i < dsdt.length; i++) {
+			System.out.println("Mã điện thoại: " + dsdt[i].getMaDT()
+					+ " - Tên điện thoại: " + dsdt[i].getTenDT());
+		}
+	}
 	
 }

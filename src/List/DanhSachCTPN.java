@@ -12,7 +12,9 @@ import java.util.Scanner;
 import Constructors.ChiTietPhieuNhap;
 import Constructors.DienThoaiPhim;
 import Constructors.DienThoaiThongMinh;
+import Constructors.PhieuNhap;
 import Interfaces.InterfaceDocGhi;
+import Run.main;
 
 public class DanhSachCTPN implements InterfaceDocGhi{
 	private static ChiTietPhieuNhap[] dsctpn;
@@ -58,6 +60,21 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 		return ctpn;
 	}
 	
+	// Hàm kiểm tra mã phiếu nhập đã có chưa (nếu chưa có nhập lại mã phiếu nhập)
+	// Trả về mã phiếu nhập 
+	public String kiemTraMaPN(String maPN) {
+		PhieuNhap[] pn = DanhSachPhieuNhap.getDspn();
+		while(true) {
+			for(int i = 0; i < pn.length; i++) {
+				if(maPN.equals(pn[i].getMaPN())) {
+					return maPN;
+				}
+			}
+			System.out.print("Mã phiếu nhập không tồn tại, vui lòng nhập lại mã phiếu nhập: ");
+			maPN = sc.nextLine();
+		}
+	}
+	
 	
 	public void nhap() {
 		System.out.println("Nhập số lượng chi tiết phiếu nhập: ");
@@ -67,8 +84,12 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 			ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap();
 			ctpn.nhap();
 			ctpn = kiemTraTrungMaDT(ctpn);
+			ctpn.setMaPN(kiemTraMaPN(ctpn.getMaPN()));
 			dsctpn[i] = ctpn;
-			
+			PhieuNhap pn = DanhSachPhieuNhap.timMaPhieu(ctpn.getMaPN());
+			if(pn != null) {
+				pn.tinhTong();
+			}
 		}
 	}
 	
@@ -76,13 +97,19 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 	public void them_K_CTPN() {
 		System.out.println("Nhập số lượng cần thêm: ");
 		int k = sc.nextInt();
+		sc.nextLine();
 		int n = dsctpn.length;
-		Arrays.copyOf(dsctpn, n + k);
+		dsctpn = Arrays.copyOf(dsctpn, n + k);
 		for(int i = n; i < dsctpn.length; i++) {
 			ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap();
 			ctpn.nhap();
 			ctpn = kiemTraTrungMaDT(ctpn);
+			ctpn.setMaPN(kiemTraMaPN(ctpn.getMaPN()));
 			dsctpn[n] = ctpn;
+			PhieuNhap pn = DanhSachPhieuNhap.timMaPhieu(ctpn.getMaPN());
+			if(pn != null) {
+				pn.tinhTong();
+			}
 		}
 	}
 	
@@ -234,6 +261,17 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 			// TODO: handle exception
 			e.printStackTrace();
 		}
+	}
+	
+	public static void main(String[] args) {
+		DanhSachDienThoai dsdt = new DanhSachDienThoai();
+		dsdt.docFile();
+		DanhSachPhieuNhap dspn = new DanhSachPhieuNhap();
+		dspn.docFile();
+		
+		DanhSachCTPN dsctpn = new DanhSachCTPN();
+		dsctpn.them_K_CTPN();
+		System.out.println("finish");
 	}
 	
 	

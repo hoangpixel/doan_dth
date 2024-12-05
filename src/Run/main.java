@@ -19,6 +19,8 @@ public class main {
         DanhSachChiTietHoaDon dscthd = new DanhSachChiTietHoaDon();
         DanhSachHoaDon danhsachHD = new DanhSachHoaDon();
         DanhSachCTPN dsct = new DanhSachCTPN();
+        DanhSachDienThoai dsdt = new DanhSachDienThoai();
+        
 
         System.out.println();
         danhSachNCC.docFile();
@@ -28,39 +30,42 @@ public class main {
         dsct.docFile();
         dskh.docFile("src/data/danhsachkhachhang.txt");
         dscthd.docFile("src/data/danhsachchitiethoadon.txt");
+        dsdt.docFile();
         System.out.println("Đọc file thành công !!!");
         System.out.println();
 
-        dsct.xuatDS();
-
         while (true) {
             System.out.println("-------------------- MENU --------------------");
-            System.out.println("| 1. Nhập và quản lý danh sách nhà cung cấp  |");
-            System.out.println("| 2. Nhập và quản lý danh sách phiếu nhập    |");
-            System.out.println("| 3. Nhập và quản lý nhân viên               |");
-            System.out.println("| 4. Nhập và quản lý khách hàng              |");
-            System.out.println("| 5. Nhập và quản lý hoá đơn                 |");
-            System.out.println("| 6. Xuất tất cả dữ liệu ra file             |");
-            System.out.println("| 7. Tìm kiếm nâng cao                       |");
-            System.out.println("| 8. Thoát                                   |");
+            System.out.println("| 1. Nhập và quản lý danh sách điện thoại    |");
+            System.out.println("| 2. Nhập và quản lý danh sách nhà cung cấp  |");
+            System.out.println("| 3. Nhập và quản lý danh sách phiếu nhập    |");
+            System.out.println("| 4. Nhập và quản lý nhân viên               |");
+            System.out.println("| 5. Nhập và quản lý khách hàng              |");
+            System.out.println("| 6. Nhập và quản lý hoá đơn                 |");
+            System.out.println("| 7. Xuất tất cả dữ liệu ra file             |");
+            System.out.println("| 8. Tìm kiếm nâng cao                       |");
+            System.out.println("| 9. Thoát                                   |");
             System.out.println("----------------------------------------------");
             System.out.print("Vui lòng chọn một tùy chọn: ");
             int choice = sc.nextInt();
             sc.nextLine();
             switch (choice) {
-                case 1:
+            	case 1:
+            		menuDT(dsdt);
+            		break;
+                case 2:
                     menuNCC(danhSachNCC);
                     break;
-                case 2:
+                case 3:
                     menuPN(danhSachPhieuNhap, danhSachNCC, danhsachNV);
                     break;
-                case 3:
+                case 4:
                     danhsachNV.menu();
                     break;
-                case 4:
+                case 5:
                     dskh.menu();
                     break;
-                case 5:
+                case 6:
                     int lc;
                     do {
                         Scanner nhap = new Scanner(System.in);
@@ -89,7 +94,7 @@ public class main {
                         }
                     } while (lc != 3);
                     break;
-                case 6:
+                case 7:
                     danhSachNCC.ghiFile();
                     danhSachPhieuNhap.ghiFile();
                     danhsachNV.xuatRaFile();
@@ -97,10 +102,10 @@ public class main {
                     System.out.println("Ghi file thành công !!!");
                     System.out.println("\n");
                     break;
-                case 7:
+                case 8:
                     timKiemNangCaoThuNhat(danhSachNCC,danhSachPhieuNhap);
                     break;
-                case 8:
+                case 9:
                     System.out.println("Cảm ơn đã sử dụng chương trình. Tạm biệt!");
                     return;
                 default:
@@ -237,21 +242,21 @@ public class main {
     }
 
     
-    public void menuDT(DanhSachDienThoai danhSachDT) {
+    public static void menuDT(DanhSachDienThoai danhSachDT) {
 		Scanner sc = new Scanner(System.in);
 		int luaChon;
 		do {
-			System.out.println("----------Quản lý danh sách điện thoại----------");
-			System.out.println("1.Xuất danh sách điện thoại.");
-			System.out.println("2.Thêm điện thoại vào danh sách.");
-			System.out.println("3.Xóa điện thoại theo mã điện thoại.");
-			System.out.println("4.Sửa thông tin điện thoại theo mã điện thoại.");
-			System.out.println("5.Tìm kiếm điện thoại theo mã điện thoại.");
-			System.out.println("6.Thống kê theo loại điện thoại.");
-			System.out.println("7.Thống kê theo mức giá.");
-			System.out.println("8.Ghi danh sách điện thoại vào file.");
-			System.out.println("0.Thoát.");
-			System.out.println("------------------------------------------------");
+			System.out.println("-----------Quản lý danh sách điện thoại-----------");
+			System.out.println("| 1.Xuất danh sách điện thoại.                   |");
+			System.out.println("| 2.Thêm điện thoại vào danh sách.               |");
+			System.out.println("| 3.Xóa điện thoại theo mã điện thoại.           |");
+			System.out.println("| 4.Sửa thông tin điện thoại theo mã điện thoại. |");
+			System.out.println("| 5.Tìm kiếm điện thoại theo mã điện thoại.      |");
+			System.out.println("| 6.Thống kê theo loại điện thoại.               |");
+			System.out.println("| 7.Thống kê theo mức giá.                       |");
+			System.out.println("| 8.Ghi danh sách điện thoại vào file.           |");
+			System.out.println("| 0.Thoát.                                       |");
+			System.out.println("--------------------------------------------------");
 			System.out.print("Nhập lựa chọn: ");
 			luaChon = sc.nextInt();
 			switch (luaChon) {
@@ -305,7 +310,7 @@ public class main {
 		} while (luaChon != 0);
 	}
     
-    public void menuCTPN(DanhSachCTPN danhSachCTPN) {
+    public static void menuCTPN(DanhSachCTPN danhSachCTPN) {
 		Scanner sc = new Scanner(System.in);
 		int luaChon;
 		do {

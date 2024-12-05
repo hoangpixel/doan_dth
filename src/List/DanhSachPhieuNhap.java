@@ -13,7 +13,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 public class DanhSachPhieuNhap implements InterfaceDocGhi
 {
-    private PhieuNhap[] dspn;
+    private static PhieuNhap[] dspn;
     public DanhSachPhieuNhap()
     {
         dspn=new PhieuNhap[0];
@@ -22,7 +22,15 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
     {
         this.dspn=dspn;
     }
-    public boolean trungMaPN(String maPN) {
+    
+    public static PhieuNhap[] getDspn() {
+		return dspn;
+	}
+	public void setDspn(PhieuNhap[] dspn) {
+		this.dspn = dspn;
+	}
+	
+	public boolean trungMaPN(String maPN) {
         for (PhieuNhap ds : dspn) {
             if (ds != null && ds.getMaPN().equals(maPN)) {
                 return true;
@@ -177,6 +185,15 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
         {
             System.out.println("Không thể tìm thấy mã : " + maTim + " trong danh sách !!!");
         }
+    }
+    
+    public static PhieuNhap timMaPhieu(String maPN) {
+    	for(int i = 0; i < dspn.length; i++) {
+    		if(maPN.equals(dspn[i].getMaPN())) {
+    			return dspn[i];
+    		}
+    	}
+    	return null;
     }
     public void thongKeTien()
     {
