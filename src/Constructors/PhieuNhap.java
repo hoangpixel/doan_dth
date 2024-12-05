@@ -1,6 +1,5 @@
 package Constructors;
 import List.DanhSachCTPN;
-
 import java.util.Scanner;
 
 public class PhieuNhap
@@ -92,7 +91,7 @@ public class PhieuNhap
         ChiTietPhieuNhap[] ctpn = DanhSachCTPN.getDsctpn();
         for(int i = 0; i< ctpn.length; i++)
         {
-            if(ctpn[i].getMaPN().equals(this.maPN))
+            if(this.maPN.equals(ctpn[i].getMaPN()))
             {
                 tongTien+=ctpn[i].getThanhtien();
             }

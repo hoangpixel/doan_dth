@@ -1,5 +1,5 @@
 package List;
-
+import Constructors.PhieuNhap;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -57,34 +57,59 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 		} while (trungMa);
 		return ctpn;
 	}
-	
-	
-	public void nhap() {
+	public void capNhatTongTien()
+	{
+		PhieuNhap[] danhSachPhieuNhap = DanhSachPhieuNhap.getDspn();
+		for (PhieuNhap pn : danhSachPhieuNhap) {
+			float tongTienMoi = 0;
+			for (ChiTietPhieuNhap ctpn : dsctpn) {
+				if (ctpn.getMaPN().equals(pn.getMaPN())) {
+					tongTienMoi += ctpn.getThanhtien();
+				}
+			}
+			pn.setTongTien(tongTienMoi);
+		}
+	}
+
+
+
+
+
+	public void nhap(DanhSachPhieuNhap dspn) {
 		System.out.println("Nhập số lượng chi tiết phiếu nhập: ");
 		int n = sc.nextInt();
 		dsctpn = new ChiTietPhieuNhap[n];
+		String DanhSachPN[] = dspn.layDanhSachPN();
 		for(int i = 0; i < n; i++) {
 			ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap();
-			ctpn.nhap();
+			ctpn.nhap(DanhSachPN);
 			ctpn = kiemTraTrungMaDT(ctpn);
 			dsctpn[i] = ctpn;
 			
 		}
 	}
-	
-	
-	public void them_K_CTPN() {
+
+
+	public void them_K_CTPN(DanhSachPhieuNhap dspn) {
 		System.out.println("Nhập số lượng cần thêm: ");
-		int k = sc.nextInt();
-		int n = dsctpn.length;
-		Arrays.copyOf(dsctpn, n + k);
-		for(int i = n; i < dsctpn.length; i++) {
+		int k = sc.nextInt(); // Số lượng cần thêm
+		int n = dsctpn.length; // Kích thước ban đầu của dsctpn
+
+		// Mở rộng mảng dsctpn
+		dsctpn = Arrays.copyOf(dsctpn, n + k);
+
+		// Lấy danh sách mã phiếu nhập từ dspn
+		String DanhSachPN[] = dspn.layDanhSachPN();
+
+		// Nhập các chi tiết phiếu nhập mới
+		for (int i = n; i < dsctpn.length; i++) {
 			ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap();
-			ctpn.nhap();
+			ctpn.nhap(DanhSachPN);
 			ctpn = kiemTraTrungMaDT(ctpn);
-			dsctpn[n] = ctpn;
+			dsctpn[i] = ctpn; // Gán chi tiết phiếu nhập vào vị trí đúng trong dsctpn
 		}
 	}
+
 	
 	public void xuatDS() {
 		for(int i = 0; i < dsctpn.length; i++) {

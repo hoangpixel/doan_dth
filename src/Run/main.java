@@ -1,5 +1,4 @@
 package Run;
-import Constructors.ChiTietPhieuNhap;
 import List.DanhSachNCC;
 import List.DanhSachNhanVien;
 import List.DanhSachPhieuNhap;
@@ -19,7 +18,10 @@ public class main {
         DanhSachChiTietHoaDon dscthd = new DanhSachChiTietHoaDon();
         DanhSachHoaDon danhsachHD = new DanhSachHoaDon();
         DanhSachCTPN dsct = new DanhSachCTPN();
+        DanhSachDienThoai dsdth=new DanhSachDienThoai();
 
+
+        dsdth.docFile();
         System.out.println();
         danhSachNCC.docFile();
         danhSachPhieuNhap.docFile();
@@ -58,7 +60,8 @@ public class main {
                     danhsachNV.menu();
                     break;
                 case 4:
-                    dskh.menu();
+                    menuCTPN(dsct,danhSachPhieuNhap);
+//                    dskh.menu();
                     break;
                 case 5:
                     int lc;
@@ -305,7 +308,7 @@ public class main {
 		} while (luaChon != 0);
 	}
     
-    public void menuCTPN(DanhSachCTPN danhSachCTPN) {
+    public static void menuCTPN(DanhSachCTPN danhSachCTPN, DanhSachPhieuNhap dspn) {
 		Scanner sc = new Scanner(System.in);
 		int luaChon;
 		do {
@@ -327,7 +330,8 @@ public class main {
 				break;
 			}
 			case 2: {
-				danhSachCTPN.them_K_CTPN();
+				danhSachCTPN.them_K_CTPN(dspn);
+                danhSachCTPN.capNhatTongTien();
 				break;
 			}
 			case 3: {
