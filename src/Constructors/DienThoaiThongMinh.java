@@ -39,7 +39,7 @@ public class DienThoaiThongMinh extends DienThoai{
 	@Override
 	public void xuat() {
 		super.xuat();
-		System.out.println("Dung lượng lưu trữ: " + this.dungluongluutru);
+		System.out.format("Dung lượng: %-10s |\n", this.dungluongluutru);
 	}
 	
 	

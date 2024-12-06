@@ -41,7 +41,7 @@ public class DienThoaiPhim extends DienThoai{
 	@Override
 	public void xuat() {
 		super.xuat();
-		System.out.println("Loại bàn phím: " + this.loaibanphim);
+		System.out.format("Loại bàn phím: %-7s |\n", this.loaibanphim);
 	}
 	
 	@Override

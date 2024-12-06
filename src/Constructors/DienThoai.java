@@ -118,13 +118,9 @@ public abstract class DienThoai {
 		this.mau = sc.nextLine();
 	}
 	public void xuat() {
-		System.out.println("Mã điện thoại: " + this.maDT
-		+ "\nTên: " + this.tenDT
-		+"\nHãng: " + this.hang
-		+"\nĐơn giá: " + this.dongia
-		+"\nSố lượng: " + this.soluong
-		+"\nHệ điều hành: " + this.hedieuhanh
-		+"\nMàu: " + this.mau);
+		String format = "| %-5s | %-28s | %-12s | %-12s | %-8s | %-13s | %-17s |";
+		System.out.format(format, this.maDT, this.tenDT, this.hang, this.dongia,
+				this.soluong, this.hedieuhanh, this.mau);
 	}
 	
 	public abstract String layLoaiDienThoai();

@@ -39,12 +39,13 @@ public class main {
             System.out.println("| 1. Nhập và quản lý danh sách điện thoại    |");
             System.out.println("| 2. Nhập và quản lý danh sách nhà cung cấp  |");
             System.out.println("| 3. Nhập và quản lý danh sách phiếu nhập    |");
-            System.out.println("| 4. Nhập và quản lý nhân viên               |");
-            System.out.println("| 5. Nhập và quản lý khách hàng              |");
-            System.out.println("| 6. Nhập và quản lý hoá đơn                 |");
-            System.out.println("| 7. Xuất tất cả dữ liệu ra file             |");
-            System.out.println("| 8. Tìm kiếm nâng cao                       |");
-            System.out.println("| 9. Thoát                                   |");
+            System.out.println("| 4. Nhập và quản lý danh sách CTPN          |");
+            System.out.println("| 5. Nhập và quản lý nhân viên               |");
+            System.out.println("| 6. Nhập và quản lý khách hàng              |");
+            System.out.println("| 7. Nhập và quản lý hoá đơn                 |");
+            System.out.println("| 8. Xuất tất cả dữ liệu ra file             |");
+            System.out.println("| 9. Tìm kiếm nâng cao                       |");
+            System.out.println("| 0. Thoát                                   |");
             System.out.println("----------------------------------------------");
             System.out.print("Vui lòng chọn một tùy chọn: ");
             int choice = sc.nextInt();
@@ -60,12 +61,15 @@ public class main {
                     menuPN(danhSachPhieuNhap, danhSachNCC, danhsachNV);
                     break;
                 case 4:
+                	menuCTPN(dsct);
+                	break;
+                case 5:
                     danhsachNV.menu();
                     break;
-                case 5:
+                case 6:
                     dskh.menu();
                     break;
-                case 6:
+                case 7:
                     int lc;
                     do {
                         Scanner nhap = new Scanner(System.in);
@@ -94,7 +98,7 @@ public class main {
                         }
                     } while (lc != 3);
                     break;
-                case 7:
+                case 8:
                     danhSachNCC.ghiFile();
                     danhSachPhieuNhap.ghiFile();
                     danhsachNV.xuatRaFile();
@@ -102,10 +106,10 @@ public class main {
                     System.out.println("Ghi file thành công !!!");
                     System.out.println("\n");
                     break;
-                case 8:
+                case 9:
                     timKiemNangCaoThuNhat(danhSachNCC,danhSachPhieuNhap);
                     break;
-                case 9:
+                case 0:
                     System.out.println("Cảm ơn đã sử dụng chương trình. Tạm biệt!");
                     return;
                 default:
@@ -255,6 +259,7 @@ public class main {
 			System.out.println("| 6.Thống kê theo loại điện thoại.               |");
 			System.out.println("| 7.Thống kê theo mức giá.                       |");
 			System.out.println("| 8.Ghi danh sách điện thoại vào file.           |");
+			System.out.println("| 9.Xuất số lượng điện thoại tồn kho.            |");
 			System.out.println("| 0.Thoát.                                       |");
 			System.out.println("--------------------------------------------------");
 			System.out.print("Nhập lựa chọn: ");
@@ -298,6 +303,9 @@ public class main {
 			case 8: {
 				danhSachDT.ghiFile();
 				break;
+			}
+			case 9: {
+				danhSachDT.laySoLuongTonKho();
 			}
 			case 0: {
 				System.out.println("Thoát.");

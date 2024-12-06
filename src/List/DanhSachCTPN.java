@@ -99,13 +99,14 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 		int k = sc.nextInt();
 		sc.nextLine();
 		int n = dsctpn.length;
-		dsctpn = Arrays.copyOf(dsctpn, n + k);
-		for(int i = n; i < dsctpn.length; i++) {
+		
+		for(int i = n; i < n + k; i++) {
+			dsctpn = Arrays.copyOf(dsctpn, i + 1);
 			ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap();
 			ctpn.nhap();
 			ctpn = kiemTraTrungMaDT(ctpn);
 			ctpn.setMaPN(kiemTraMaPN(ctpn.getMaPN()));
-			dsctpn[n] = ctpn;
+			dsctpn[i] = ctpn;
 			PhieuNhap pn = DanhSachPhieuNhap.timMaPhieu(ctpn.getMaPN());
 			if(pn != null) {
 				pn.tinhTong();

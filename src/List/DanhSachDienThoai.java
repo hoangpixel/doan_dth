@@ -38,6 +38,14 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 		this.dsdt = dsdt;
 	}
 	
+	public static int laySoLuongTonKho() {
+		int tong = 0;
+		for(int i = 0; i < dsdt.length; i++) {
+			tong += dsdt[i].getSoluong();
+		}
+		return tong;
+	}
+	
 	public static float getDonGia(String maDT) {
 		for(int i = 0; i < dsdt.length; i++) {
 			if(dsdt[i].getMaDT().equals(maDT)) {
@@ -124,10 +132,15 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 	}
 	
 	public void xuatDS() {
+		String format = "| %-5s | %-28s | %-12s | %-12s | %-8s | %-13s | %-17s | %-21s |\n";
+		System.out.format("+-------+------------------------------+--------------+--------------+----------+---------------+-------------------+-----------------------+\n");
+		System.out.format(format, "Mã ĐT", "Tên điện thoại", "Hãng", "Đơn giá", "Số lượng", "Hệ điều hành", "Màu", "Thuộc tính riêng");
+		System.out.format("+-------+------------------------------+--------------+--------------+----------+---------------+-------------------+-----------------------+\n");
 		for(int i = 0; i < dsdt.length; i++) {
-			System.out.println("-----------------");
 			dsdt[i].xuat();
 		}
+		System.out.format("+-------+------------------------------+--------------+--------------+----------+---------------+-------------------+-----------------------+\n");
+        System.out.println("\n");
 	}
 	
 	public void xoa_maDT() {

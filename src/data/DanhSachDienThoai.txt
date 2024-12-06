@@ -5,7 +5,7 @@
 2;5;Benco 4G G3;Benco;380000;10;Mocor;Đen;T9
 2;6;Viettel Sumo 4G T2;Viettel;550000;10;Mocor;Đen;T9
 2;7;Nokia 105 4G Pro;Nokia;680000;8;Series 30+;Vàng;T9
-2;8;BlackBerry Bold Touch 9900;BlackBerry Limited;650000;1;BlackBerry;Đen;QWERT
+2;8;BlackBerry Bold Touch 9900;BlackBerry;650000;1;BlackBerry;Đen;QWERT
 1;9;OPPO A3x;OPPO;3290000;12;Android;Trắng;64 GB
 1;10;OPPO A3;OPPO;4990000;25;Android;Tím;128 GB
 1;11;OPPO Reno10 Pro+ 5G;OPPO;19990000;6;Android;Tím;256 GB
