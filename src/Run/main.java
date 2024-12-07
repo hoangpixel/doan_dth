@@ -397,12 +397,14 @@ public class main {
         System.out.println("Nhập số điện thoại khách hàng: ");
         String sdt = sc.nextLine();
         KhachHang kh = dskh.timkiemSDT(sdt);
+        Boolean kh_found = true;
         // Nếu không tìm thấy khách hàng trong ds thì tạo mới
         if(kh == null) {
             System.out.println("Khách hàng không tồn tại, vui lòng nhập thông tin khách hàng mới.");
             System.out.println("Nhập tên khách hàng: ");
             String tenKH = sc.nextLine();
             kh = new KhachHang(dskh.taoMaKH(), tenKH, sdt, 0);
+            kh_found = false;
         }
 
 
@@ -484,9 +486,13 @@ public class main {
         for (ChiTietHoaDon a :cthd_list_temp){
             dscthd.add(a);
         }
-
-        kh.setTongtien(hd_temp.getTongTien());
-        dskh.themKH(kh);
+        if(!kh_found) {
+            kh.setTongtien(hd_temp.getTongTien());
+            dskh.themKH(kh);
+        } else{
+            kh.setTongtien(kh.getTongtien() + hd_temp.getTongTien());
+            (dskh.timkiemSDT(sdt)).setTongtien(kh.getTongtien());
+        }
         dshd.xuatDanhSachHoaDon();
         dscthd.xuatDSCTHD();
         dskh.xemDSKH();

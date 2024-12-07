@@ -101,8 +101,17 @@ public class ChiTietHoaDon {
         return "ChiTietHoaDon{" + "mahd=" + mahd + ", madt=" + madt + ", soluong=" + soluong + ", dongia=" + dongia + ", thanhtien=" + thanhtien + '}';
     }
 
-    public void xuatCTHD(){
-        System.out.println("Mã chi tiết hóa đơn: "+mahd+"\t Mã điện thoại: "+madt+"\t Số lượng: "+soluong+"\t Đơn giá: "+dongia+"\t Thành tiền: "+thanhtien);
+//    public void xuatCTHD(){
+//        System.out.println("Mã chi tiết hóa đơn: "+mahd+"\t Mã điện thoại: "+madt+"\t Số lượng: "+soluong+"\t Đơn giá: "+dongia+"\t Thành tiền: "+thanhtien);
+//    }
+
+    public void xuatCTHD() {
+        // Cập nhật định dạng cho bảng
+        String format = "| %-15s | %-15s | %-10s | %-15s | %-20s |\n";
+        System.out.format("+-----------------+-----------------+------------+-----------------+----------------------+\n");
+        // In thông tin chi tiết hoá đơn
+        System.out.format(format, mahd, madt, soluong, dongia, thanhtien);
+        System.out.format("+-----------------+-----------------+------------+-----------------+----------------------+\n");
     }
 
 

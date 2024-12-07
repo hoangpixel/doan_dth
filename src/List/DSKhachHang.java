@@ -89,6 +89,9 @@ public class DSKhachHang {
     
     public void xemDSKH(){
         System.out.println("Thông tin của tất cả khách hàng: ");
+        String format = "| %-15s | %-30s | %-15s | %-20s |\n";  // Cập nhật độ rộng cột "Tổng tiền"
+        System.out.format("+-----------------+------------------------------+-----------------+------------------------+\n");
+        System.out.format(format, "Mã khách hàng", "Tên khách hàng", "Số điện thoại", "Tổng tiền");
         for (KhachHang kh1 : kh) {
             kh1.xuat();
         }
@@ -282,7 +285,11 @@ public String[] layDanhSachMaKh() {
             System.out.println("2. Sửa thông tin khách hàng");
             System.out.println("3. Xóa khách hàng");
             System.out.println("4. Hiển thị tất cả khách hàng");
-            System.out.println("5. Thoát");
+            System.out.println("5. Tìm kiếm khách hàng theo tên");
+            System.out.println("6. Tìm kiếm khách hàng theo số điện thoại");
+            System.out.println("7. Tìm kiếm khách hàng theo mã");
+            System.out.println("8. Thống kê");
+            System.out.println("9. Thoát");
             System.out.print("Chọn thao tác (1-5): ");
             
             int choice = sc.nextInt();
@@ -302,6 +309,18 @@ public String[] layDanhSachMaKh() {
                     xemDSKH();  // Gọi hàm hiển thị danh sách khách hàng
                     break;
                 case 5:
+                    timkiemTEN();  // Gọi hàm hiển thị danh sách khách hàng
+                    break;
+                case 6:
+                    timkiemSDT();  // Gọi hàm hiển thị danh sách khách hàng
+                    break;
+                case 7:
+                    timkiemMA();  // Gọi hàm hiển thị danh sách khách hàng
+                    break;
+                case 8:
+                    thongKeKhachHang();  // Gọi hàm hiển thị danh sách khách hàng
+                    break;
+                case 9:
                     System.out.println("Thoát khỏi chương trình.");
                     return;  // Thoát khỏi vòng lặp và kết thúc chương trình
                 default:
@@ -309,11 +328,5 @@ public String[] layDanhSachMaKh() {
             }
         }
     }
-    
-    public static void main(String[] args){
-        DSKhachHang kh = new DSKhachHang();
-        String filePath = "src/data/danhsachkhachhang.txt";
-        kh.docFile(filePath);
-        kh.menu();
-    }
+
 }

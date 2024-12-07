@@ -69,7 +69,10 @@ public class DanhSachChiTietHoaDon {
         if (cthd.length == 0) {
             System.out.println("Danh sách chi tiết hóa đơn trống.");
         } else {
-            System.out.println("Danh sách chi tiết hóa đơn:");
+            String format = "| %-15s | %-15s | %-10s | %-15s | %-20s |\n";
+            // In tiêu đề bảng
+            System.out.format("+-----------------+-----------------+------------+-----------------+----------------------+\n");
+            System.out.format(format, "Mã CTHD", "Mã ĐT", "Số lượng", "Đơn giá", "Thành tiền");
             for (ChiTietHoaDon ct : cthd) {
                 ct.xuatCTHD();
             }

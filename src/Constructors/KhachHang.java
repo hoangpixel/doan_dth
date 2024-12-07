@@ -80,7 +80,16 @@ public class KhachHang {
     public String toString() {
         return "KhachHang{" + "makh=" + makh + ", tenkh=" + tenkh + ", sdt=" + sdt + ", tongtien=" + tongtien + '}';
     }
+//    public void xuat(){
+//        System.out.println("Mã khách hàng: "+makh+"\t Tên khách hàng: "+ tenkh + " \t SDT: "+sdt+" \t Tổng tiền: "+tongtien+"VNĐ");
+//    }
+
     public void xuat(){
-        System.out.println("Mã khách hàng: "+makh+"\t Tên khách hàng: "+ tenkh + " \t SDT: "+sdt+" \t Tổng tiền: "+tongtien+"VNĐ");
+        String format = "| %-15s | %-30s | %-15s | %-20s |\n";  // Cập nhật độ rộng cột "Tổng tiền"
+        System.out.format("+-----------------+------------------------------+-----------------+------------------------+\n");
+        System.out.format(format, makh, tenkh, sdt, tongtien);
+        System.out.format("+-----------------+------------------------------+-----------------+------------------------+\n");
+
     }
+
 }
