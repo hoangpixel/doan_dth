@@ -264,6 +264,7 @@ public class main {
 			System.out.println("--------------------------------------------------");
 			System.out.print("Nhập lựa chọn: ");
 			luaChon = sc.nextInt();
+			sc.nextLine();
 			switch (luaChon) {
 			case 1: {
 				danhSachDT.xuatDS();
@@ -287,8 +288,12 @@ public class main {
 					System.out.println("Không tìm thấy điện thoại.");
 				}
 				else {
-					System.out.println("Tìm thấy điện thoại: ");
+					String format = "| %-5s | %-28s | %-12s | %-12s | %-8s | %-13s | %-17s | %-21s |\n";
+					System.out.format("+-------+------------------------------+--------------+--------------+----------+---------------+-------------------+-----------------------+\n");
+					System.out.format(format, "Mã ĐT", "Tên điện thoại", "Hãng", "Đơn giá", "Số lượng", "Hệ điều hành", "Màu", "Thuộc tính riêng");
+					System.out.format("+-------+------------------------------+--------------+--------------+----------+---------------+-------------------+-----------------------+\n");
 					danhSachDT.getDsdt()[index].xuat();
+					System.out.format("+-------+------------------------------+--------------+--------------+----------+---------------+-------------------+-----------------------+\n\n");
 				}
 				break;
 			}
@@ -305,7 +310,8 @@ public class main {
 				break;
 			}
 			case 9: {
-				danhSachDT.laySoLuongTonKho();
+				System.out.println("Tổng số lượng sản phẩm tồn kho: " + danhSachDT.laySoLuongTonKho() + "\n");
+				break;
 			}
 			case 0: {
 				System.out.println("Thoát.");
@@ -322,18 +328,19 @@ public class main {
 		Scanner sc = new Scanner(System.in);
 		int luaChon;
 		do {
-			System.out.println("------------Quản lý danh sách CTPN------------");
-			System.out.println("1.Xuất danh sách CTPN.");
-			System.out.println("2.Thêm CTPN vào danh sách.");
-			System.out.println("3.Xóa CTPN theo mã PN + mã điện thoại.");
-			System.out.println("4.Sửa thông tin CTPN theo mã PN + mã điện thoại.");
-			System.out.println("5.Tìm kiếm CTPN theo mã PN + mã điện thoại.");
-			System.out.println("6.Thống kê theo mã điện thoại.");
-			System.out.println("7.Ghi danh sách CTPN vào file.");
-			System.out.println("0.Thoát.");
-			System.out.println("------------------------------------------------");
+			System.out.println("----------------Quản lý danh sách CTPN----------------");
+			System.out.println("| 1.Xuất danh sách CTPN.                             |");
+			System.out.println("| 2.Thêm CTPN vào danh sách.                         |");
+			System.out.println("| 3.Xóa CTPN theo mã PN + mã điện thoại.             |");
+			System.out.println("| 4.Sửa thông tin CTPN theo mã PN + mã điện thoại.   |");
+			System.out.println("| 5.Tìm kiếm CTPN theo mã PN + mã điện thoại.        |");
+			System.out.println("| 6.Thống kê theo mã điện thoại.                     |");
+			System.out.println("| 7.Ghi danh sách CTPN vào file.                     |");
+			System.out.println("| 0.Thoát.                                           |");
+			System.out.println("------------------------------------------------------");
 			System.out.print("Nhập lựa chọn: ");
 			luaChon = sc.nextInt();
+			sc.nextLine();
 			switch (luaChon) {
 			case 1: {
 				danhSachCTPN.xuatDS();

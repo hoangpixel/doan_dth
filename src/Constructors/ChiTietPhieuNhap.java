@@ -89,11 +89,8 @@ public class ChiTietPhieuNhap {
 	}
 	
 	public void xuat() {
-		System.out.println("Mã phiếu nhập: " + this.maPN);
-		System.out.println("Mã điện thoại: " + this.maDT);
-		System.out.println("Số lượng điện thoại: " + this.soluong);
-		System.out.println("Đơn giá: " + this.dongia);
-		System.out.println("Thành tiền: " + (this.dongia * this.soluong));
+		String format = "| %-13s | %-10s | %-10s | %-15s | %-15s |\n";
+		System.out.format(format, this.maPN, this.maDT, this.soluong, this.dongia, this.thanhtien);
 	}
 	
 	

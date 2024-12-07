@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import java.util.Scanner;
 
 import Constructors.ChiTietPhieuNhap;
+import Constructors.DienThoai;
 import Constructors.DienThoaiPhim;
 import Constructors.DienThoaiThongMinh;
 import Constructors.PhieuNhap;
@@ -38,7 +39,10 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 		this.dsctpn = dsctpn;
 	}
 	
-	public ChiTietPhieuNhap kiemTraTrungMaDT(ChiTietPhieuNhap ctpn) {
+	// Kiểm tra trùng mã đt trong 1 phiếu nhập 
+	//+ Kiểm tra mã đt có tồn tại trong danh sách điện thoại
+	public ChiTietPhieuNhap kiemTraMaDT(ChiTietPhieuNhap ctpn) {
+		// Kiểm tra trùng mã điệnt hoại trong 1 phiếu nhập
 		boolean trungMa;
 		do {
 			trungMa = false;
@@ -57,6 +61,22 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 				ctpn.setMaDT(maDT);
 			}
 		} while (trungMa);
+		
+		// Kiểm tra mã đt có tồn tại trong danh sách điện thoại
+		DienThoai[] dsdt = DanhSachDienThoai.getDsdt();
+		do {
+			for(int i = 0 ; i < dsdt.length; i++) {
+				if(ctpn.getMaDT().equals(dsdt[i].getMaDT())) {
+					trungMa = true;
+				}
+			}
+			if(!trungMa) {
+				System.out.print("Mã điện thoại \"" + ctpn.getMaDT() 
+				+ "\" không tồn tại trong danh sách, vui lòng nhập lại:");
+				String maDT = sc.nextLine();
+				ctpn.setMaDT(maDT);
+			}
+		}while(!trungMa);
 		return ctpn;
 	}
 	
@@ -75,16 +95,33 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 		}
 	}
 	
+	// Hàm kiểm tra khi nhập vào số lượng điện thoại không được quá số lượng đang có trong cửa hàng
+	public void kiemTraSoLuongDT (ChiTietPhieuNhap ctpn) {
+		DienThoai[] dsdt = DanhSachDienThoai.getDsdt();
+		for(int i = 0; i < dsdt.length; i++) {
+			if(ctpn.getMaDT().equals(dsdt[i].getMaDT())) {
+				while(ctpn.getSoluong() > dsdt[i].getSoluong()) {
+					System.out.print("Số lượng điện thoại \"" + dsdt[i].getTenDT() 
+							+ "\" trong cửa hàng không đủ (" + dsdt[i].getSoluong() 
+							+ "), vui lòng nhập lại số lượng: ");
+					int soLuong = sc.nextInt();
+					ctpn.setSoluong(soLuong);
+				}
+			}
+		}
+	}
 	
 	public void nhap() {
 		System.out.println("Nhập số lượng chi tiết phiếu nhập: ");
 		int n = sc.nextInt();
+		sc.nextLine();
 		dsctpn = new ChiTietPhieuNhap[n];
 		for(int i = 0; i < n; i++) {
 			ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap();
 			ctpn.nhap();
-			ctpn = kiemTraTrungMaDT(ctpn);
 			ctpn.setMaPN(kiemTraMaPN(ctpn.getMaPN()));
+			ctpn = kiemTraMaDT(ctpn);
+			kiemTraSoLuongDT(ctpn);
 			dsctpn[i] = ctpn;
 			PhieuNhap pn = DanhSachPhieuNhap.timMaPhieu(ctpn.getMaPN());
 			if(pn != null) {
@@ -104,8 +141,9 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 			dsctpn = Arrays.copyOf(dsctpn, i + 1);
 			ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap();
 			ctpn.nhap();
-			ctpn = kiemTraTrungMaDT(ctpn);
 			ctpn.setMaPN(kiemTraMaPN(ctpn.getMaPN()));
+			ctpn = kiemTraMaDT(ctpn);
+			kiemTraSoLuongDT(ctpn);
 			dsctpn[i] = ctpn;
 			PhieuNhap pn = DanhSachPhieuNhap.timMaPhieu(ctpn.getMaPN());
 			if(pn != null) {
@@ -115,17 +153,23 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 	}
 	
 	public void xuatDS() {
+		String format = "| %-10s | %-10s | %-10s | %-15s | %-15s |\n";
+		System.out.format("+---------------+------------+------------+-----------------+-----------------+\n");
+		System.out.format(format, "Mã phiếu nhập", "Mã ĐT", "Số lượng", "Đơn giá", "Thành tiền");
+		System.out.format("+---------------+------------+------------+-----------------+-----------------+\n");
 		for(int i = 0; i < dsctpn.length; i++) {
-			System.out.println("--------");
 			dsctpn[i].xuat();
 		}
+		System.out.format("+---------------+------------+------------+-----------------+-----------------+\n");
 	}
 	
 	public int timKiemCTPN() {		// Mã phiếu nhập + mã điện thoại
 		System.out.println("Nhập mã phiếu nhập và mã điện thoại: ");
+		System.out.print("Mã phiếu nhập: ");
 		String maPN = sc.nextLine();
+		System.out.print("Mã điện thoại: ");
 		String maDT = sc.nextLine();
-		for(int i = 0; i < this.dsctpn.length; i++) {
+		for(int i = 0; i < dsctpn.length; i++) {
 			if(dsctpn[i].getMaPN().equals(maPN) && dsctpn[i].getMaDT().equals(maDT)) {
 				return i;
 			}
@@ -144,12 +188,15 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 	
 	public void xoaCTPN() {
 		System.out.println("------Xóa chi tiết phiếu nhập------");
-		System.out.println("Nhập mã phiếu nhập và mã điện thoại: ");
-		if(timKiemCTPN() != -1) {
-			for(int i = this.timKiemCTPN(); i < dsctpn.length - 1; i++) {
+		int index = timKiemCTPN();
+		if(index != -1) {
+			System.out.println("Đã xóa chi tiết phiếu nhập \"" + dsctpn[index].getMaPN() 
+					+ "\" chứa mã điện thoại: " + dsctpn[index].getMaDT() + "\n");
+			for(int i = index; i < dsctpn.length - 1; i++) {
 				dsctpn[i] = dsctpn[i + 1];
 			}
-			Arrays.copyOf(dsctpn, dsctpn.length - 1);
+			dsctpn = Arrays.copyOf(dsctpn, dsctpn.length - 1);
+			
 		}
 		else {
 			System.out.println("Không tìm thấy chi tiết phiếu nhập!");
@@ -182,13 +229,15 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 					ChiTietPhieuNhap ctpn = dsctpn[index];
 					String ma = sc.nextLine();
 					ctpn.setMaDT(ma);
-					ctpn = kiemTraTrungMaDT(ctpn);
+					ctpn = kiemTraMaDT(ctpn);
 					dsctpn[index].setMaDT(ctpn.getMaDT());
 					break;
 				}
 				case 2: {
 					System.out.print("Nhập số lượng điện thoại mới: ");
 					int soluong = sc.nextInt();
+					sc.nextLine();
+					kiemTraSoLuongDT(dsctpn[index]);
 					dsctpn[index].setSoluong(soluong);
 					break;
 				}

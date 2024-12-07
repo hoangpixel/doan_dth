@@ -30,7 +30,7 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 		this.dsdt = dsdt.getDsdt();
 	}
 
-	public DienThoai[] getDsdt() {
+	public static DienThoai[] getDsdt() {
 		return dsdt;
 	}
 
@@ -83,6 +83,7 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 		System.out.println("1. Nhập điện thoại thông minh."
 						+ "\n2.Nhập điện thoại phím.");
 		int luaChon = sc.nextInt();
+		sc.nextLine();
 		switch (luaChon) {
 			case 1: {
 				DienThoaiThongMinh dttm = new DienThoaiThongMinh();
@@ -112,23 +113,25 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 			System.out.println("1. Nhập điện thoại thông minh."
 							+ "\n2.Nhập điện thoại phím.");
 			int luaChon = sc.nextInt();
+			sc.nextLine();
 			switch (luaChon) {
 				case 1: {
 					DienThoaiThongMinh dttm = new DienThoaiThongMinh();
 					dttm.nhap();
 					dttm = (DienThoaiThongMinh) kiemTraTrungMaDT((DienThoai) dttm);
-					dsdt[n] = dttm;
+					dsdt[i] = dttm;
 					break;
 				}
 				case 2: {
 					DienThoaiPhim dtp = new DienThoaiPhim();
 					dtp.nhap();
 					dtp = (DienThoaiPhim) kiemTraTrungMaDT(dtp);
-					dsdt[n] = dtp;
+					dsdt[i] = dtp;
 					break;
 				}
 			}
 		}
+		this.xuatDS();
 	}
 	
 	public void xuatDS() {
@@ -144,26 +147,37 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 	}
 	
 	public void xoa_maDT() {
-		System.out.println("Nhập mã điện thoại cần xóa: ");
+		System.out.print("---Nhập mã điện thoại cần xóa: ");
 		String maDT = sc.nextLine();
 		int index = this.timKiem_maDT1(maDT);
-		for(int i = index; i < dsdt.length - 1; i++) {
-			dsdt[i] = dsdt[i + 1];
+		if(index != -1 ) {
+			for(int i = index; i < dsdt.length - 1; i++) {
+				dsdt[i] = dsdt[i + 1];
+			}
+			dsdt = Arrays.copyOf(dsdt, dsdt.length - 1);
+			System.out.println("Xóa thành công ");
 		}
-		dsdt = Arrays.copyOf(dsdt, dsdt.length - 1);
+		else {
+			System.out.println("Không tìm thấy mã điện thoại : " + maDT);
+		}
 	}
 	
 	public void xoa_maDT(String maDT) {
 		int index = this.timKiem_maDT1(maDT);
-		for(int i = index; i < dsdt.length - 1; i++) {
-			dsdt[i] = dsdt[i + 1];
-		} 
-		dsdt = Arrays.copyOf(dsdt, dsdt.length - 1);
+		if(index != -1) {
+			for(int i = index; i < dsdt.length - 1; i++) {
+				dsdt[i] = dsdt[i + 1];
+			} 
+			dsdt = Arrays.copyOf(dsdt, dsdt.length - 1);
+			System.out.println("Xóa thành công ");
+		}
+		else {
+			System.out.println("Không tìm thấy mã điện thoại : " + maDT);
+		}
 	}
 	
 	public DienThoai timKiem_maDT() {
-		System.out.println("\n---Tìm Kiếm---");
-		System.out.println("Nhập mã điện thoại cần tìm: ");
+		System.out.print("---Nhập mã điện thoại cần tìm: ");
 		String maDT = sc.nextLine();
 		for(int i = 0; i < dsdt.length; i++) {
 			if(dsdt[i].getMaDT().equals(maDT)) {
@@ -192,8 +206,7 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 	}
 	
 	public int timKiem_maDT1() {
-		System.out.println("\n---Tìm Kiếm---");
-		System.out.println("Nhập mã điện thoại cần tìm: ");
+		System.out.println("---Nhập mã điện thoại cần tìm: ");
 		String maDT = sc.nextLine();
 		for(int i = 0; i < dsdt.length; i++) {
 			if(dsdt[i].getMaDT().equals(maDT)) {
@@ -211,17 +224,17 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 
 	    int luaChon;
 	    do {
-	        System.out.println("---Tìm kiếm nâng cao---");
-	        System.out.println("1. Tìm theo mã điện thoại");
-	        System.out.println("2. Tìm theo điện thoại");
-	        System.out.println("3. Tìm theo hãng");
-	        System.out.println("4. Tìm theo khoảng giá");
-	        System.out.println("5. Tìm theo hệ điều hành");
-	        System.out.println("6. Tìm theo loại điện thoại");
-	        System.out.println("7. Tìm theo màu sắc");
-	        System.out.println("8. Thực hiện tìm kiếm");
-	        System.out.println("0. Thoát");
-	        System.out.println("-----------------------");
+	        System.out.println("----------Tìm kiếm nâng cao---------");
+	        System.out.println("| 1. Tìm theo mã điện thoại.       |");
+	        System.out.println("| 2. Tìm theo điện thoại           |");
+	        System.out.println("| 3. Tìm theo hãng                 |");
+	        System.out.println("| 4. Tìm theo khoảng giá           |");
+	        System.out.println("| 5. Tìm theo hệ điều hành         |");
+	        System.out.println("| 6. Tìm theo loại điện thoại      |");
+	        System.out.println("| 7. Tìm theo màu sắc              |");
+	        System.out.println("| 8. Thực hiện tìm kiếm            |");
+	        System.out.println("| 0. Thoát                         |");
+	        System.out.println("------------------------------------");
 	        System.out.print("Nhập lựa chọn: ");
 	        luaChon = sc.nextInt();
 	        sc.nextLine();
@@ -275,11 +288,6 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 	                        dt.xuat();
 	                
 	                    }
-	                    if (dt.getTenDT().toLowerCase().contains(tenDT.toLowerCase())) {
-	                        System.out.println("dung");
-	                    } else {
-	                        System.out.println("sai");
-	                    }
 	                    
 	                }
 	                break;
@@ -294,7 +302,7 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 
 	
 	public void suaTheoMa() {
-		System.out.print("Nhập mã điện thoại cần sửa: ");
+		System.out.print("---Nhập mã điện thoại cần sửa: ");
 		String maDT = sc.nextLine();
 		int index = timKiem_maDT1(maDT);
 		if(index == -1) {
@@ -304,20 +312,20 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 			int luaChon;
 			do {
 				System.out.println("---Sửa thông tin điện thoại---");
-				System.out.println("1.Tên điện thoại");
-				System.out.println("2.Tên hãng.");
-				System.out.println("3.Đơn giá.");
-				System.out.println("4.Số lượng.");
-				System.out.println("5.Hệ điều hành.");
-				System.out.println("6.Màu.");
+				System.out.println("| 1.Tên điện thoại.          |");
+				System.out.println("| 2.Tên hãng.                |");
+				System.out.println("| 3.Đơn giá.                 |");
+				System.out.println("| 4.Số lượng.                |");
+				System.out.println("| 5.Hệ điều hành.            |");
+				System.out.println("| 6.Màu.                     |");
 				if(dsdt[index] instanceof DienThoaiThongMinh) {
-					System.out.println("7.Dung lượng lưu trữ.");
+					System.out.println("| 7.Dung lượng lưu trữ.      |");
 				}
 				if(dsdt[index] instanceof DienThoaiPhim) {
-					System.out.println("7.Loại bàn phím.");
+					System.out.println("| 7.Loại bàn phím.           |");
 				}
-				System.out.println("0.Thoát.");
-				System.out.println("---");
+				System.out.println("| 0.Thoát.                   |");
+				System.out.println("------------------------------");
 				System.out.print("Nhập lựa chọn: ");
 				luaChon = sc.nextInt();
 				sc.nextLine();
@@ -402,12 +410,12 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 		}
 		System.out.println("---Thống kê theo loại điện thoại---");
 		System.out.println("Điện thoại thông minh \t Điện thoại phím");
-		System.out.println("\t" + dttm + "\t\t\t" + dtp);
+		System.out.println("\t" + dttm + "\t\t\t" + dtp + "\n");
 	}
 	
 	public void thongKe_gia() {
-		float muc1 = 5;
-		float muc2 = 10;
+		float muc1 = 5000000;
+		float muc2 = 10000000;
 		int gia_muc1 = 0;
 		int gia_muc1_muc2 = 0;
 		int gia_muc2 = 0;
@@ -424,7 +432,7 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 		System.out.println("---Thống kê theo giá---");
 		System.out.println("Giá dưới " + muc1 + ": " + gia_muc1);
 		System.out.println("Giá từ " + muc1 + " đến " + muc2 + ": " + gia_muc1_muc2);
-		System.out.println("Giá trên " + muc2 + ": " + gia_muc2);
+		System.out.println("Giá trên " + muc2 + ": " + gia_muc2 + "\n");
 		
 
 	}
