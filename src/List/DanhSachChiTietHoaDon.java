@@ -35,6 +35,11 @@ public class DanhSachChiTietHoaDon {
         return cthd.length;
     }
 
+    public void add(ChiTietHoaDon a){
+        cthd = Arrays.copyOf(cthd, cthd.length + 1);
+        cthd[cthd.length - 1] = a;
+    }
+
     public void nhapDSCTHD(){
         System.out.println("Nhập số lượng chi tiết hóa đơn muốn thêm: ");
         int soluong = sc.nextInt();

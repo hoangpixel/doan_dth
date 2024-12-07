@@ -478,8 +478,18 @@ public class main {
             cthd_list_temp[i].xuatCTHD();
         }
 
-        // ử lý hóa đơn
+        // Them hoa don va chi tiet hoa don va khach hang vao he thong
 
+        dshd.add(hd_temp);
+        for (ChiTietHoaDon a :cthd_list_temp){
+            dscthd.add(a);
+        }
+
+        kh.setTongtien(hd_temp.getTongTien());
+        dskh.themKH(kh);
+        dshd.xuatDanhSachHoaDon();
+        dscthd.xuatDSCTHD();
+        dskh.xemDSKH();
 
     }
 }

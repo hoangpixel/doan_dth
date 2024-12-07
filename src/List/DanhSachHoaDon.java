@@ -34,6 +34,16 @@ public void check(HoaDon temp){
                     check(temp);
     }
 }
+
+public int length(){
+    return dshd.length;
+}
+
+public void add(HoaDon a){
+    dshd = Arrays.copyOf(dshd, dshd.length + 1);
+    dshd[dshd.length - 1] = a;
+}
+
 public String taoMaHd() {
     int maxNumber = 0; 
     for (HoaDon hd : dshd) { 

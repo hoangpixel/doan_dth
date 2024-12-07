@@ -42,10 +42,6 @@ public class DSKhachHang {
         return kh.length;
     }
     
-    public static String taoMaKH(int so) {
-        return "KH" + so;
-    }
-    
     public String taoMaKH() {
     int maxNumber = 0; 
     for (KhachHang khach : kh) { 
@@ -71,7 +67,9 @@ public class DSKhachHang {
             kh[i] = a;
         }
     }
-    
+
+
+
     public void themKH(){
         kh = Arrays.copyOf(kh, kh.length + 1);
         System.out.println("Nhập thông tin của khách hàng mới: ");
