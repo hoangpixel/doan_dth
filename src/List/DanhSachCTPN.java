@@ -8,12 +8,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Scanner;
-
+import Constructors.PhieuNhap;
 import Constructors.ChiTietPhieuNhap;
 import Constructors.DienThoai;
 import Constructors.DienThoaiPhim;
 import Constructors.DienThoaiThongMinh;
-import Constructors.PhieuNhap;
 import Interfaces.InterfaceDocGhi;
 import Run.main;
 
@@ -265,7 +264,19 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 		    System.out.println("Mã điện thoại: " + entry.getKey() + ", Tổng số lượng: " + entry.getValue());
 		}
 	}
-	
+	public void capNhatTongTien()
+	{
+		PhieuNhap[] danhSachPhieuNhap = DanhSachPhieuNhap.getDspn();
+		for (PhieuNhap pn : danhSachPhieuNhap) {
+			float tongTienMoi = 0;
+			for (ChiTietPhieuNhap ctpn : dsctpn) {
+				if (ctpn.getMaPN().equals(pn.getMaPN())) {
+					tongTienMoi += ctpn.getThanhtien();
+				}
+			}
+			pn.setTongTien(tongTienMoi);
+		}
+	}
 	@Override
 	public void docFile() {
 		try {

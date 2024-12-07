@@ -348,6 +348,7 @@ public class main {
 			}
 			case 2: {
 				danhSachCTPN.them_K_CTPN();
+                danhSachCTPN.capNhatTongTien();
 				break;
 			}
 			case 3: {
