@@ -58,7 +58,7 @@ public class main {
                     menuNCC(danhSachNCC);
                     break;
                 case 3:
-                    menuPN(danhSachPhieuNhap, danhSachNCC, danhsachNV);
+                    menuPN(danhSachPhieuNhap);
                     break;
                 case 4:
                 	menuCTPN(dsct);
@@ -123,13 +123,12 @@ public class main {
         while (true) {
             System.out.println("------- Quản lý danh sách nhà cung cấp -------");
             System.out.println("| 1. Nhập danh sách nhà cung cấp             |");
-            System.out.println("| 2. Thêm nhà cung cấp                       |");
-            System.out.println("| 3. Xóa một nhà cung cấp                    |");
-            System.out.println("| 4. Sửa thông tin nhà cung cấp              |");
-            System.out.println("| 5. Tìm kiếm nhà cung cấp                   |");
-            System.out.println("| 6. Xuất danh sách nhà cung cấp             |");
-            System.out.println("| 7. Thống kê số lượng nhà cung cấp          |");
-            System.out.println("| 8. Quay lại menu chính                     |");
+            System.out.println("| 2. Xuất danh sách nhà cung cấp             |");
+            System.out.println("| 3. Sửa thông tin nhà cung cấp              |");
+            System.out.println("| 4. Tìm kiếm nhà cung cấp                   |");
+            System.out.println("| 5. Xóa một nhà cung cấp                    |");
+            System.out.println("| 6. Thống kê số lượng nhà cung cấp          |");
+            System.out.println("| 0. Quay lại menu chính                     |");
             System.out.println("----------------------------------------------");
             System.out.print("Vui lòng chọn một tùy chọn: ");
             int choice = sc.nextInt();
@@ -137,27 +136,24 @@ public class main {
 
             switch (choice) {
                 case 1:
-                    danhSachNCC.nhapKtrung();
+                    danhSachNCC.nhapK();
                     break;
                 case 2:
-                    danhSachNCC.themkNCC();
-                    break;
-                case 3:
-                    danhSachNCC.xoaMotNCC();
-                    break;
-                case 4:
-                    danhSachNCC.suaNCC();
-                    break;
-                case 5:
-                    danhSachNCC.timKiemGanDung();
-                    break;
-                case 6:
                     danhSachNCC.xuat();
                     break;
-                case 7:
+                case 3:
+                    danhSachNCC.suaNCC();
+                    break;
+                case 4:
+                    danhSachNCC.timKiemGanDung();
+                    break;
+                case 5:
+                    danhSachNCC.xoaMotNCC();
+                    break;
+                case 6:
                     danhSachNCC.thongKeNCC();
                     break;
-                case 8:
+                case 0:
                     return;
                 default:
                     System.out.println("Tùy chọn không hợp lệ! Vui lòng chọn lại.");
@@ -165,49 +161,45 @@ public class main {
         }
     }
 
-    private static void menuPN(DanhSachPhieuNhap danhSachPhieuNhap, DanhSachNCC danhSachNCC, DanhSachNhanVien danhSachNhanVien) {
+    private static void menuPN(DanhSachPhieuNhap danhSachPhieuNhap) {
         Scanner sc = new Scanner(System.in);
         while (true) {
             System.out.println("-------- Quản lý danh sách phiếu nhập --------");
-            System.out.println("| 1. Nhập danh sách phiếu nhập               |");
-            System.out.println("| 2. Thêm phiếu nhập                         |");
-            System.out.println("| 3. Xóa phiếu nhập                          |");
-            System.out.println("| 4. Sửa phiếu nhập                          |");
-            System.out.println("| 5. Tìm kiếm phiếu nhập                     |");
-            System.out.println("| 6. Xuất danh sách phiếu nhập               |");
-            System.out.println("| 7. Thống kê số phiếu nhập                  |");
-            System.out.println("| 8. Thống kê tổng số tiền                   |");
-            System.out.println("| 9. Quay lại menu chính                     |");
+            System.out.println("| 1. Thêm phiếu nhập                         |");
+            System.out.println("| 2. Xuất danh sách phiếu nhập               |");
+            System.out.println("| 3. Sửa phiếu nhập                          |");
+            System.out.println("| 4. Tìm kiếm phiếu nhập                     |");
+            System.out.println("| 5. Xóa phiếu nhập                          |");
+            System.out.println("| 6. Thống kê số phiếu nhập                  |");
+            System.out.println("| 7. Thống kê tổng số tiền                   |");
+            System.out.println("| 0. Quay lại menu chính                     |");
             System.out.println("----------------------------------------------");
             System.out.print("Vui lòng chọn một tùy chọn: ");
             int choice = sc.nextInt();
             sc.nextLine();
             switch (choice) {
                 case 1:
-                    danhSachPhieuNhap.themKPhantu(danhSachNCC, danhSachNhanVien);
+                    danhSachPhieuNhap.themK();
                     break;
                 case 2:
-                    danhSachPhieuNhap.themkNcoHoi(danhSachNCC, danhSachNhanVien);
-                    break;
-                case 3:
-                    danhSachPhieuNhap.xoaPhanTu();
-                    break;
-                case 4:
-                    danhSachPhieuNhap.suaPhieuNhap();
-                    break;
-                case 5:
-                    danhSachPhieuNhap.timMaPhieu();
-                    break;
-                case 6:
                     danhSachPhieuNhap.xuatDs();
                     break;
-                case 7:
+                case 3:
+                    danhSachPhieuNhap.suaPhieuNhap();
+                    break;
+                case 4:
+                    danhSachPhieuNhap.timMaPhieu();
+                    break;
+                case 5:
+                    danhSachPhieuNhap.xoaPhanTu();
+                    break;
+                case 6:
                     danhSachPhieuNhap.thongKe();
                     break;
-                case 8:
+                case 7:
                     danhSachPhieuNhap.thongKeTien();
                     break;
-                case 9:
+                case 0:
                     return;
                 default:
                     System.out.println("Tùy chọn không hợp lệ! Vui lòng chọn lại.");

@@ -51,7 +51,7 @@ public class DanhSachNhanVien
             check(dsnv[i]);
         }
     }
-    void xuatdsnv(){
+    public void xuatdsnv(){
         System.out.print("\n");
         if(n==0){
         System.out.println("Danh sách nhân viên trống");
@@ -311,7 +311,6 @@ public class DanhSachNhanVien
             }
             dsnv=temp;
             n=dsnv.length;
-            System.out.println("Dữ liệu nhân viên đã được khôi phục từ file.");
         } catch (IOException e) {
             System.out.println("Lỗi khi đọc từ file: " + e.getMessage());
         } finally {

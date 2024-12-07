@@ -11,7 +11,9 @@ public class login {
         NhanVien[] nv=DanhSachNhanVien.getDsnv();
         boolean dn=false;
         String taikhoan,matkhau;
+        int d=0;
         do {
+            System.out.println();
             System.out.print("Nhập tài khoản : ");
             taikhoan=sc.nextLine().trim();
             System.out.print("Nhập mật khẩu : ");
@@ -27,7 +29,15 @@ public class login {
             }
             if(!dn)
             {
-                System.out.println("Tài khoản hoặc mật khẩu của bạn đã sai vui lòng nhập lại !!!");
+                System.out.println();
+                System.out.println("Tài khoản hoặc mật khẩu của bạn đã sai !!!");
+                System.out.println("Bạn đã nhập sai " + (d+1) + " nếu sai 4 lần sẽ bị khóa tài khoản !!!");
+                d++;
+            }
+            if(d==4)
+            {
+                System.out.println("Tài khoản của bạn đã bị khóa !!!");
+                break;
             }
         }while(!dn);
     }

@@ -8,6 +8,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import Interfaces.InterfaceDocGhi;
+import TypeNCC.NhaCungCapNoiDia;
 import TypeNCC.NhaCungCapQuocTe;
 public class DanhSachNCC implements InterfaceDocGhi
 {
@@ -48,127 +49,52 @@ public class DanhSachNCC implements InterfaceDocGhi
             dsncc[i] = ncc;
         }
     }
-    public void nhapKtrung() {
-        Scanner sc = new Scanner(System.in);
-        int n = dsncc.length;
-        int k;
+    public void nhapK()
+    {
+        Scanner sc=new Scanner(System.in);
+        int n= dsncc.length,k;
         do {
-            System.out.print("Nhập số lượng nhà cung cấp: ");
-            k = sc.nextInt();
+            System.out.print("Nhập số lượng nhà cung cấp : ");
+            k=sc.nextInt();
             sc.nextLine();
-            if (k < 0) {
-                System.out.println("Vui lòng nhập lại !!!");
+            if(k<=0)
+            {
+                System.out.println("Vui lòng nhập số nguyên dương !!!");
             }
-        } while (k < 0);
-
-        dsncc = Arrays.copyOf(dsncc, n + k);
-        for (int i = 0; i < k; i++) {
-            System.out.println("Chọn loại nhà cung cấp:");
+        }while(k<=0);
+        dsncc = Arrays.copyOf(dsncc,n+k);
+        int choice;
+        for(int i=0;i<k;i++)
+        {
+            NhaCungCap ncc;
             System.out.println("1. Nhà cung cấp nội địa");
             System.out.println("2. Nhà cung cấp quốc tế");
-            int choice = sc.nextInt();
-            sc.nextLine(); // Xóa bộ nhớ đệm
-
-            NhaCungCap ncc;
-
-            if (choice == 1) {
-                ncc = new NhaCungCap(); // Tạo NCC Nội Địa
-            } else if (choice == 2) {
-                ncc = new NhaCungCapQuocTe(); // Tạo NCC Quốc Tế
-            } else {
-                System.out.println("Lựa chọn không hợp lệ, tạo NCC Nội Địa mặc định.");
-                ncc = new NhaCungCap(); // Mặc định tạo NCC Nội Địa
+            System.out.print("Nhập lựa chọn của bạn : ");
+            choice=sc.nextInt();
+            sc.nextLine();
+            if(choice == 1)
+            {
+                ncc = new NhaCungCap();
+            }
+            else if(choice == 2)
+            {
+                ncc = new NhaCungCapQuocTe();
+            }
+            else
+            {
+                ncc = new NhaCungCap();
             }
 
-            // Nhập thông tin cho nhà cung cấp
-            do {
-                ncc.nhap(); // Nhập thông tin cho NCC
-                if (trungMaNcc(ncc.getMaNCC())) {
-                    System.out.println("Mã nhà cung cấp này đã bị trùng vui lòng nhập lại.");
-                }
-            } while (trungMaNcc(ncc.getMaNCC()));
-
-            // Nếu là NCC Quốc Tế, nhập thêm quốc gia
-            if (ncc instanceof NhaCungCapQuocTe) {
-                NhaCungCapQuocTe nccQuocTe = (NhaCungCapQuocTe) ncc;
-                Scanner sc2 = new Scanner(System.in);
-                System.out.print("Nhập quốc gia của nhà cung cấp quốc tế: ");
-                nccQuocTe.setQuocGia(sc2.nextLine()); // Nhập quốc gia
+            ncc.nhap();
+            while(trungMaNcc(ncc.getMaNCC()))
+            {
+                System.out.println();
+                System.out.println("Mã nhà cung cấp đã bị trùng vui lòng nhập lại !!!");
+                System.out.print("Nhập mã nhà cung cấp mới : ");
+                String newMa=sc.nextLine().trim();
+                ncc.setMaNCC(newMa);
             }
-
-            // Lưu nhà cung cấp vào mảng dsncc
-            dsncc[n + i] = ncc;
-        }
-    }
-    public void themkNCC() {
-        Scanner sc = new Scanner(System.in);
-        int n = dsncc.length;
-        int k;
-
-        while (true) {
-            System.out.print("Bạn có muốn thêm nhà cung cấp không? (Y/N): ");
-            String choice = sc.nextLine().trim();
-
-            if (choice.equalsIgnoreCase("Y")) {
-                do {
-                    System.out.print("Nhập số lượng nhà cung cấp: ");
-                    // Kiểm tra nếu nhập số lượng là một số hợp lệ
-                    while (!sc.hasNextInt()) {
-                        System.out.println("Vui lòng nhập một số hợp lệ!");
-                        sc.nextLine();  // Đọc và bỏ qua dữ liệu không hợp lệ
-                    }
-                    k = sc.nextInt();
-                    sc.nextLine(); // Đọc ký tự newline còn lại
-                    if (k < 0) {
-                        System.out.println("Số lượng nhà cung cấp phải là số dương. Vui lòng nhập lại.");
-                    }
-                } while (k < 0);
-
-                // Tăng kích thước mảng dsncc để chứa thêm nhà cung cấp
-                dsncc = Arrays.copyOf(dsncc, n + k);
-                for (int i = 0; i < k; i++) {
-                    System.out.println("Chọn loại nhà cung cấp:");
-                    System.out.println("1. Nhà cung cấp nội địa");
-                    System.out.println("2. Nhà cung cấp quốc tế");
-                    int choiceType = sc.nextInt();
-                    sc.nextLine(); // Xóa bộ nhớ đệm
-
-                    NhaCungCap ncc;
-
-                    if (choiceType == 1) {
-                        ncc = new NhaCungCap(); // Tạo NCC Nội Địa
-                    } else if (choiceType == 2) {
-                        ncc = new NhaCungCapQuocTe(); // Tạo NCC Quốc Tế
-                    } else {
-                        System.out.println("Lựa chọn không hợp lệ, tạo NCC Nội Địa mặc định.");
-                        ncc = new NhaCungCap(); // Mặc định tạo NCC Nội Địa
-                    }
-
-                    // Nhập thông tin cho nhà cung cấp
-                    do {
-                        ncc.nhap(); // Nhập thông tin cho NCC
-                        if (trungMaNcc(ncc.getMaNCC())) {
-                            System.out.println("Mã nhà cung cấp này đã bị trùng vui lòng nhập lại.");
-                        }
-                    } while (trungMaNcc(ncc.getMaNCC()));
-
-                    // Nếu là NCC Quốc Tế, nhập thêm quốc gia
-                    if (ncc instanceof NhaCungCapQuocTe) {
-                        NhaCungCapQuocTe nccQuocTe = (NhaCungCapQuocTe) ncc;
-                        Scanner sc2 = new Scanner(System.in);
-                        System.out.print("Nhập quốc gia của nhà cung cấp quốc tế: ");
-                        nccQuocTe.setQuocGia(sc2.nextLine()); // Nhập quốc gia
-                    }
-
-                    // Lưu nhà cung cấp vào mảng dsncc
-                    dsncc[n + i] = ncc;
-                }
-            } else if (choice.equalsIgnoreCase("N")) {
-                System.out.println("Cảm ơn bạn !!!");
-                break;
-            } else {
-                System.out.println("Vui lòng nhập (Y/N) !!!");
-            }
+            dsncc[i+n]=ncc;
         }
     }
 
@@ -328,12 +254,20 @@ public class DanhSachNCC implements InterfaceDocGhi
         {
             if(dsncc[i].getTenNCC().toLowerCase().contains(findName))
             {
-                System.out.println("Vị trí của tên cần tìm là : " + i);
-                System.out.println("--Thông tin của nhà cung cấp--");
-                dsncc[i].xuat();
+                String format = "| %-5s | %-15s | %-20s | %-15s | %-55s | %-15s |\n";
+                System.out.format("+-------+-----------------+----------------------+-----------------+---------------------------------------------------------+-----------------+\n");
+                System.out.format(format, "STT", "Mã NCC", "Tên NCC", "SĐT", "Địa chỉ", "Quốc gia");
+                System.out.format("+-------+-----------------+----------------------+-----------------+---------------------------------------------------------+-----------------+\n");
+                String quocGia = (dsncc[i] instanceof NhaCungCapQuocTe)
+                        ? ((NhaCungCapQuocTe) dsncc[i]).getQuocGia()
+                        : "Nội địa";
+                System.out.format(format, i + 1, dsncc[i].getMaNCC(), dsncc[i].getTenNCC(),
+                        dsncc[i].getSdtNCC(), dsncc[i].getDiachiNCC(), quocGia);
                 found=true;
             }
         }
+        System.out.format("+-------+-----------------+----------------------+-----------------+---------------------------------------------------------+-----------------+\n");
+        System.out.println("\n");
         if(!found)
         {
             System.out.println("Không tìm thấy nhà cung cấp cần tìm !!!");
@@ -345,7 +279,7 @@ public class DanhSachNCC implements InterfaceDocGhi
                 return ncc;
             }
         }
-        return null; // Không tìm thấy
+        return null;
     }
 
     public void xuat() {
@@ -415,7 +349,6 @@ public class DanhSachNCC implements InterfaceDocGhi
                 dsncc = Arrays.copyOf(dsncc, dsncc.length + 1);
                 dsncc[dsncc.length - 1] = ncc;
             }
-            System.out.println("Dữ liệu đã được đọc thành công từ file.");
         } catch (IOException e) {
             System.out.println("Lỗi khi đọc từ file: " + e.getMessage());
         }

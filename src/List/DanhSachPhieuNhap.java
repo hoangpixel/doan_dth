@@ -27,110 +27,69 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
         return dspn;
     }
 
-    public boolean trungMaPN(String maPN) {
-        for (PhieuNhap ds : dspn) {
-            if (ds != null && ds.getMaPN().equals(maPN)) {
+    public boolean trungMa(String maPN)
+    {
+        for(int i=0;i<dspn.length;i++)
+        {
+            if(dspn[i] != null && (dspn[i].getMaPN().equals(maPN)))
+            {
                 return true;
             }
         }
         return false;
     }
-    public void nhapPhieuDS(DanhSachNCC danhSachNCC, DanhSachNhanVien danhSachNhanVien) {
-        Scanner sc = new Scanner(System.in);
 
-        System.out.print("Nhập số lượng phiếu nhập: ");
-        int n = sc.nextInt();
-        sc.nextLine(); // Xóa bộ nhớ đệm
-
-        dspn = new PhieuNhap[n];
-        String[] danhSachMaNCC = danhSachNCC.layDanhSachMaNCC(); // Lấy danh sách mã NCC từ DanhSachNCC
-        String[] danhSachMaNV = danhSachNhanVien.layDanhSachMaNV();
-        for (int i = 0; i < n; i++) {
-            System.out.println("-------- Phiếu nhập thứ " + (i + 1) + " --------");
-            PhieuNhap pn = new PhieuNhap();
-
-            do {
-                pn.nhapPhieu(danhSachMaNCC, danhSachMaNV); // Truyền danh sách mã NCC vào phương thức nhập
-                if (trungMaPN(pn.getMaPN())) {
-                    System.out.println("Mã phiếu nhập đã bị trùng! Vui lòng nhập lại.");
-                }
-            } while (trungMaPN(pn.getMaPN()));
-
-            dspn[i] = pn;
-        }
-    }
-    public void themkNcoHoi(DanhSachNCC danhSachNCC,DanhSachNhanVien danhSachNhanVien)
+    public void nhapPhieu()
     {
         Scanner sc=new Scanner(System.in);
-        int n=dspn.length;
-        int k;
-        while(true)
-        {
-            System.out.print("Bạn có muốn thêm phiếu nhập không? (Y/N) : ");
-            String choice=sc.nextLine();
-            if(choice.equals("Y"))
-            {
-                do {
-                    System.out.print("Nhập số lượng phiếu : ");
-                    k=sc.nextInt();
-                    sc.nextLine();
-                    if(k<0)
-                    {
-                        System.out.println("Vui lòng nhập lại !!!");
-                    }
-                }while(k<0);
-                dspn = Arrays.copyOf(dspn, n + k);
-                for (int i = 0; i < k; i++) {
-                    PhieuNhap pn = new PhieuNhap();
-                    String[] danhSachMaNCC = danhSachNCC.layDanhSachMaNCC();
-                    String[] danhSachMaNV = danhSachNhanVien.layDanhSachMaNV();
-                    do {
-                        pn.nhapPhieu(danhSachMaNCC, danhSachMaNV); // Truyền cả danh sách mã NCC và danh sách mã NV
-                        if (trungMaPN(pn.getMaPN())) {
-                            System.out.println("Mã phiếu nhập đã bị trùng vui lòng nhập lại !!!");
-                        }
-                    } while (trungMaPN(pn.getMaPN()));
-                    dspn[n + i] = pn;
-                }
-            }
-            else if(choice.equals("N"))
-            {
-                System.out.println("Cảm ơn bạn !!!");
-                break;
-            }
-            else
-            {
-                System.out.println("Vui lòng nhập (Y/N) !!!");
-            }
-        }
-    }
-    public void themKPhantu(DanhSachNCC danhSachNCC,DanhSachNhanVien danhSachNhanVien) {
-        Scanner sc = new Scanner(System.in);
-        int k;
-        int n = dspn.length;
-        System.out.print("Nhập số lượng phiếu nhập muốn thêm: ");
-        k = sc.nextInt();
+        int n;
+        System.out.print("Nhập số lượng phiếu nhập : ");
+        n=sc.nextInt();
         sc.nextLine();
-        if (k < 0) {
-            System.out.println("Vui lòng nhập số dương !!!");
-            return;
-        }
-        dspn = Arrays.copyOf(dspn, n + k);
-        for (int i = 0; i < k; i++) {
+        dspn = new PhieuNhap[n];
+        for(int i=0;i<n;i++)
+        {
             PhieuNhap pn = new PhieuNhap();
-            String[] danhSachMaNCC = danhSachNCC.layDanhSachMaNCC();
-            String[] danhSachMaNV = danhSachNhanVien.layDanhSachMaNV();
-            do {
-                pn.nhapPhieu(danhSachMaNCC, danhSachMaNV); // Truyền cả danh sách mã NCC và danh sách mã NV
-                if (trungMaPN(pn.getMaPN())) {
-                    System.out.println("Mã phiếu nhập đã bị trùng vui lòng nhập lại !!!");
-                }
-            } while (trungMaPN(pn.getMaPN()));
-            dspn[n + i] = pn;
+            pn.nhapPhieu();
+            while(trungMa(pn.getMaPN()))
+            {
+                System.out.println("Mã phiếu đã bị trùng vui lòng nhập lại !!!");
+                System.out.print("Nhập mã phiếu mới : ");
+                String newMa=sc.nextLine();
+                pn.setMaPN(newMa);
+            }
+            dspn[i]=pn;
         }
-        System.out.println("Đã thêm " + k + " phiếu nhập vào danh sách.");
     }
 
+    public void themK()
+    {
+        Scanner sc=new Scanner(System.in);
+        int n=dspn.length,k;
+        do {
+            System.out.print("Nhập số lượng phiếu nhập : ");
+            k=sc.nextInt();
+            sc.nextLine();
+            if(k<=0)
+            {
+                System.out.println("Vui lòng nhập số nguyên dương !!!");
+            }
+        }while(k<=0);
+        dspn = Arrays.copyOf(dspn,n+k);
+        for(int i=0;i<k;i++)
+        {
+            PhieuNhap pn = new PhieuNhap();
+            pn.nhapPhieu();
+            while(trungMa(pn.getMaPN()))
+            {
+                System.out.println("Mã phiếu đã bị trùng vui lòng nhập lại !!!");
+                System.out.print("Nhập lại mã phiếu mới : ");
+                String newMa=sc.nextLine();
+                pn.setMaPN(newMa);
+            }
+            dspn[n+i]=pn;
+        }
+    }
     public void xoaPhanTu()
     {
         Scanner sc=new Scanner(System.in);
