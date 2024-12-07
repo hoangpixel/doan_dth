@@ -135,42 +135,42 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 		this.xuatDS();
 	}
 	
-//	public void xuatDS() {
-//		String format = "| %-5s | %-28s | %-12s | %-12s | %-8s | %-13s | %-17s | %-21s |\n";
-//		System.out.format("+-------+------------------------------+--------------+--------------+----------+---------------+-------------------+-----------------------+\n");
-//		System.out.format(format, "Mã ĐT", "Tên điện thoại", "Hãng", "Đơn giá", "Số lượng", "Hệ điều hành", "Màu", "Thuộc tính riêng");
-//		System.out.format("+-------+------------------------------+--------------+--------------+----------+---------------+-------------------+-----------------------+\n");
-//		for(int i = 0; i < dsdt.length; i++) {
-//			dsdt[i].xuat();
-//		}
-//		System.out.format("+-------+------------------------------+--------------+--------------+----------+---------------+-------------------+-----------------------+\n");
-//        System.out.println("\n");
-//	}
-
 	public void xuatDS() {
-		// Khởi tạo DecimalFormat để định dạng đơn giá
-		DecimalFormat df = new DecimalFormat("#,###.0");
-
-		// Định dạng bảng
 		String format = "| %-5s | %-28s | %-12s | %-12s | %-8s | %-13s | %-17s | %-21s |\n";
 		System.out.format("+-------+------------------------------+--------------+--------------+----------+---------------+-------------------+-----------------------+\n");
 		System.out.format(format, "Mã ĐT", "Tên điện thoại", "Hãng", "Đơn giá", "Số lượng", "Hệ điều hành", "Màu", "Thuộc tính riêng");
 		System.out.format("+-------+------------------------------+--------------+--------------+----------+---------------+-------------------+-----------------------+\n");
-
-		// Duyệt qua danh sách và gọi phương thức xuat của từng điện thoại
-		for (int i = 0; i < dsdt.length; i++) {
-			DienThoai dt = dsdt[i];
-			// Định dạng lại đơn giá
-			String formattedPrice = df.format(dt.getDongia()); // Giả sử getDonGia() trả về đơn giá của điện thoại
-			// In chi tiết từng điện thoại với đơn giá đã được định dạng
-			System.out.format(format, dt.getMaDT(), dt.getTenDT(), dt.getHang(), formattedPrice,
-					dt.getSoluong(), dt.getHedieuhanh(), dt.getMau(), dt.getThuocTinh());
+		for(int i = 0; i < dsdt.length; i++) {
+			dsdt[i].xuat();
 		}
-
-		// In dòng kết thúc bảng
 		System.out.format("+-------+------------------------------+--------------+--------------+----------+---------------+-------------------+-----------------------+\n");
-		System.out.println("\n");
+        System.out.println("\n");
 	}
+
+//	public void xuatDS() {
+//		// Khởi tạo DecimalFormat để định dạng đơn giá
+//		DecimalFormat df = new DecimalFormat("#,###.0");
+//
+//		// Định dạng bảng
+//		String format = "| %-5s | %-28s | %-12s | %-12s | %-8s | %-13s | %-17s | %-21s |\n";
+//		System.out.format("+-------+------------------------------+--------------+--------------+----------+---------------+-------------------+-----------------------+\n");
+//		System.out.format(format, "Mã ĐT", "Tên điện thoại", "Hãng", "Đơn giá", "Số lượng", "Hệ điều hành", "Màu", "Thuộc tính riêng");
+//		System.out.format("+-------+------------------------------+--------------+--------------+----------+---------------+-------------------+-----------------------+\n");
+//
+//		// Duyệt qua danh sách và gọi phương thức xuat của từng điện thoại
+//		for (int i = 0; i < dsdt.length; i++) {
+//			DienThoai dt = dsdt[i];
+//			// Định dạng lại đơn giá
+//			String formattedPrice = df.format(dt.getDongia()); // Giả sử getDonGia() trả về đơn giá của điện thoại
+//			// In chi tiết từng điện thoại với đơn giá đã được định dạng
+//			System.out.format(format, dt.getMaDT(), dt.getTenDT(), dt.getHang(), formattedPrice,
+//					dt.getSoluong(), dt.getHedieuhanh(), dt.getMau(), dt.getThuocTinh());
+//		}
+//
+//		// In dòng kết thúc bảng
+//		System.out.format("+-------+------------------------------+--------------+--------------+----------+---------------+-------------------+-----------------------+\n");
+//		System.out.println("\n");
+//	}
 	
 	public void xoa_maDT() {
 		System.out.print("---Nhập mã điện thoại cần xóa: ");
