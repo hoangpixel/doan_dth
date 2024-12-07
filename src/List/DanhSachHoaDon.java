@@ -42,6 +42,7 @@ public int length(){
 public void add(HoaDon a){
     dshd = Arrays.copyOf(dshd, dshd.length + 1);
     dshd[dshd.length - 1] = a;
+    n += 1;
 }
 
 public String taoMaHd() {

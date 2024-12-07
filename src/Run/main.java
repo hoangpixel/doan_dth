@@ -483,6 +483,7 @@ public class main {
         // Them hoa don va chi tiet hoa don va khach hang vao he thong
 
         dshd.add(hd_temp);
+
         for (ChiTietHoaDon a :cthd_list_temp){
             dscthd.add(a);
         }
