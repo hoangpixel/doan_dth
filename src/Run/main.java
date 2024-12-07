@@ -1,16 +1,11 @@
 package Run;
-import Constructors.ChiTietPhieuNhap;
-import List.DanhSachNCC;
-import List.DanhSachNhanVien;
-import List.DanhSachPhieuNhap;
-import List.DSKhachHang;
-import List.DanhSachCTPN;
-import List.DanhSachDienThoai;
-import List.DanhSachChiTietHoaDon;
-import List.DanhSachHoaDon;
+import Constructors.*;
+import List.*;
+
+import java.util.Arrays;
 import java.util.Scanner;
 public class main {
-    public static void main() {
+    public static void main(NhanVien a) {
         Scanner sc = new Scanner(System.in);
         DanhSachNCC danhSachNCC = new DanhSachNCC();
         DanhSachPhieuNhap danhSachPhieuNhap = new DanhSachPhieuNhap();
@@ -45,6 +40,7 @@ public class main {
             System.out.println("| 7. Nhập và quản lý hoá đơn                 |");
             System.out.println("| 8. Xuất tất cả dữ liệu ra file             |");
             System.out.println("| 9. Tìm kiếm nâng cao                       |");
+            System.out.println("| 10. Tạo đơn hàng mới                       |");
             System.out.println("| 0. Thoát                                   |");
             System.out.println("----------------------------------------------");
             System.out.print("Vui lòng chọn một tùy chọn: ");
@@ -109,6 +105,8 @@ public class main {
                 case 9:
                     timKiemNangCaoThuNhat(danhSachNCC,danhSachPhieuNhap);
                     break;
+                case 10:
+                    checkout(dsdt, dskh, danhsachHD, dscthd, a);
                 case 0:
                     System.out.println("Cảm ơn đã sử dụng chương trình. Tạm biệt!");
                     return;
@@ -375,4 +373,92 @@ public class main {
 			
 		} while (luaChon != 0);
 	}
+
+    public static void checkout(DanhSachDienThoai dsdt, DSKhachHang dskh, DanhSachHoaDon dshd, DanhSachChiTietHoaDon dscthd, NhanVien nv){
+        Scanner sc = new Scanner(System.in);
+        boolean done = false;
+        DienThoai[] dt = new DienThoai[0];
+        System.out.println("============Tạo đơn hàng============");
+
+        // logic xử lý khách hàng
+
+        System.out.println("Nhập số điện thoại khách hàng: ");
+        String sdt = sc.nextLine();
+        KhachHang kh = dskh.timkiemSDT(sdt);
+        // Nếu không tìm thấy khách hàng trong ds thì tạo mới
+        if(kh == null) {
+            System.out.println("Khách hàng không tồn tại, vui lòng nhập thông tin khách hàng mới.");
+            System.out.println("Nhập tên khách hàng: ");
+            String tenKH = sc.nextLine();
+            KhachHang[] arr_dskh = dskh.getKh();
+            kh = new KhachHang(dskh.taoMaKH(), tenKH, sdt, 0);
+        }
+
+        //Thêm vào file
+
+
+        // xử lý mua hàng
+        do{
+            //dsdt.xuatDS();
+            System.out.println("Nhập mã điện thoại cần mua: ");
+            DienThoai a = null;
+            do {
+                String ma = sc.nextLine();
+                a = dsdt.timKiem_maDT(ma);
+                if(a == null ) {
+                    System.out.println("Nhập sai mã, vui lòng nhập lại mã điện thoại cần mua: ");
+                }
+            }while(a == null);
+            System.out.println("Nhập số lượng điện thoại:");
+            int quan = sc.nextInt();
+            sc.nextLine();
+            a.setSoluong(quan);
+            dt = Arrays.copyOf(dt, dt.length+1);
+            dt[dt.length - 1] = a;
+            System.out.println("Đã thêm điện thoại.");
+            boolean validChoice = false;
+            while (!validChoice) {
+                System.out.println("1. Thêm điện thoại khác");
+                System.out.println("2. Xác nhận đơn hàng");
+                System.out.println("3. Hủy");
+                System.out.print("Nhập lựa chọn tiếp theo: ");
+                int choice = sc.nextInt();
+                sc.nextLine();  // Đọc hết dòng nhập
+
+                switch (choice) {
+                    case 1:
+                        // Tiếp tục chọn thêm sản phẩm
+                        validChoice = true;  // Chưa hoàn tất, tiếp tục vòng lặp
+                        break;
+                    case 2:
+                        // Xác nhận đơn hàng
+                        System.out.println("Đơn hàng đã được xác nhận.");
+                        done = true;  // Kết thúc vòng lặp chính
+                        validChoice = true;  // Đã chọn xác nhận, thoát khỏi vòng lặp con
+                        break;
+                    case 3:
+                        // Hủy đơn hàng
+                        System.out.println("Đơn hàng đã bị hủy.");
+                        return;
+                    default:
+                        System.out.println("Lựa chọn không hợp lệ. Vui lòng chọn lại.");
+                        validChoice = false;  // Tiếp tục vòng lặp nếu lựa chọn không hợp lệ
+                }
+            }
+        } while (!done);
+
+        //Xử lý cthd
+        // tạo mã hóa đơn mới
+//        ...
+
+
+        ChiTietHoaDon[] cthd = new ChiTietHoaDon[dt.length];
+        for(int i = 0; i < cthd.length; i++) {
+            cthd[i] = new ChiTietHoaDon();
+        }
+
+        // ử lý hóa đơn
+
+
+    }
 }

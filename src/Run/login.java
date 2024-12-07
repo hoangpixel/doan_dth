@@ -22,7 +22,7 @@ public class login {
             {
                 if((taikhoan.equals(nv[i].getMaNv())) && matkhau.equals("admin123"))
                 {
-                    main.main();
+                    main.main(nv[i]);
                     dn=true;
                     break;
                 }

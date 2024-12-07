@@ -173,6 +173,15 @@ public class DSKhachHang {
         }
         System.out.println("Không tìm thấy khách hàng");
     }
+
+    public KhachHang timkiemSDT(String sdt){
+        for (int i = 0; i < kh.length; i++){
+            if((kh[i].getSdt()).equals(sdt)){
+                return kh[i];
+            }
+        }
+        return null;
+    }
     
     public void timkiemMA(){
         Scanner sc = new Scanner(System.in);
