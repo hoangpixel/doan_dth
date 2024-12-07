@@ -2,6 +2,8 @@ package Run;
 import Constructors.*;
 import List.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Scanner;
 public class main {
@@ -107,6 +109,7 @@ public class main {
                     break;
                 case 10:
                     checkout(dsdt, dskh, danhsachHD, dscthd, a);
+                    break;
                 case 0:
                     System.out.println("Cảm ơn đã sử dụng chương trình. Tạm biệt!");
                     return;
@@ -373,7 +376,16 @@ public class main {
 			
 		} while (luaChon != 0);
 	}
+    public static String getFormattedDateTime() {
+        // Lấy thời gian hiện tại
+        LocalDateTime now = LocalDateTime.now();
 
+        // Định dạng theo kiểu "giờ/ngày/tháng/năm"
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm/dd/MM/yyyy");
+
+        // Trả về chuỗi đã định dạng
+        return now.format(formatter);
+    }
     public static void checkout(DanhSachDienThoai dsdt, DSKhachHang dskh, DanhSachHoaDon dshd, DanhSachChiTietHoaDon dscthd, NhanVien nv){
         Scanner sc = new Scanner(System.in);
         boolean done = false;
@@ -390,16 +402,13 @@ public class main {
             System.out.println("Khách hàng không tồn tại, vui lòng nhập thông tin khách hàng mới.");
             System.out.println("Nhập tên khách hàng: ");
             String tenKH = sc.nextLine();
-            KhachHang[] arr_dskh = dskh.getKh();
             kh = new KhachHang(dskh.taoMaKH(), tenKH, sdt, 0);
         }
-
-        //Thêm vào file
 
 
         // xử lý mua hàng
         do{
-            //dsdt.xuatDS();
+            dsdt.xuatDS();
             System.out.println("Nhập mã điện thoại cần mua: ");
             DienThoai a = null;
             do {
@@ -447,14 +456,26 @@ public class main {
             }
         } while (!done);
 
-        //Xử lý cthd
-        // tạo mã hóa đơn mới
-//        ...
+        // Tao hoa don moi
 
+        float tongtien = 0;
+        for(DienThoai dienthoai : dt){
+            tongtien += dienthoai.getDongia()*dienthoai.getSoluong();
+        }
+        HoaDon hd_temp = new HoaDon(dshd.taoMaHd(), getFormattedDateTime(), nv.getMaNv(), kh.getMakh(), tongtien );
 
-        ChiTietHoaDon[] cthd = new ChiTietHoaDon[dt.length];
-        for(int i = 0; i < cthd.length; i++) {
-            cthd[i] = new ChiTietHoaDon();
+        //Tao cthd moi
+
+        ChiTietHoaDon[] cthd_list_temp = new ChiTietHoaDon[0];
+        for(DienThoai dienthoai : dt){
+            ChiTietHoaDon cthd_new = new ChiTietHoaDon(hd_temp.getMaHd(), dienthoai.getMaDT(), dienthoai.getSoluong(), dienthoai.getDongia());
+            cthd_list_temp = Arrays.copyOf(cthd_list_temp, cthd_list_temp.length + 1);
+            cthd_list_temp[cthd_list_temp.length - 1] = cthd_new;
+        }
+
+        hd_temp.xuat();
+        for(int i = 0; i < cthd_list_temp.length; i++){
+            cthd_list_temp[i].xuatCTHD();
         }
 
         // ử lý hóa đơn

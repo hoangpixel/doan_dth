@@ -31,6 +31,10 @@ public class DanhSachChiTietHoaDon {
         this.cthd = cthd;
     }
 
+    public int length(){
+        return cthd.length;
+    }
+
     public void nhapDSCTHD(){
         System.out.println("Nhập số lượng chi tiết hóa đơn muốn thêm: ");
         int soluong = sc.nextInt();
@@ -48,6 +52,11 @@ public class DanhSachChiTietHoaDon {
         cthd = Arrays.copyOf(cthd, cthd.length + 1);
         ChiTietHoaDon a = new ChiTietHoaDon();
         a.nhapCTHD();
+        cthd[cthd.length - 1] = a;
+    }
+
+    public void themCTHD(ChiTietHoaDon a){
+        cthd = Arrays.copyOf(cthd, cthd.length + 1);
         cthd[cthd.length - 1] = a;
     }
 

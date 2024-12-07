@@ -24,6 +24,14 @@ public class ChiTietHoaDon {
         this.thanhtien = thanhtien;
     }
 
+    public ChiTietHoaDon(String mahd, String madt, int soluong, float dongia) {
+        this.mahd = mahd;
+        this.madt = madt;
+        this.soluong = soluong;
+        this.dongia = dongia;
+        this.thanhtien = soluong*dongia;
+    }
+
     public ChiTietHoaDon(ChiTietHoaDon a) {
         this.mahd = a.mahd;
         this.madt = a.madt;
