@@ -8,7 +8,6 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import Interfaces.InterfaceDocGhi;
-import TypeNCC.NhaCungCapNoiDia;
 import TypeNCC.NhaCungCapQuocTe;
 public class DanhSachNCC implements InterfaceDocGhi
 {

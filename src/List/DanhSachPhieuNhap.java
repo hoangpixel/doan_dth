@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.text.DecimalFormat;
 public class DanhSachPhieuNhap implements InterfaceDocGhi
 {
     private static PhieuNhap[] dspn;
@@ -369,6 +370,8 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
         }
     }
     public void xuatDs() {
+
+        DecimalFormat df = new DecimalFormat("#,###");
         if (dspn.length == 0)
         {
             System.out.println("Danh sách phiếu nhập trống.");
@@ -381,7 +384,7 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
 
         for (int i = 0; i < dspn.length; i++) {
             System.out.format(format, dspn[i].getMaPN(), dspn[i].getNgayNhap(), dspn[i].getMaNCC(),
-                    dspn[i].getMaNV(), dspn[i].getTongTien());
+                    dspn[i].getMaNV(), df.format(dspn[i].getTongTien()));
         }
 
         System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");

@@ -3,6 +3,7 @@ import List.DanhSachCTPN;
 import java.util.Scanner;
 import List.DanhSachNCC;
 import List.DanhSachNhanVien;
+import java.text.DecimalFormat;
 public class PhieuNhap
 {
     private String maPN;
@@ -32,8 +33,19 @@ public class PhieuNhap
     public void nhapPhieu()
     {
         Scanner sc=new Scanner(System.in);
-        System.out.print("Nhập mã phiếu : ");
-        this.maPN=sc.nextLine();
+        while(true)
+        {
+            System.out.print("Nhập mã phiếu : ");
+            this.maPN=sc.nextLine();
+            if(this.maPN.matches("PN\\d{2}"))
+            {
+                break;
+            }
+            else
+            {
+                System.out.println("Vui lòng nhập mã phiếu theo dạng (PN..) !!!");
+            }
+        }
         while(true)
         {
             System.out.print("Nhập ngày nhập phiếu : ");
@@ -115,12 +127,12 @@ public class PhieuNhap
     }
     public void xuatPhieuNhap() {
 
-
+        DecimalFormat df = new DecimalFormat("#,###");
         String format = "| %-15s | %-20s | %-15s | %-15s | %-15s |\n";
         System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
         System.out.format(format, "Mã phiếu nhập", "Ngày nhập", "Mã NCC", "Mã NV", "Tổng tiền");
         System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
-        System.out.format(format, maPN, ngayNhap, maNCC, maNV, tongTien);
+        System.out.format(format, maPN, ngayNhap, maNCC, maNV, df.format(tongTien));
         System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
     }
 

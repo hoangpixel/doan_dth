@@ -4,3 +4,5 @@ NCC03;Nguyễn Khiết Đan;1900 4589;350-352 Võ Văn Kiệt, P.Cô Giang, Qu�
 NCC04;Cristiano Messi;51754491;St. Regis Red Sea, Saudi Arabia;Bồ Đào Nha
 NCC05;Jame Bold;1497733;34 Sunny Isles Beach;Vương Quốc Anh
 NCC06;Trương Thế Quân;1800 9234;124 Hương Lộ 2, P.Bình Thạnh, Bình Tân, Hồ Chí Minh;
+NCC07;Leonardo DiCaprio;3782 2381;11, 1974, Los Angeles, California;Mỹ
+NCC08;Leonardo da Vinci;0381 8186;12 , Amboise, Pháp;Pháp
