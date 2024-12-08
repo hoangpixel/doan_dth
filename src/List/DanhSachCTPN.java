@@ -331,9 +331,12 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 		dspn.docFile();
 		
 		DanhSachCTPN dsctpn = new DanhSachCTPN();
+		dsctpn.docFile();
 		dsctpn.them_K_CTPN();
+		dsctpn.xuatDS();
+		dsctpn.ghiFile();
+		dspn.ghiFile();
 		System.out.println("finish");
 	}
-	
 	
 }

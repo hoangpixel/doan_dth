@@ -59,7 +59,7 @@ public class main {
                     menuPN(danhSachPhieuNhap);
                     break;
                 case 4:
-                	menuCTPN(dsct);
+                	menuCTPN(dsct,danhSachPhieuNhap);
                 	break;
                 case 5:
                     danhsachNV.menu();
@@ -317,7 +317,7 @@ public class main {
 		} while (luaChon != 0);
 	}
     
-    public static void menuCTPN(DanhSachCTPN danhSachCTPN) {
+    public static void menuCTPN(DanhSachCTPN danhSachCTPN, DanhSachPhieuNhap dspn) {
 		Scanner sc = new Scanner(System.in);
 		int luaChon;
 		do {
@@ -341,7 +341,8 @@ public class main {
 			}
 			case 2: {
 				danhSachCTPN.them_K_CTPN();
-                danhSachCTPN.capNhatTongTien();
+				dspn.ghiFile();
+//                danhSachCTPN.capNhatTongTien();
 				break;
 			}
 			case 3: {

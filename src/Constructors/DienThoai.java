@@ -1,5 +1,6 @@
 package Constructors;
 
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public abstract class DienThoai {
@@ -118,8 +119,9 @@ public abstract class DienThoai {
 		this.mau = sc.nextLine();
 	}
 	public void xuat() {
-		String format = "| %-5s | %-28s | %-12s | %-12.1f | %-8s | %-13s | %-17s |";
-		System.out.format(format, this.maDT, this.tenDT, this.hang, this.dongia,
+		DecimalFormat df = new DecimalFormat("#,###");
+		String format = "| %-5s | %-28s | %-12s | %-12s | %-8s | %-13s | %-17s |";
+		System.out.format(format, this.maDT, this.tenDT, this.hang, df.format(this.dongia),
 				this.soluong, this.hedieuhanh, this.mau);
 	}
 	

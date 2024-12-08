@@ -1,5 +1,6 @@
 package Constructors;
 
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 import List.DanhSachDienThoai;
@@ -89,8 +90,9 @@ public class ChiTietPhieuNhap {
 	}
 	
 	public void xuat() {
+		DecimalFormat df = new DecimalFormat("#,###");
 		String format = "| %-13s | %-10s | %-10s | %-15s | %-15s |\n";
-		System.out.format(format, this.maPN, this.maDT, this.soluong, this.dongia, this.thanhtien);
+		System.out.format(format, this.maPN, this.maDT, this.soluong, df.format(this.dongia), df.format(this.thanhtien));
 	}
 	
 	
