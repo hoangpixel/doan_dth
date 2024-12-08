@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.text.DecimalFormat;
 public class DanhSachNhanVien
 {
     private int n=0;
@@ -58,11 +59,12 @@ public class DanhSachNhanVien
         return;
         }
         String format = "| %-15s | %-20s | %-15s | %-30s | %-15s | %-20s | %-15s | %-30s |\n";
+	DecimalFormat df = new DecimalFormat("#,###.0");
         System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+----------------------+-----------------+--------------------------------+\n");
         System.out.format(format, "Mã nhân viên", "Họ nhân viên", "Tên nhân viên", "Lương", "Chức vụ", "Số điện thoại", "Số căn cước", "Địa chỉ");
         System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+----------------------+-----------------+--------------------------------+\n");
         for(int i=0; i<n; i=i+1)
-            System.out.format(format, dsnv[i].getMaNv(), dsnv[i].getHoNv(), dsnv[i].getTenNv(),dsnv[i].getLuong(), dsnv[i].getChucVu(), dsnv[i].getSdtNv(), dsnv[i].getSoCanCuoc(), dsnv[i].getDiaChiNv());
+        System.out.format(format, dsnv[i].getMaNv(), dsnv[i].getHoNv(), dsnv[i].getTenNv(),df.format(dsnv[i].getLuong()), dsnv[i].getChucVu(), dsnv[i].getSdtNv(), dsnv[i].getSoCanCuoc(), dsnv[i].getDiaChiNv());
         System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+----------------------+-----------------+--------------------------------+\n");
     }
     void them()
@@ -391,62 +393,58 @@ public class DanhSachNhanVien
         int choice;
         Scanner nhap = new Scanner(System.in);
         do {
-            System.out.println("\n--- Menu ---");
-            System.out.println("| 1. Nhập danh sách nhân viên                          |");
+            System.out.println("\n------------------------- MENU -----------------------");
+            System.out.println("| 1. Thêm nhân viên                                    |");
             System.out.println("| 2. Xuất danh sách nhân viên                          |");
-            System.out.println("| 3. Thêm nhân viên                                    |");
-            System.out.println("| 4. Xoá nhân viên theo mã nhân viên                   |");
-            System.out.println("| 5. Tìm nhân viên theo mã nhân viên                   |");
-            System.out.println("| 6. Tìm nhân viên theo họ nhân viên                   |");
-            System.out.println("| 7. Tìm nhân viên theo tên nhân viên                  |");
-            System.out.println("| 8. Sửa thông tin nhân viên                           |");
-            System.out.println("| 9. Thống kê số lượng nhân viên trong danh sách                            |");
-            System.out.println("| 10. Thống kê lương của nhân viên                     |");
-            System.out.println("| 11. Thống kê lương cao nhất, thấp nhất của nhân viên |");
-            System.out.println("| 12. Thoát                                            |");
-            System.out.println("----------------------------------------------");
+            System.out.println("| 3. Xoá nhân viên theo mã nhân viên                   |");
+            System.out.println("| 4. Tìm nhân viên theo mã nhân viên                   |");
+            System.out.println("| 5. Tìm nhân viên theo họ nhân viên                   |");
+            System.out.println("| 6. Tìm nhân viên theo tên nhân viên                  |");
+            System.out.println("| 7. Sửa thông tin nhân viên                           |");
+            System.out.println("| 8. Thống kê số lượng nhân viên trong danh sách       |");
+            System.out.println("| 9. Thống kê lương của nhân viên                      |");
+            System.out.println("| 10. Thống kê lương cao nhất, thấp nhất của nhân viên |");
+            System.out.println("| 11. Thoát                                            |");
+            System.out.println("------------------------------------------------------");
             System.out.print("Vui lòng nhập lựa chọn của bạn (1->12): ");
             choice = nhap.nextInt();
             switch (choice) {
                 case 1:
-                    nhapdsnv();
+                    them();
                     break;
                 case 2:
                     xuatdsnv();
                     break;
                 case 3:
-                    them();
-                    break;
-                case 4:
                     xoaTheoMa();
                     break;
-                case 5:
+                case 4:
                     timTheoMa();
                     break;
-                case 6:
+                case 5:
                     timTheoHo();
                     break;
-                case 7:
+                case 6:
                     timTheoTen();
                     break;
-                case 8:
+                case 7:
                     suaTheoMa();
                     break;
-                case 9:
+                case 8:
                     thongKe();
                     break;
-                case 10:
+                case 9:
                     thongKeLuong();
                     break;
-                case 11:
+                case 10:
                     thongKeMinMax();
                     break;
-                case 12:
+                case 11:
                     System.out.println("Bạn chọn thoát");
                     break;
                 default:
-                    System.out.println("Lưa chọn không hợp lệ (1 -> 12)");
+                    System.out.println("Lưa chọn không hợp lệ (1 -> 11)");
             }
-        } while (choice != 12);
+        } while (choice != 11);
     }
 }
