@@ -152,7 +152,7 @@ public class main {
                     danhSachNCC.xoaMotNCC();
                     break;
                 case 6:
-                    danhSachNCC.thongKeNCC();
+                    danhSachNCC.thongKeSoNCC();
                     break;
                 case 0:
                     return;
@@ -171,7 +171,7 @@ public class main {
             System.out.println("| 3. Sửa phiếu nhập                          |");
             System.out.println("| 4. Tìm kiếm phiếu nhập                     |");
             System.out.println("| 5. Xóa phiếu nhập                          |");
-            System.out.println("| 6. Thống kê số phiếu nhập                  |");
+            System.out.println("| 6. Thống kê theo số tiền min và max        |");
             System.out.println("| 7. Thống kê tổng số tiền                   |");
             System.out.println("| 0. Quay lại menu chính                     |");
             System.out.println("----------------------------------------------");
@@ -195,7 +195,7 @@ public class main {
                     danhSachPhieuNhap.xoaPhanTu();
                     break;
                 case 6:
-                    danhSachPhieuNhap.thongKe();
+                    danhSachPhieuNhap.thongKeTheoTien();
                     break;
                 case 7:
                     danhSachPhieuNhap.thongKeTien();

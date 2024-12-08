@@ -245,6 +245,33 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
         }
         System.out.println("Có " + d + " phiếu nhập trong danh sách");
     }
+    public void thongKeTheoTien()
+    {
+        DecimalFormat df = new DecimalFormat("#,###");
+        Scanner sc=new Scanner(System.in);
+        float min=0;
+        float max=0;
+        System.out.print("Nhập tổng tiền nhỏ nhất : ");
+        min=sc.nextFloat();
+        System.out.print("Nhập tổng tiền lớn nhất : ");
+        max=sc.nextFloat();
+        String format = "| %-15s | %-20s | %-15s | %-15s | %-15s |\n";
+        System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
+        System.out.format(format, "Mã phiếu nhập", "Ngày nhập", "Mã NCC", "Mã NV", "Tổng tiền");
+        System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
+
+        for (int i = 0; i < dspn.length; i++)
+        {
+            if(dspn[i].getTongTien() >= min && dspn[i].getTongTien() <= max)
+            {
+                System.out.format(format, dspn[i].getMaPN(), dspn[i].getNgayNhap(), dspn[i].getMaNCC(),
+                        dspn[i].getMaNV(), df.format(dspn[i].getTongTien()));
+            }
+        }
+
+        System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
+        System.out.println("\n");
+    }
     public void docFile() {
         try (BufferedReader reader = new BufferedReader(new FileReader("src/data/ListPhieuNhap.txt"))) {
             String line;
