@@ -54,7 +54,7 @@ public class HoaDon {
         System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+\n");
         System.out.format(format, "Mã hoá đơn", "Ngày lập hoá đơn", "Mã nhân viên", "Mã khách hàng", "Tổng tiền");
         System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+\n");
-        System.out.format(format, manv, honv, tennv, df.format(luong), chucvu, sdtnv, socancuoc, diachinv);
+        System.out.format(format, mahd, ngaylaphd, manv, makh, df.format(tongtien));
         System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+\n");
     }
     public int getYear(){
