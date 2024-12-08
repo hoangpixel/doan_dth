@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Constructors;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 /**
  *
@@ -85,9 +86,10 @@ public class KhachHang {
 //    }
 
     public void xuat(){
+        DecimalFormat df = new DecimalFormat("#,###.00");
         String format = "| %-15s | %-30s | %-15s | %-20s |\n";  // Cập nhật độ rộng cột "Tổng tiền"
         System.out.format("+-----------------+------------------------------+-----------------+------------------------+\n");
-        System.out.format(format, makh, tenkh, sdt, tongtien);
+        System.out.format(format, makh, tenkh, sdt, df.format(tongtien));
         System.out.format("+-----------------+------------------------------+-----------------+------------------------+\n");
 
     }

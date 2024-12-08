@@ -1,4 +1,5 @@
 package Constructors;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class ChiTietHoaDon {
@@ -106,11 +107,12 @@ public class ChiTietHoaDon {
 //    }
 
     public void xuatCTHD() {
+        DecimalFormat df = new DecimalFormat("#,###.00");
         // Cập nhật định dạng cho bảng
         String format = "| %-15s | %-15s | %-10s | %-15s | %-20s |\n";
         System.out.format("+-----------------+-----------------+------------+-----------------+----------------------+\n");
         // In thông tin chi tiết hoá đơn
-        System.out.format(format, mahd, madt, soluong, dongia, thanhtien);
+        System.out.format(format, mahd, madt, soluong, df.format(dongia), df.format(thanhtien));
         System.out.format("+-----------------+-----------------+------------+-----------------+----------------------+\n");
     }
 

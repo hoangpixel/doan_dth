@@ -475,6 +475,8 @@ public class main {
             cthd_list_temp[cthd_list_temp.length - 1] = cthd_new;
         }
 
+        //Giam
+
         hd_temp.xuat();
         for(int i = 0; i < cthd_list_temp.length; i++){
             cthd_list_temp[i].xuatCTHD();

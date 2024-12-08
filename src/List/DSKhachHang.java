@@ -1,5 +1,7 @@
 package List;
 import Constructors.KhachHang;
+
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.io.BufferedReader;
@@ -202,7 +204,7 @@ public class DSKhachHang {
         System.out.println("Nhập tên khách hàng: ");
         String ten_temp = sc.nextLine();
         for (int i = 0; i < kh.length; i++){
-            if((kh[i].getTenkh()).equals(ten_temp)){
+            if((kh[i].getTenkh()).contains(ten_temp)){
             kh[i].xuat();
             return ;
             }
@@ -211,16 +213,18 @@ public class DSKhachHang {
     }
     
     public void thongKeKhachHang() {
-    int soLuongKhachHang = 0; 
-    float tongTien = 0;
-    for (KhachHang khach : kh) {
-        if (khach != null) {
-            soLuongKhachHang++;
-            tongTien += khach.getTongtien(); 
+        DecimalFormat df = new DecimalFormat("#,###.00");
+        int soLuongKhachHang = 0;
+        float tongTien = 0;
+        for (KhachHang khach : kh) {
+            if (khach != null) {
+                soLuongKhachHang++;
+                tongTien += khach.getTongtien();
+            }
         }
-    }
-    System.out.println("Tổng số khách hàng: " + soLuongKhachHang);
-    System.out.println("Tổng tiền của tất cả khách hàng: " + tongTien + " VNĐ");
+        System.out.println("Tổng số khách hàng: " + soLuongKhachHang);
+        System.out.println("Tổng tiền của tất cả khách hàng: " + df.format(tongTien) + " VNĐ");
+
 }
     
     public void docFile(String filePath) {
@@ -289,7 +293,7 @@ public String[] layDanhSachMaKh() {
             System.out.println("7. Tìm kiếm khách hàng theo mã");
             System.out.println("8. Thống kê");
             System.out.println("9. Thoát");
-            System.out.print("Chọn thao tác (1-5): ");
+            System.out.print("Chọn thao tác (1-9): ");
             
             int choice = sc.nextInt();
             sc.nextLine();  // Đọc dòng thừa sau khi nextInt()

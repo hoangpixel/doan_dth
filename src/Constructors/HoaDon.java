@@ -1,4 +1,5 @@
 package Constructors;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -48,11 +49,12 @@ public class HoaDon {
         System.out.println("---");
     }
     public void xuat(){
+        DecimalFormat df = new DecimalFormat("#,###.00");
         String format = "| %-15s | %-20s | %-15s | %-30s | %-15s |\n";
         System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+\n");
         System.out.format(format, "Mã hoá đơn", "Ngày lập hoá đơn", "Mã nhân viên", "Mã khách hàng", "Tổng tiền");
         System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+\n");
-        System.out.format(format, mahd, ngaylaphd, manv, makh, tongtien);
+        System.out.format(format, mahd, ngaylaphd, manv, makh, df.format(tongtien));
         System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+\n");
     }
     public int getYear(){

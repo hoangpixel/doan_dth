@@ -1,4 +1,5 @@
 package List;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 import java.util.Arrays;
 import Constructors.HoaDon;
@@ -81,12 +82,13 @@ public void xuatDanhSachHoaDon(){
         System.out.println("Danh sách hoá đơn trống");
         return;
     }
+    DecimalFormat df = new DecimalFormat("#,###.00");
     String format = "| %-15s | %-20s | %-15s | %-10s | %-15s |\n";
     System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
     System.out.format(format, "Mã hoá đơn", "Ngày lập hoá đơn", "Mã nhân viên", "Mã khách hàng", "Tổng tiền");
     System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
     for (int i=0; i<n; i=i+1) 
-        System.out.format(format, dshd[i].getMaHd(), dshd[i].getNgayLapHd(), dshd[i].getMaNv(),dshd[i].getMaKh(), dshd[i].getTongTien());
+        System.out.format(format, dshd[i].getMaHd(), dshd[i].getNgayLapHd(), dshd[i].getMaNv(),dshd[i].getMaKh(), df.format(dshd[i].getTongTien()));
     System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
 }
 public void themHoaDon(DanhSachNhanVien temp1, DSKhachHang temp2){
