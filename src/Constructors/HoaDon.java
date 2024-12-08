@@ -3,6 +3,8 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 import java.sql.Date;
 import java.time.LocalDate;
+import List.DanhSachChiTietHoaDon;
+import java.text.DecimalFormat;
 public class HoaDon {
     private String mahd;
     private String ngaylaphd;
@@ -44,13 +46,29 @@ public class HoaDon {
         System.out.println("Vui lòng nhập đúng cấu trúc");
         }while(choice<1||choice>danhsachmakh.length);
         makh=danhsachmakh[choice-1];
-        System.out.print("Nhập tổng tiền: ");
-        tongtien=nhap.nextFloat();
+        tinhTong();
         System.out.println("---");
     }
+    
+public void tinhTong()
+    {
+
+        tongtien=0;
+        ChiTietHoaDon[] temp = DanhSachChiTietHoaDon.getDscthd();
+        for(int i = 0; i<temp.length; i=i+1)
+        {
+            if(mahd.equals(temp[i].getMahd()))
+            {
+                tongtien+=temp[i].getThanhtien();
+            }
+        }
+        setTongTien(tongtien);
+    }
+    
     public void xuat(){
         DecimalFormat df = new DecimalFormat("#,###.00");
         String format = "| %-15s | %-20s | %-15s | %-30s | %-15s |\n";
+        DecimalFormat df = new DecimalFormat("#,###.0");
         System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+\n");
         System.out.format(format, "Mã hoá đơn", "Ngày lập hoá đơn", "Mã nhân viên", "Mã khách hàng", "Tổng tiền");
         System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+\n");

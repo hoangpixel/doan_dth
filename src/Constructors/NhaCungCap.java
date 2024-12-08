@@ -7,7 +7,7 @@ public class NhaCungCap implements InterfaceNCC {
     protected String tenNCC;
     protected String sdtNCC;
     protected String diachiNCC;
-
+    protected static int d=1;
     public NhaCungCap() {}
 
     public NhaCungCap(String maNCC, String tenNCC, String sdtNCC, String diachiNCC) {

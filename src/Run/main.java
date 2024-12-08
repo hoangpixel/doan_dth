@@ -3,6 +3,7 @@ import Constructors.*;
 import List.*;
 
 import java.time.LocalDateTime;
+import java.time.LocalDate;  
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -41,8 +42,7 @@ public class main {
             System.out.println("| 6. Nhập và quản lý khách hàng              |");
             System.out.println("| 7. Nhập và quản lý hoá đơn                 |");
             System.out.println("| 8. Xuất tất cả dữ liệu ra file             |");
-            System.out.println("| 9. Tìm kiếm nâng cao                       |");
-            System.out.println("| 10. Tạo đơn hàng mới                       |");
+            System.out.println("| 9. Tạo đơn hàng mới                       |");
             System.out.println("| 0. Thoát                                   |");
             System.out.println("----------------------------------------------");
             System.out.print("Vui lòng chọn một tùy chọn: ");
@@ -71,10 +71,11 @@ public class main {
                     int lc;
                     do {
                         Scanner nhap = new Scanner(System.in);
-                        System.out.println("\n------- Nhập và quản lý hoá đơn -------");
-                        System.out.println("| 1. Nhập và quản lý danh sách hoá đơn                 |");
-                        System.out.println("| 2. Nhập và quản lý danh sách chi tiết hoá đơn        |");
-                        System.out.println("| 3. Thoát                                             |");
+                       System.out.println("\n-------------- Nhập và quản lý hoá đơn --------------");
+                        System.out.println("| 1. Nhập và quản lý danh sách hoá đơn                |");
+                        System.out.println("| 2. Nhập và quản lý danh sách chi tiết hoá đơn       |");
+                        System.out.println("| 3. Thoát                                            |");
+                        System.out.println("-----------------------------------------------------");
                         System.out.print("Nhập lựa chọn (1 -> 3): ");
                         lc = nhap.nextInt();
                         switch (lc) {
@@ -105,9 +106,6 @@ public class main {
                     System.out.println("\n");
                     break;
                 case 9:
-                    timKiemNangCaoThuNhat(danhSachNCC,danhSachPhieuNhap);
-                    break;
-                case 10:
                     checkout(dsdt, dskh, danhsachHD, dscthd, a);
                     break;
                 case 0:
@@ -134,10 +132,11 @@ public class main {
             System.out.print("Vui lòng chọn một tùy chọn: ");
             int choice = sc.nextInt();
             sc.nextLine();
-
+            System.out.println();
             switch (choice) {
                 case 1:
                     danhSachNCC.nhapK();
+                    danhSachNCC.ghiFile();
                     break;
                 case 2:
                     danhSachNCC.xuat();
@@ -152,7 +151,7 @@ public class main {
                     danhSachNCC.xoaMotNCC();
                     break;
                 case 6:
-                    danhSachNCC.thongKeNCC();
+                    danhSachNCC.thongKeSoNCC();
                     break;
                 case 0:
                     return;
@@ -162,7 +161,8 @@ public class main {
         }
     }
 
-    private static void menuPN(DanhSachPhieuNhap danhSachPhieuNhap) {
+    private static void menuPN(DanhSachPhieuNhap danhSachPhieuNhap)
+    {
         Scanner sc = new Scanner(System.in);
         while (true) {
             System.out.println("-------- Quản lý danh sách phiếu nhập --------");
@@ -171,8 +171,9 @@ public class main {
             System.out.println("| 3. Sửa phiếu nhập                          |");
             System.out.println("| 4. Tìm kiếm phiếu nhập                     |");
             System.out.println("| 5. Xóa phiếu nhập                          |");
-            System.out.println("| 6. Thống kê số phiếu nhập                  |");
+            System.out.println("| 6. Thống kê theo số tiền min và max        |");
             System.out.println("| 7. Thống kê tổng số tiền                   |");
+            System.out.println("| 8. Tìm kiếm nâng cao                       |");
             System.out.println("| 0. Quay lại menu chính                     |");
             System.out.println("----------------------------------------------");
             System.out.print("Vui lòng chọn một tùy chọn: ");
@@ -195,10 +196,13 @@ public class main {
                     danhSachPhieuNhap.xoaPhanTu();
                     break;
                 case 6:
-                    danhSachPhieuNhap.thongKe();
+                    danhSachPhieuNhap.thongKeTheoTien();
                     break;
                 case 7:
                     danhSachPhieuNhap.thongKeTien();
+                    break;
+                case 8:
+                    danhSachPhieuNhap.timkiemNangCao();
                     break;
                 case 0:
                     return;
@@ -208,37 +212,6 @@ public class main {
         }
     }
 
-    private static void timKiemNangCaoThuNhat(DanhSachNCC dsncc, DanhSachPhieuNhap dspn) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("---------- Tìm kiếm nâng cao ----------");
-
-        System.out.print("Nhập mã nhà cung cấp : ");
-        String maNCC = sc.nextLine().trim();
-
-        System.out.print("Nhập mã nhân viên : ");
-        String maNV = sc.nextLine().trim();
-
-        // Nhập khoảng thời gian
-        String ngayBatDau = "";
-        String ngayKetThuc = "";
-        System.out.print("Nhập ngày bắt đầu (yyyy/mm/dd) : ");
-        ngayBatDau = sc.nextLine().trim();
-        System.out.print("Nhập ngày kết thúc (yyyy/mm/dd) : ");
-        ngayKetThuc = sc.nextLine().trim();
-
-        // Nhập tiền min, max
-        System.out.print("Nhập tiền min : ");
-        float tienMin = sc.nextFloat();
-        System.out.print("Nhập tiền max : ");
-        float tienMax = sc.nextFloat();
-
-        System.out.println("Đang tiến hành thực hiện chức năng tìm kiếm ...");
-
-        // Gọi hàm tìm kiếm theo tiêu chí
-        dspn.timKiemTieuChi(dsncc, maNCC, ngayBatDau, ngayKetThuc, tienMin, tienMax, maNV);
-    }
-
-    
     public static void menuDT(DanhSachDienThoai danhSachDT) {
 		Scanner sc = new Scanner(System.in);
 		int luaChon;
@@ -376,14 +349,9 @@ public class main {
 			
 		} while (luaChon != 0);
 	}
-    public static String getFormattedDateTime() {
-        // Lấy thời gian hiện tại
-        LocalDateTime now = LocalDateTime.now();
-
-        // Định dạng theo kiểu "giờ/ngày/tháng/năm"
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm/dd/MM/yyyy");
-
-        // Trả về chuỗi đã định dạng
+   public static String getFormattedDateTime() {
+        LocalDate now = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return now.format(formatter);
     }
     public static void checkout(DanhSachDienThoai dsdt, DSKhachHang dskh, DanhSachHoaDon dshd, DanhSachChiTietHoaDon dscthd, NhanVien nv){

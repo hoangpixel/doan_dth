@@ -1,5 +1,6 @@
 package Constructors;
 import java.util.Scanner;
+import java.text.DecimalFormat;
 public class NhanVien {
     private String manv;
     private String honv;
@@ -54,10 +55,11 @@ public class NhanVien {
     }
     public void xuat(){
         String format = "| %-15s | %-20s | %-15s | %-30s | %-15s | %-20s | %-15s | %-30s |\n";
+        DecimalFormat df = new DecimalFormat("#,###.0");
         System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+----------------------+-----------------+--------------------------------+\n");
         System.out.format(format, "Mã nhân viên", "Họ nhân viên", "Tên nhân viên", "Lương", "Chức vụ", "Số điện thoại", "Số căn cước", "Địa chỉ");
         System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+\n");
-        System.out.format(format, manv, honv, tennv, luong, chucvu, sdtnv, socancuoc, diachinv);
+        System.out.format(format, manv, honv, tennv, df.format(luong), chucvu, sdtnv, socancuoc, diachinv);
         System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+----------------------+-----------------+--------------------------------+\n");
     }
     public String getMaNv(){

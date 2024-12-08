@@ -1,5 +1,4 @@
 package List;
-import java.text.DecimalFormat;
 import java.util.Scanner;
 import java.util.Arrays;
 import Constructors.HoaDon;
@@ -9,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.text.DecimalFormat;
 public class DanhSachHoaDon implements InterfaceDocGhi{
 int n=0;
 HoaDon[] dshd=new HoaDon[0];
@@ -82,13 +82,13 @@ public void xuatDanhSachHoaDon(){
         System.out.println("Danh sách hoá đơn trống");
         return;
     }
-    DecimalFormat df = new DecimalFormat("#,###.00");
     String format = "| %-15s | %-20s | %-15s | %-10s | %-15s |\n";
+    DecimalFormat df = new DecimalFormat("#,###.0");
     System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
     System.out.format(format, "Mã hoá đơn", "Ngày lập hoá đơn", "Mã nhân viên", "Mã khách hàng", "Tổng tiền");
     System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
     for (int i=0; i<n; i=i+1) 
-        System.out.format(format, dshd[i].getMaHd(), dshd[i].getNgayLapHd(), dshd[i].getMaNv(),dshd[i].getMaKh(), df.format(dshd[i].getTongTien()));
+    System.out.format(format, dshd[i].getMaHd(), dshd[i].getNgayLapHd(), dshd[i].getMaNv(),dshd[i].getMaKh(), df.format(dshd[i].getTongTien()));
     System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
 }
 public void themHoaDon(DanhSachNhanVien temp1, DSKhachHang temp2){
@@ -219,7 +219,7 @@ public void timTheoMaNv(){
     for(int i=0; i<dai; i=i+1)
         find[i].xuat();
 }
-public void suaTheoMa(){
+public void suaTheoMa(DanhSachNhanVien temp1, DSKhachHang temp2){
         String ma;
         Scanner nhap=new Scanner(System.in);
         System.out.print("\nNhập mã của hoá đơn muốn sửa thông tin: ");
@@ -229,14 +229,12 @@ public void suaTheoMa(){
             return;
         }
         int position=timTheoMa(ma);
-        System.out.println("\n--- Menu ---");
-        System.out.println("1. Sửa đổi ngày lập hoá đơn");
-        System.out.println("2. Sửa đổi mã nhân viên");
-        System.out.println("3. Sửa đổi mã khách hàng");
-        System.out.println("4. Sửa đổi tổng tiền");
-        System.out.println("5. Thoát");
-        System.out.println("----------------------------------");
-        System.out.print("Vui lòng nhập lựa chọn của bạn (1->5): ");
+        System.out.println("\n----------- MENU -----------");
+        System.out.println("| 1. Sửa đổi mã nhân viên    |   ");
+        System.out.println("| 2. Sửa đổi mã khách hàng   |");
+        System.out.println("| 3. Thoát                   |");
+        System.out.println("----------------------------");
+        System.out.print("Vui lòng nhập lựa chọn của bạn (1->3): ");
         int choice;
         choice=nhap.nextInt();
         nhap.nextLine();
@@ -244,49 +242,43 @@ public void suaTheoMa(){
             {
             case 1:
             {
-                String ngay;
-                System.out.print("Nhập ngày nhập hoá đơn mới (yyyy-mm-dd): ");
-                ngay = nhap.nextLine();
-                if(ngay.matches("\\d{4}-\\d{2}-\\d{2}")) 
-                dshd[position-1].setNgayLapHd(ngay);
-                else 
-                System.out.println("Vui lòng nhập đúng cấu trúc (yyyy-mm-dd)");
+                String[] ma_nv=temp1.layDanhSachMaNV();
+                for(int i=0; i<ma_nv.length; i=i+1)
+                System.out.println("Mã nhân viên thứ "+(i+1)+": "+ma_nv[i]);
+                int lc;
+                do{
+                System.out.print("Nhập số thứ tự của nhân viên lập hoá đơn: ");
+                lc=nhap.nextInt();
+                if(lc<1||lc>ma_nv.length)
+                System.out.println("Vui lòng nhập đúng cấu trúc");
+                }while(lc<1||lc>ma_nv.length);
+                dshd[position-1].setMaNv(ma_nv[lc-1]);
                 break;
             }
             case 2:
             {
-                System.out.print("Nhập mã nhân viên mới: ");
-                String ma_nv;
-                ma_nv=nhap.nextLine();
-                dshd[position-1].setMaNv(ma_nv);
+                String[] ma_kh=temp2.layDanhSachMaKh();
+                for(int i=0; i<ma_kh.length; i=i+1)
+                System.out.println("Mã khách hàng thứ "+(i+1)+": "+ma_kh[i]);
+                int lc;
+                do{
+                System.out.print("Nhập số thứ tự của khách hàng: ");
+                lc=nhap.nextInt();
+                if(lc<1||lc>ma_kh.length)
+                System.out.println("Vui lòng nhập đúng cấu trúc");
+                }while(lc<1||lc>ma_kh.length);
+                dshd[position-1].setMaKh(ma_kh[lc-1]);
                 break;
             }
             case 3:
-            {
-                System.out.print("Nhập mã khách hàng mới: ");
-                String ma_kh;
-                ma_kh=nhap.nextLine();
-                dshd[position-1].setMaKh(ma_kh);
-                break;
-            }
-            case 4:
-            {
-                System.out.print("Nhập tổng tiền mới: ");
-                float tong;
-                tong=nhap.nextFloat();
-                dshd[position-1].setTongTien(tong);
-                nhap.nextLine();
-                break;
-            }
-            case 5:
             {
                 System.out.println("Thoát");
                 break;
             }
             default:
-                System.out.println("Lưa chọn không hợp lệ (1 -> 8)");
+                System.out.println("Lưa chọn không hợp lệ (1 -> 3)");
             }
-    }
+}
 public void thongKe(){
     System.out.println("\nDanh sách có "+n+" hoá đơn");
 }
@@ -483,26 +475,25 @@ public void menu(DanhSachNhanVien temp1, DSKhachHang temp2){
     Scanner nhap=new Scanner(System.in);
     do
     {
-    System.out.println("\n--- Menu ---");
-    System.out.println("1. Nhập danh sách hoá đơn");
-    System.out.println("2. Xuất danh sách hoá đơn");
-    System.out.println("3. Thêm hoá đơn");
-    System.out.println("4. Xoá hoá đơn theo mã hoá đơn");
-    System.out.println("5. Tìm hoá đơn theo mã hoá đơn");
-    System.out.println("6. Tìm hoá đơn theo mã nhân viên lập hoá đơn");
-    System.out.println("7. Tìm hoá đơn theo mã khách hàng");
-    System.out.println("8. Sửa hoá đơn theo mã hoá đơn");
-    System.out.println("9. Thống kê số hoá đơn hiện có trong danh sách");
-    System.out.println("10. Thống kê tổng tiền theo quý");
-    System.out.println("11. Thoát");
-    System.out.println("----------------------------------");
-    System.out.print("Vui lòng nhập lựa chọn của bạn (1->11): ");
+    System.out.println("\n----------------------- MENU -----------------------");
+    System.out.println("| 1. Thêm hoá đơn                                    |");
+    System.out.println("| 2. Xuất danh sách hoá đơn                          |");
+    System.out.println("| 3. Xoá hoá đơn theo mã hoá đơn                     |");
+    System.out.println("| 4. Tìm hoá đơn theo mã hoá đơn                     |");
+    System.out.println("| 5. Tìm hoá đơn theo mã nhân viên lập hoá đơn       |");
+    System.out.println("| 6. Tìm hoá đơn theo mã khách hàng                  |");
+    System.out.println("| 7. Sửa hoá đơn theo mã hoá đơn                     |");
+    System.out.println("| 8. Thống kê số hoá đơn hiện có trong danh sách     |");
+    System.out.println("| 9. Thống kê tổng tiền theo quý                     |");
+    System.out.println("| 10. Thoát                                          |");
+    System.out.println("----------------------------------------------------");
+    System.out.print("Vui lòng nhập lựa chọn của bạn (1->10): ");
     choice=nhap.nextInt();
     switch(choice)
             {
             case 1:
             {
-                nhapDanhSachHoaDon(temp1, temp2);
+                themHoaDon(temp1, temp2);
                 break;
             }
             case 2:
@@ -512,52 +503,47 @@ public void menu(DanhSachNhanVien temp1, DSKhachHang temp2){
             }
             case 3:
             {
-                themHoaDon(temp1, temp2);
+                xoaTheoMa();
                 break;
             }
             case 4:
             {
-                xoaTheoMa();
+                timTheoMa();
                 break;
             }
             case 5:
             {
-                timTheoMa();
+                timTheoMaNv();
                 break;
             }
             case 6:
             {
-                timTheoMaNv();
+                timTheoMaKh();
                 break;
             }
             case 7:
             {
-                timTheoMaKh();
+                suaTheoMa(temp1, temp2);
                 break;
             }
             case 8:
             {
-                suaTheoMa();
+                thongKe();
                 break;
             }
             case 9:
             {
-                thongKe();
-                break;
-            }
-            case 10:
-            {
                 thongKeTheoQuy();
                 break;
             }
-            case 11:
+            case 10:
             {
                 System.out.println("Bạn chọn thoát");
                 break;
             }
             default:
-                System.out.println("Lưa chọn không hợp lệ (1 -> 11)");
+                System.out.println("Lưa chọn không hợp lệ (1 -> 10)");
             }
-    }while(choice!=11);
+    }while(choice!=10);
 }
 }

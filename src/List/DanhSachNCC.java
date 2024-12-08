@@ -280,7 +280,29 @@ public class DanhSachNCC implements InterfaceDocGhi
         }
         return null;
     }
-
+    public void thongKeSoNCC()
+    {
+        int dND=0;
+        int dQT=0;
+        for(int i=0;i<dsncc.length;i++)
+        {
+            if(dsncc[i] instanceof NhaCungCapQuocTe)
+            {
+                dQT++;
+            }
+            else
+            {
+                dND++;
+            }
+        }
+        String format = "| %-12s | %-12s |\n";
+        System.out.format("+--------------+--------------+\n");
+        System.out.format(format, "Nội địa", "Quốc tế");
+        System.out.format("+--------------+--------------+\n");
+        System.out.format(format,dND,dQT);
+        System.out.format("+--------------+--------------+\n");
+        System.out.println();
+    }
     public void xuat() {
         if (dsncc.length == 0) {
             System.out.println("Danh sách nhà cung cấp trống.");

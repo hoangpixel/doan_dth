@@ -17,7 +17,7 @@ public class login {
             while(true)
             {
                 System.out.print("Nhập tài khoản : ");
-                taikhoan=sc.nextLine().trim();
+                taikhoan=sc.nextLine().trim().toUpperCase();
                 if(taikhoan.matches("NV\\d{2}"))
                 {
                     break;
