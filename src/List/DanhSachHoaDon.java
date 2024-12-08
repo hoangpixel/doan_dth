@@ -475,7 +475,7 @@ public void menu(DanhSachNhanVien temp1, DSKhachHang temp2){
     Scanner nhap=new Scanner(System.in);
     do
     {
-        System.out.println("\n--------------------- MENU ---------------------");
+    System.out.println("\n----------------------- MENU -----------------------");
     System.out.println("| 1. Thêm hoá đơn                                    |");
     System.out.println("| 2. Xuất danh sách hoá đơn                          |");
     System.out.println("| 3. Xoá hoá đơn theo mã hoá đơn                     |");
@@ -486,7 +486,7 @@ public void menu(DanhSachNhanVien temp1, DSKhachHang temp2){
     System.out.println("| 8. Thống kê số hoá đơn hiện có trong danh sách     |");
     System.out.println("| 9. Thống kê tổng tiền theo quý                     |");
     System.out.println("| 10. Thoát                                          |");
-    System.out.println("----------------------------------");
+    System.out.println("----------------------------------------------------");
     System.out.print("Vui lòng nhập lựa chọn của bạn (1->10): ");
     choice=nhap.nextInt();
     switch(choice)
