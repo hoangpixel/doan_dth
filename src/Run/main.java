@@ -130,10 +130,11 @@ public class main {
             System.out.print("Vui lòng chọn một tùy chọn: ");
             int choice = sc.nextInt();
             sc.nextLine();
-
+            System.out.println();
             switch (choice) {
                 case 1:
                     danhSachNCC.nhapK();
+                    danhSachNCC.ghiFile();
                     break;
                 case 2:
                     danhSachNCC.xuat();
