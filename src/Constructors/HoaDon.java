@@ -66,7 +66,6 @@ public void tinhTong()
     }
     
     public void xuat(){
-        DecimalFormat df = new DecimalFormat("#,###.00");
         String format = "| %-15s | %-20s | %-15s | %-30s | %-15s |\n";
         DecimalFormat df = new DecimalFormat("#,###.0");
         System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+\n");

@@ -1,6 +1,8 @@
 package List;
 import java.util.Scanner;
 import java.util.Arrays;
+
+import Constructors.ChiTietHoaDon;
 import Constructors.HoaDon;
 import Interfaces.InterfaceDocGhi;
 import java.io.IOException;
@@ -11,7 +13,8 @@ import java.io.FileWriter;
 import java.text.DecimalFormat;
 public class DanhSachHoaDon implements InterfaceDocGhi{
 int n=0;
-HoaDon[] dshd=new HoaDon[0];
+public static HoaDon[] dshd=new HoaDon[0];
+
 public DanhSachHoaDon(){}
 public DanhSachHoaDon(int n, HoaDon[] dshd){
     this.n=n;
@@ -21,6 +24,12 @@ public DanhSachHoaDon(DanhSachHoaDon temp){
     n=temp.n;
     dshd=temp.dshd;
 }
+
+    // Phương thức static trả về danh sách hóa đơn (HoaDon[])
+    public static HoaDon[] getDshd() {
+        return dshd;
+    }
+
 public void check(HoaDon temp){
     for(int i=0; i<n; i=i+1)
         if(dshd[i]!=temp)

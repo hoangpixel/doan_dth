@@ -1,6 +1,7 @@
 package Constructors;
 import List.DanhSachChiTietHoaDon;
 import List.DanhSachDienThoai;
+import List.DanhSachHoaDon;
 
 import java.text.DecimalFormat;
 import java.util.Scanner;
@@ -113,10 +114,13 @@ public class ChiTietHoaDon {
                 a.setSoluong(a.getSoluong() - this.soluong);
             }
         }
+        HoaDon[] dshd = DanhSachHoaDon.getDshd();
+        for(HoaDon a :dshd){
+            if(a.getMaHd().equals(this.mahd)){
+                a.tinhTong();
+            }
+        }
     }
-
-
-
 
     public void xuatCTHD() {
         DecimalFormat df = new DecimalFormat("#,###.00");
