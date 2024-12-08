@@ -46,7 +46,15 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 		}
 		return tong;
 	}
-	
+
+	public void setsl(String madt, int sl){
+		for(DienThoai dt :dsdt){
+			if(dt.getMaDT().equals(madt)){
+				dt.setSoluong(dt.getSoluong() - sl);
+			}
+		}
+	}
+
 	public static float getDonGia(String maDT) {
 		for(int i = 0; i < dsdt.length; i++) {
 			if(dsdt[i].getMaDT().equals(maDT)) {

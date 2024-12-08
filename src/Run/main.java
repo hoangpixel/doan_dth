@@ -426,6 +426,7 @@ public class main {
             }
         } while (!done);
 
+
         // Tao hoa don moi
 
         float tongtien = 0;
@@ -464,6 +465,12 @@ public class main {
             kh.setTongtien(kh.getTongtien() + hd_temp.getTongTien());
             (dskh.timkiemSDT(sdt)).setTongtien(kh.getTongtien());
         }
+
+        // Xu ly so luong dien thoai
+        for(DienThoai a :dt){
+            dsdt.setsl(a.getMaDT(), a.getSoluong());
+        }
+
         dshd.xuatDanhSachHoaDon();
         dscthd.xuatDSCTHD();
         dskh.xemDSKH();
