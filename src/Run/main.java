@@ -3,6 +3,7 @@ import Constructors.*;
 import List.*;
 
 import java.time.LocalDateTime;
+import java.time.LocalDate;  
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -70,10 +71,11 @@ public class main {
                     int lc;
                     do {
                         Scanner nhap = new Scanner(System.in);
-                        System.out.println("\n------- Nhập và quản lý hoá đơn -------");
-                        System.out.println("| 1. Nhập và quản lý danh sách hoá đơn                 |");
-                        System.out.println("| 2. Nhập và quản lý danh sách chi tiết hoá đơn        |");
-                        System.out.println("| 3. Thoát                                             |");
+                       System.out.println("\n-------------- Nhập và quản lý hoá đơn --------------");
+                        System.out.println("| 1. Nhập và quản lý danh sách hoá đơn                |");
+                        System.out.println("| 2. Nhập và quản lý danh sách chi tiết hoá đơn       |");
+                        System.out.println("| 3. Thoát                                            |");
+                        System.out.println("-----------------------------------------------------");
                         System.out.print("Nhập lựa chọn (1 -> 3): ");
                         lc = nhap.nextInt();
                         switch (lc) {
@@ -347,14 +349,9 @@ public class main {
 			
 		} while (luaChon != 0);
 	}
-    public static String getFormattedDateTime() {
-        // Lấy thời gian hiện tại
-        LocalDateTime now = LocalDateTime.now();
-
-        // Định dạng theo kiểu "giờ/ngày/tháng/năm"
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm/dd/MM/yyyy");
-
-        // Trả về chuỗi đã định dạng
+   public static String getFormattedDateTime() {
+        LocalDate now = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return now.format(formatter);
     }
     public static void checkout(DanhSachDienThoai dsdt, DSKhachHang dskh, DanhSachHoaDon dshd, DanhSachChiTietHoaDon dscthd, NhanVien nv){
