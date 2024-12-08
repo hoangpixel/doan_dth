@@ -535,11 +535,6 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 		}
 	}
 	
-	public static void main(String[] args) {
-		DanhSachDienThoai dsdt = new DanhSachDienThoai();
-		dsdt.docFile();
-		dsdt.timKiemNangCao();
-	}
 	
 	
 	public void xuatMaDT_TenDT() { 
@@ -549,4 +544,9 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 		}
 	}
 	
+	public static void main(String[] args) {
+		DanhSachDienThoai dsdt = new DanhSachDienThoai();
+		dsdt.docFile();
+		dsdt.xuatDS();
+	}
 }

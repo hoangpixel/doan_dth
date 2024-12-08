@@ -118,7 +118,7 @@ public abstract class DienThoai {
 		this.mau = sc.nextLine();
 	}
 	public void xuat() {
-		String format = "| %-5s | %-28s | %-12s | %-12s | %-8s | %-13s | %-17s |";
+		String format = "| %-5s | %-28s | %-12s | %-12.1f | %-8s | %-13s | %-17s |";
 		System.out.format(format, this.maDT, this.tenDT, this.hang, this.dongia,
 				this.soluong, this.hedieuhanh, this.mau);
 	}
