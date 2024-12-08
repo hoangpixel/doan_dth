@@ -126,7 +126,6 @@ public class PhieuNhap
         return tongTien;
     }
     public void xuatPhieuNhap() {
-
         DecimalFormat df = new DecimalFormat("#,###");
         String format = "| %-15s | %-20s | %-15s | %-15s | %-15s |\n";
         System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");

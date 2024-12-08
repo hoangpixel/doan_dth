@@ -121,6 +121,7 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
     public void timMaPhieu()
     {
         Scanner sc=new Scanner(System.in);
+        DecimalFormat df = new DecimalFormat("#,###");
         int n=dspn.length;
         String maTim;
         System.out.print("Vui lòng nhập mã cần tìm : ");
@@ -135,8 +136,20 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
         }
         if(index!=-1)
         {
-            System.out.println("Thông tin của mã phiếu nhập : " + maTim + " là : ");
-            dspn[index].xuatPhieuNhap();
+            if(dspn[index] != null)
+            {
+                String format = "| %-15s | %-20s | %-15s | %-15s | %-15s |\n";
+                System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
+                System.out.format(format, "Mã phiếu nhập", "Ngày nhập", "Mã NCC", "Mã NV", "Tổng tiền");
+                System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
+                System.out.format(format, dspn[index].getMaPN(), dspn[index].getNgayNhap(), dspn[index].getMaNCC(), dspn[index].getMaNV(), df.format(dspn[index].getTongTien()));
+                System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
+                System.out.println();
+            }
+            else
+            {
+                System.out.println("Không có dữ liệu từ mã cần tìm");
+            }
         }
         else
         {
@@ -155,13 +168,14 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
     
     public void thongKeTien()
     {
+        DecimalFormat df = new DecimalFormat("#,###");
         int s=0;
         for(int i=0;i<dspn.length;i++)
         {
             s+=dspn[i].getTongTien();
         }
         System.out.print("\n");
-        System.out.println("Tổng số tiền của tất cả các phếu nhập : " + s);
+        System.out.println("Tổng số tiền của tất cả các phếu nhập : " + df.format(s));
         System.out.print("\n");
     }
     public void suaPhieuNhap()
@@ -337,19 +351,31 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
     public void timkiemNangCao()
     {
         Scanner sc=new Scanner(System.in);
-        String maNV,maNCC,ngayBatDau,ngayKetThuc;
+        String maNV=null,maNCC=null,ngayBatDau=null,ngayKetThuc=null;
         DecimalFormat df = new DecimalFormat("#,###");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        float min,max;
+        Float min=null,max=null;
         System.out.print("Nhập mã nhà cung cập : ");
-        maNCC=sc.nextLine().trim();
+        maNCC=sc.nextLine().trim().toUpperCase();
+        if(maNCC.isEmpty())
+        {
+            maNCC=null;
+        }
         System.out.print("Nhập mã nhân viên : ");
-        maNV=sc.nextLine().trim();
+        maNV=sc.nextLine().trim().toUpperCase();
+        if(maNV.isEmpty())
+        {
+            maNV=null;
+        }
         LocalDate ngayBatDauDate = null;
         LocalDate ngayKetThucDate = null;
         while (true) {
             System.out.print("Nhập ngày bắt đầu (yyyy/MM/dd): ");
             ngayBatDau = sc.nextLine().trim();
+            if(ngayBatDau.isEmpty())
+            {
+                break;
+            }
             try {
                 ngayBatDauDate = LocalDate.parse(ngayBatDau, formatter);
                 break;
@@ -360,6 +386,10 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
         while (true) {
             System.out.print("Nhập ngày kết thúc (yyyy/MM/dd): ");
             ngayKetThuc = sc.nextLine().trim();
+            if(ngayKetThuc.isEmpty())
+            {
+                break;
+            }
             try {
                 ngayKetThucDate = LocalDate.parse(ngayKetThuc, formatter);
                 if (ngayKetThucDate.isBefore(ngayBatDauDate)) {
@@ -372,9 +402,17 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
             }
         }
         System.out.print("Nhập tổng tiền thấp nhất : ");
-        min=sc.nextFloat();
+        String minInput=sc.nextLine().trim();
+        if(!minInput.isEmpty())
+        {
+            min=Float.parseFloat(minInput);
+        }
         System.out.print("Nhập tổng tiền cao nhất : ");
-        max=sc.nextFloat();
+        String maxInput=sc.nextLine().trim();
+        if(!maxInput.isEmpty())
+        {
+            max=Float.parseFloat(maxInput);
+        }
         String format = "| %-15s | %-20s | %-15s | %-15s | %-15s |\n";
         System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
         System.out.format(format, "Mã phiếu nhập", "Ngày nhập", "Mã NCC", "Mã NV", "Tổng tiền");
@@ -383,9 +421,26 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
         {
             String ngaynhapStr = dspn[i].getNgayNhap();
             LocalDate ngayNhapDate = LocalDate.parse(ngaynhapStr, formatter);
-            if(dspn[i].getMaNCC().equals(maNCC) && dspn[i].getMaNV().equals(maNV)
-                    && (dspn[i].getTongTien() >= min && dspn[i].getTongTien() <= max)
-            && !ngayNhapDate.isBefore(ngayBatDauDate) && !ngayNhapDate.isAfter(ngayKetThucDate))
+            boolean dk=true;
+            if (maNCC != null && !dspn[i].getMaNCC().equals(maNCC)) {
+                dk = false;
+            }
+            if (maNV != null && !dspn[i].getMaNV().equals(maNV)) {
+                dk = false;
+            }
+            if (min != null && dspn[i].getTongTien() < min) {
+                dk = false;
+            }
+            if (max != null && dspn[i].getTongTien() > max) {
+                dk = false;
+            }
+            if (ngayBatDauDate != null && ngayNhapDate.isBefore(ngayBatDauDate)) {
+                dk = false;
+            }
+            if (ngayKetThucDate != null && ngayNhapDate.isAfter(ngayKetThucDate)) {
+                dk = false;
+            }
+            if(dk)
             {
                 System.out.format(format, dspn[i].getMaPN(), dspn[i].getNgayNhap(), dspn[i].getMaNCC(),
                         dspn[i].getMaNV(), df.format(dspn[i].getTongTien()));
