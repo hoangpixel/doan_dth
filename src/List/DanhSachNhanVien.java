@@ -186,16 +186,16 @@ public class DanhSachNhanVien
             return;
         }
         int position=timTheoMa(ma);
-        System.out.println("--- Menu ---");
-        System.out.println("1. Sửa đổi họ nhân viên");
-        System.out.println("2. Sửa đổi tên nhân viên");
-        System.out.println("3. Sửa đổi lương");
-        System.out.println("4. Sửa đổi chức vụ");
-        System.out.println("5. Sửa đổi số điện thoại nhân viên");
-        System.out.println("6. Sửa đổi số căn cước");
-        System.out.println("7. Sửa đổi địa chỉ");
-        System.out.println("8. Thoát");
-        System.out.println("----------------------------------");
+        System.out.println("------------------ MENU ------------------");
+        System.out.println("| 1. Sửa đổi họ nhân viên                |");
+        System.out.println("| 2. Sửa đổi tên nhân viên               |");
+        System.out.println("| 3. Sửa đổi lương                       |");
+        System.out.println("| 4. Sửa đổi chức vụ                     |");
+        System.out.println("| 5. Sửa đổi số điện thoại nhân viên     |");
+        System.out.println("| 6. Sửa đổi số căn cước                 |");
+        System.out.println("| 7. Sửa đổi địa chỉ                     |");
+        System.out.println("| 8. Thoát                               |");
+        System.out.println("------------------------------------------");
         System.out.print("Vui lòng nhập lựa chọn của bạn (1->8): ");
         int choice;
         choice=nhap.nextInt();
