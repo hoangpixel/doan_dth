@@ -1,4 +1,7 @@
 package Constructors;
+import List.DanhSachChiTietHoaDon;
+import List.DanhSachDienThoai;
+
 import java.text.DecimalFormat;
 import java.util.Scanner;
 
@@ -82,29 +85,38 @@ public class ChiTietHoaDon {
     }
 
     public void nhapCTHD(){
+        DienThoai[] dsdt = DanhSachDienThoai.getDsdt();
         Scanner sc = new Scanner(System.in);
         System.out.println("Nhập thông tin chi tiết hóa đơn");
         System.out.print("Mã hóa đơn: ");
         mahd = sc.nextLine();
         System.out.print("Mã điện thoại: ");
         madt = sc.nextLine();
-        System.out.print("Số lượng: ");
-        soluong = sc.nextInt();
-        sc.nextLine();
+        boolean quan = true;
+        do {
+            System.out.print("Số lượng: ");
+            soluong = sc.nextInt();
+            sc.nextLine();
+            for(DienThoai a :dsdt){
+                if(a.getMaDT().equals(this.madt) && a.getSoluong()<this.soluong){
+                    System.out.println("Số lượng điện thoại còn trong kho không đủ, chỉ còn "+a.getSoluong()+" chiếc, vui lòng nhập số lượng khác ");
+                    quan = false;
+                }
+            }
+        } while(!quan);
         System.out.print("Đơn giá: ");
         dongia = sc.nextFloat();
         sc.nextLine();
         thanhtien = soluong * dongia;
+        for(DienThoai a :dsdt){
+            if(a.getMaDT().equals(this.madt)){
+                a.setSoluong(a.getSoluong() - this.soluong);
+            }
+        }
     }
 
-    @Override
-    public String toString() {
-        return "ChiTietHoaDon{" + "mahd=" + mahd + ", madt=" + madt + ", soluong=" + soluong + ", dongia=" + dongia + ", thanhtien=" + thanhtien + '}';
-    }
 
-//    public void xuatCTHD(){
-//        System.out.println("Mã chi tiết hóa đơn: "+mahd+"\t Mã điện thoại: "+madt+"\t Số lượng: "+soluong+"\t Đơn giá: "+dongia+"\t Thành tiền: "+thanhtien);
-//    }
+
 
     public void xuatCTHD() {
         DecimalFormat df = new DecimalFormat("#,###.00");

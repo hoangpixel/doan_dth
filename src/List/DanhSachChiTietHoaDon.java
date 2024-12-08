@@ -1,4 +1,6 @@
 package List;
+import List.*;
+import Constructors.*;
 import Constructors.ChiTietHoaDon;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -42,6 +44,25 @@ public class DanhSachChiTietHoaDon {
     public void add(ChiTietHoaDon a){
         cthd = Arrays.copyOf(cthd, cthd.length + 1);
         cthd[cthd.length - 1] = a;
+    }
+
+    public int kiemtraSL(String madt){
+        DienThoai[] dt = DanhSachDienThoai.getDsdt();
+        for(DienThoai a :dt){
+            if(a.getMaDT().equals(madt)){
+                return a.getSoluong();
+            }
+        }
+        return -1;
+    }
+
+    public void giamslDT(String madt, int sl){
+        DienThoai[] dt = DanhSachDienThoai.getDsdt();
+        for(DienThoai a :dt){
+            if(a.getMaDT().equals(madt)){
+                a.setSoluong(a.getSoluong() - sl);
+            }
+        }
     }
 
     public void nhapDSCTHD(){

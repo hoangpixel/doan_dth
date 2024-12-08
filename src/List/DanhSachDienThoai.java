@@ -55,7 +55,16 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 		}
 		return 0;
 	}
-	
+
+	public int check_soluongDT(String madt){
+		for(DienThoai a :dsdt){
+			if(a.getMaDT().equals(madt)){
+				return a.getSoluong();
+			}
+		}
+		return -1;
+	}
+
 	public DienThoai kiemTraTrungMaDT(DienThoai dt) {
 		boolean trungMa;
 		do {
