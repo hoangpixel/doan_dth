@@ -9,7 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 public class DanhSachChiTietHoaDon {
     Scanner sc = new Scanner(System.in);
-    private ChiTietHoaDon[] cthd;
+    private static ChiTietHoaDon[] cthd;
 
     public DanhSachChiTietHoaDon(){
         this.cthd = new ChiTietHoaDon[0];
@@ -35,6 +35,10 @@ public class DanhSachChiTietHoaDon {
         return cthd.length;
     }
 
+    public static ChiTietHoaDon[] getDscthd() {
+		return cthd;
+    }
+    
     public void add(ChiTietHoaDon a){
         cthd = Arrays.copyOf(cthd, cthd.length + 1);
         cthd[cthd.length - 1] = a;
