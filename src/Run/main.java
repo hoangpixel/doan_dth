@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Scanner;
 public class main {
-    public static void main(NhanVien a) {
+    public static void run(NhanVien a) {System.out.println("Chương trình bắt đầu!");
         Scanner sc = new Scanner(System.in);
         DanhSachNCC danhSachNCC = new DanhSachNCC();
         DanhSachPhieuNhap danhSachPhieuNhap = new DanhSachPhieuNhap();
@@ -342,7 +342,6 @@ public class main {
 			case 2: {
 				danhSachCTPN.them_K_CTPN();
 				dspn.ghiFile();
-//                danhSachCTPN.capNhatTongTien();
 				break;
 			}
 			case 3: {
