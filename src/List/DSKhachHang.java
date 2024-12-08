@@ -264,7 +264,6 @@ public class DSKhachHang {
                 bw.newLine(); // Xuống dòng
             }
         }
-        System.out.println("Xuất file thành công!");
     } catch (IOException e) {
         System.out.println("Lỗi ghi file: " + e.getMessage());
     }

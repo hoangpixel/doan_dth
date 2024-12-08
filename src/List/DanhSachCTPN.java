@@ -317,7 +317,6 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 				writer.write(data);
 			}
 			writer.close();
-			System.out.println("Đã ghi dữ liệu của danh sách chi tiết phiếu nhập!");
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

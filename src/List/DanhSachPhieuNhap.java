@@ -274,7 +274,6 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
                     System.out.println("Dòng dữ liệu không hợp lệ: " + line);
                 }
             }
-            System.out.println("Dữ liệu phiếu nhập đã được đọc thành công.");
         } catch (IOException e) {
             System.out.println("Lỗi khi đọc từ file: " + e.getMessage());
         }

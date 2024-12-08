@@ -28,7 +28,7 @@ public class main {
         dskh.docFile("src/data/danhsachkhachhang.txt");
         dscthd.docFile("src/data/danhsachchitiethoadon.txt");
         dsdt.docFile();
-        System.out.println("Đọc file thành công !!!");
+        System.out.println("Tất cả dữ liệu đã được khôi phục !!!");
         System.out.println();
 
         while (true) {

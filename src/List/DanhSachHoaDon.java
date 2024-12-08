@@ -315,7 +315,6 @@ public void docFile() {
             }
             dshd=temp;
             n=dshd.length;
-            System.out.println("Dữ liệu hoá đơn đã được khôi phục từ file.");
         } catch (IOException e) {
             System.out.println("Lỗi khi đọc từ file: " + e.getMessage());
         } finally {
@@ -342,7 +341,6 @@ public void ghiFile() {
                     writer.write(data); // Ghi dữ liệu vào file
                 }
             }
-            System.out.println("Dữ liệu hoá đơn đã được xuất vào ListHoaDon.txt");
         } catch (IOException e) {
             System.out.println("Lỗi khi ghi vào file: " + e.getMessage());
         } finally {

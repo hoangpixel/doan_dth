@@ -370,7 +370,6 @@ public class DanhSachNCC implements InterfaceDocGhi
                     writer.write(data);  // Ghi dữ liệu vào file
                 }
             }
-            System.out.println("Dữ liệu nhà cung cấp đã được ghi vào file thành công.");
         } catch (IOException e) {
             System.out.println("Lỗi khi ghi vào file: " + e.getMessage());
         }

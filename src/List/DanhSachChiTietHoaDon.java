@@ -292,7 +292,7 @@ public class DanhSachChiTietHoaDon {
                         + cthd.getDongia() + "," + cthd.getThanhtien());
                 writer.newLine();
             }
-            System.out.println("Ghi file thành công!");
+
         } catch (IOException e) {
             System.out.println("Lỗi khi ghi file: " + e.getMessage());
         }
@@ -315,7 +315,7 @@ public class DanhSachChiTietHoaDon {
                 }
             }
             this.cthd = danhSach;
-            System.out.println("Đọc file thành công!");
+
         } catch (IOException e) {
             System.out.println("Lỗi khi đọc file: " + e.getMessage());
         } catch (NumberFormatException e) {

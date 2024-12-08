@@ -529,7 +529,6 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 				writer.write(data);
 			}
 			writer.close();
-			System.out.println("Đã ghi dữ liệu của danh sách điện thoại!");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
