@@ -3,6 +3,7 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import List.DanhSachChiTietHoaDon;
 import java.text.DecimalFormat;
 public class HoaDon {
@@ -16,15 +17,9 @@ public class HoaDon {
         System.out.println("\nHãy Nhập Thông Tin Hoá Đơn: ");
         System.out.print("Nhập mã hoá đơn: ");
         mahd=nhap.nextLine();
-        while (true) {
-            System.out.print("Nhập ngày nhập hoá đơn (yyyy-mm-dd): ");
-            ngaylaphd = nhap.nextLine();
-            if (ngaylaphd.matches("\\d{4}-\\d{2}-\\d{2}")) {
-                break;
-            } else {
-                System.out.println("Vui lòng nhập đúng cấu trúc (yyyy-mm-dd)");
-            }
-        }
+        LocalDate now = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        ngaylaphd=now.format(formatter);
         System.out.println("Danh sách mã nhân viên:");
         int choice;
         for(int i=0; i<danhsachmanv.length; i=i+1)
@@ -46,7 +41,7 @@ public class HoaDon {
         System.out.println("Vui lòng nhập đúng cấu trúc");
         }while(choice<1||choice>danhsachmakh.length);
         makh=danhsachmakh[choice-1];
-        tinhTong();
+        tongtien=0;
         System.out.println("---");
     }
     
