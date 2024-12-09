@@ -50,7 +50,9 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 	public void setsl(String madt, int sl){
 		for(DienThoai dt :dsdt){
 			if(dt.getMaDT().equals(madt)){
-				dt.setSoluong(dt.getSoluong() - sl);
+				int quan = dt.getSoluong();
+				dt.setSoluong(quan - sl);
+				return;
 			}
 		}
 	}

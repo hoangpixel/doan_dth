@@ -380,7 +380,7 @@ public class main {
         do{
             dsdt.xuatDS();
             System.out.println("Nhập mã điện thoại cần mua: ");
-            DienThoai a = null;
+            DienThoai a;
             do {
                 String ma = sc.nextLine();
                 a = dsdt.timKiem_maDT(ma);
@@ -467,6 +467,9 @@ public class main {
         }
 
         // Xu ly so luong dien thoai
+        for(DienThoai a :dt){
+            System.out.println(a.getMaDT()+" sl: "+a.getSoluong());
+        }
         for(DienThoai a :dt){
             dsdt.setsl(a.getMaDT(), a.getSoluong());
         }

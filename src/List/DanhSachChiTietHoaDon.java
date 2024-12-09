@@ -65,6 +65,15 @@ public class DanhSachChiTietHoaDon {
         }
     }
 
+    public void tangslDT(String madt, int sl){
+        DienThoai[] dt = DanhSachDienThoai.getDsdt();
+        for(DienThoai a :dt){
+            if(a.getMaDT().equals(madt)){
+                a.setSoluong(a.getSoluong() + sl);
+            }
+        }
+    }
+
     public void nhapDSCTHD(){
         System.out.println("Nhập số lượng chi tiết hóa đơn muốn thêm: ");
         int soluong = sc.nextInt();
@@ -117,6 +126,7 @@ public class DanhSachChiTietHoaDon {
         String madt = sc.nextLine();
         for(int i = 0; i < cthd.length; i++){
             if(cthd[i].getMahd().equals(mahd) && cthd[i].getMadt().equals(madt)){
+                tangslDT(cthd[i].getMadt(), cthd[i].getSoluong());
                 for (int j = i; j < cthd.length - 1; j++) {
                     cthd[j] = cthd[j + 1];
                 }
@@ -151,28 +161,20 @@ public class DanhSachChiTietHoaDon {
                 while (true) {
                     System.out.println("=== Sửa chi tiết hóa đơn ===");
                     System.out.println("Chọn thao tác muốn sửa:");
-                    System.out.println("1. Sửa mã hóa đơn");
-                    System.out.println("2. Sửa mã điện thoại");
-                    System.out.println("3. Sửa số lượng");
-                    System.out.println("4. Sửa đơn giá");
-                    System.out.println("5. Thoát");
+                    System.out.println("1. Sửa mã điện thoại");
+                    System.out.println("2. Sửa số lượng");
+                    System.out.println("3. Thoát");
                     System.out.print("Nhập lựa chọn: ");
                     int choice = sc.nextInt();
                     sc.nextLine();
                     switch (choice) {
                         case 1:
-                            System.out.print("Nhập mã hóa đơn mới: ");
-                            chitiethoadon.setMahd(sc.nextLine());
-                            System.out.println("Sửa mã hóa đơn thành công.");
-                            chitiethoadon.xuatCTHD();
-                            break;
-                        case 2:
                             System.out.print("Nhập mã điện thoại mới: ");
                             chitiethoadon.setMadt(sc.nextLine());
                             System.out.println("Sửa mã điện thoại thành công.");
                             chitiethoadon.xuatCTHD();
                             break;
-                        case 3:
+                        case 2:
                             System.out.print("Nhập số lượng mới: ");
                             chitiethoadon.setSoluong(sc.nextInt());
                             sc.nextLine();
@@ -180,15 +182,7 @@ public class DanhSachChiTietHoaDon {
                             System.out.println("Sửa số lượng thành công.");
                             chitiethoadon.xuatCTHD();
                             break;
-                        case 4:
-                            System.out.print("Nhập đơn giá mới: ");
-                            chitiethoadon.setDongia(sc.nextFloat());
-                            sc.nextLine();
-                            chitiethoadon.setThanhtien(chitiethoadon.getSoluong() * chitiethoadon.getDongia());
-                            System.out.println("Sửa đơn giá thành công.");
-                            chitiethoadon.xuatCTHD();
-                            break;
-                        case 5:
+                        case 3:
                             System.out.println("Thoát chỉnh sửa.");
                             return;
                         default:
