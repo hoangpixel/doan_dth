@@ -14,7 +14,7 @@ import java.io.IOException;
  * @author winan
  */
 public class DSKhachHang {
-    private KhachHang[] kh;
+    private static KhachHang[] kh;
     
     public DSKhachHang(int n){
         this.kh = new KhachHang[n];
@@ -43,7 +43,10 @@ public class DSKhachHang {
     public int length(){
         return kh.length;
     }
-    
+
+    public static KhachHang[]  getdskh(){
+        return kh;
+    }
     public String taoMaKH() {
     int maxNumber = 0; 
     for (KhachHang khach : kh) { 

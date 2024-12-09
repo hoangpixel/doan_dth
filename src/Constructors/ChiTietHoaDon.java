@@ -1,4 +1,5 @@
 package Constructors;
+import List.DSKhachHang;
 import List.DanhSachChiTietHoaDon;
 import List.DanhSachDienThoai;
 import List.DanhSachHoaDon;
@@ -99,27 +100,42 @@ public class ChiTietHoaDon {
             soluong = sc.nextInt();
             sc.nextLine();
             for(DienThoai a :dsdt){
-                if(a.getMaDT().equals(this.madt) && a.getSoluong()<this.soluong){
+                if(a.getMaDT().equals(this.madt) && a.getSoluong()==0){
+                    System.out.println("Số lượng điện thoại còn trong kho đã hết, hủy thao tác tạo chi tiết hóa đơn ");
+                    quan = false;
+                    return;
+                }else if(a.getMaDT().equals(this.madt) && a.getSoluong()<this.soluong){
                     System.out.println("Số lượng điện thoại còn trong kho không đủ, chỉ còn "+a.getSoluong()+" chiếc, vui lòng nhập số lượng khác ");
                     quan = false;
                 }
             }
         } while(!quan);
-        System.out.print("Đơn giá: ");
-        dongia = sc.nextFloat();
-        sc.nextLine();
-        thanhtien = soluong * dongia;
-        for(DienThoai a :dsdt){
-            if(a.getMaDT().equals(this.madt)){
+        for(DienThoai a :dsdt) {
+            if (a.getMaDT().equals(this.madt)) {
+                this.dongia = a.getDongia();
+                this.thanhtien = soluong * dongia;
                 a.setSoluong(a.getSoluong() - this.soluong);
             }
         }
+
         HoaDon[] dshd = DanhSachHoaDon.getDshd();
         for(HoaDon a :dshd){
             if(a.getMaHd().equals(this.mahd)){
-                a.tinhTong();
+                for(DienThoai b :dsdt){
+                    if(this.madt.equals(b.getMaDT())){
+                        a.setTongTien(a.getTongTien()+this.thanhtien);
+                        KhachHang[] dskh = DSKhachHang.getdskh();
+                        for(KhachHang kh :dskh){
+                            if(kh.getMakh().equals(a.getMaKh())){
+                                kh.setTongtien(kh.getTongtien() + this.thanhtien);
+                            }
+                        }
+                    }
+                }
             }
         }
+
+
     }
 
     public void xuatCTHD() {
