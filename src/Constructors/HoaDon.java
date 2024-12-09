@@ -66,7 +66,7 @@ public void tinhTong()
     }
     
     public void xuat(){
-        String format = "| %-15s | %-20s | %-15s | %-30s | %-15s |\n";
+        String format = "| %-15s | %-20s | %-15s | %-15s | %-15s |\n";
         DecimalFormat df = new DecimalFormat("#,###.0");
         System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+\n");
         System.out.format(format, "Mã hoá đơn", "Ngày lập hoá đơn", "Mã nhân viên", "Mã khách hàng", "Tổng tiền");

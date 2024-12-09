@@ -94,7 +94,7 @@ public class DSKhachHang {
     
     public void xemDSKH(){
         System.out.println("Thông tin của tất cả khách hàng: ");
-        String format = "| %-15s | %-30s | %-15s | %-20s |\n";  // Cập nhật độ rộng cột "Tổng tiền"
+        String format = "| %-15s | %-28s | %-15s | %-22s |\n";  // Cập nhật độ rộng cột "Tổng tiền"
         System.out.format("+-----------------+------------------------------+-----------------+------------------------+\n");
         System.out.format(format, "Mã khách hàng", "Tên khách hàng", "Số điện thoại", "Tổng tiền");
         for (KhachHang kh1 : kh) {

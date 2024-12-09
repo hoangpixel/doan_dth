@@ -374,29 +374,44 @@ public class main {
             kh = new KhachHang(dskh.taoMaKH(), tenKH, sdt, 0);
             kh_found = false;
         }
-
-
         // xử lý mua hàng
         do{
             dsdt.xuatDS();
             System.out.println("Nhập mã điện thoại cần mua: ");
-            DienThoai a;
+            DienThoai a = null;
+            int quan = -1;
             do {
-                String ma = sc.nextLine();
-                DienThoai temp = dsdt.timKiem_maDT(ma); // Lấy đối tượng từ danh sách
-                if (temp == null) {
-                    System.out.println("Nhập sai mã, vui lòng nhập lại mã điện thoại cần mua: ");
-                } else {
-                	if (temp instanceof DienThoaiThongMinh) {
-                        a = new DienThoaiThongMinh((DienThoaiThongMinh) temp);
-                    } else if (temp instanceof DienThoaiPhim) {
-                        a = new DienThoaiPhim((DienThoaiPhim) temp);
+                do {
+                    String ma = sc.nextLine();
+                    DienThoai temp = dsdt.timKiem_maDT(ma); // Lấy đối tượng từ danh sách
+                    if (temp == null) {
+                        System.out.println("Nhập sai mã, vui lòng nhập lại mã điện thoại cần mua: ");
+                    } else {
+                        // Nếu tìm thấy điện thoại, tạo đối tượng điện thoại tương ứng
+                        if (temp instanceof DienThoaiThongMinh) {
+                            a = new DienThoaiThongMinh((DienThoaiThongMinh) temp);
+                        } else if (temp instanceof DienThoaiPhim) {
+                            a = new DienThoaiPhim((DienThoaiPhim) temp);
+                        }
                     }
-                }
+                } while (a == null);
+                // Kiểm tra số lượng và yêu cầu nhập lại nếu không hợp lệ
+                int quan_check;
+                do {
+                    System.out.println("Nhập số lượng điện thoại:");
+                    quan = sc.nextInt();
+                    sc.nextLine(); // Đọc ký tự dòng sau khi nhập số
+                    quan_check = dsdt.check_soluongDT(a.getMaDT());
+                    if (quan_check == 0) {
+                        System.out.println("Điện thoại này đã hết, vui lòng chọn điện thoại khác");
+                        System.out.println("Nhập mã điện thoại cần mua: ");
+                        a = null; // Đặt lại đối tượng điện thoại để bắt đầu chọn lại
+                        break; // Thoát khỏi vòng lặp và quay lại chọn điện thoại
+                    } else if (quan_check < quan) {
+                        System.out.println("Số lượng điện thoại không đủ, vui lòng nhập lại số lượng khác");
+                    }
+                } while (quan_check < quan); // Tiếp tục vòng lặp nếu không đủ số lượng hoặc đã hết
             }while(a == null);
-            System.out.println("Nhập số lượng điện thoại:");
-            int quan = sc.nextInt();
-            sc.nextLine();
             a.setSoluong(quan);
             dt = Arrays.copyOf(dt, dt.length+1);
             dt[dt.length - 1] = a;
@@ -450,13 +465,6 @@ public class main {
             cthd_list_temp[cthd_list_temp.length - 1] = cthd_new;
         }
 
-        //Giam
-
-        hd_temp.xuat();
-        for(int i = 0; i < cthd_list_temp.length; i++){
-            cthd_list_temp[i].xuatCTHD();
-        }
-
         // Them hoa don va chi tiet hoa don va khach hang vao he thong
 
         dshd.add(hd_temp);
@@ -473,16 +481,7 @@ public class main {
         }
         // Xu ly so luong dien thoai
         for(DienThoai a :dt){
-            System.out.println(a.getMaDT()+" sl: "+a.getSoluong());
-        }
-        for(DienThoai a :dt){
             dsdt.setsl(a.getMaDT(), a.getSoluong());
-            System.out.println("madt: " + a.getMaDT() + "sol: " + a.getSoluong());
         }
-
-        dshd.xuatDanhSachHoaDon();
-        dscthd.xuatDSCTHD();
-        dskh.xemDSKH();
-
     }
 }

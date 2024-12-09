@@ -53,7 +53,7 @@ public class DanhSachChiTietHoaDon {
                 return a.getSoluong();
             }
         }
-        return -1;
+        return 0;
     }
 
     public void giamslDT(String madt, int sl){
@@ -71,6 +71,45 @@ public class DanhSachChiTietHoaDon {
             if(a.getMaDT().equals(madt)){
                 a.setSoluong(a.getSoluong() + sl);
             }
+        }
+    }
+
+    public float getDonGia(String madt){
+        DienThoai[] dt = DanhSachDienThoai.getDsdt();
+        for(DienThoai a :dt){
+            if(a.getMaDT().equals(madt)){
+                return a.getDongia();
+            }
+        }
+        return 0;
+    }
+
+    public void thaydoitienHD(String mahd){
+        HoaDon[] dshd = DanhSachHoaDon.getDshd();
+        for(HoaDon hd :dshd){
+            float tongtien = 0;
+            if(hd.getMaHd().equals(mahd)){
+                for(ChiTietHoaDon ct :cthd){
+                    if(ct.getMahd().equals(hd.getMaHd())){
+                        tongtien += ct.getThanhtien();
+                    }
+                }
+                hd.setTongTien(tongtien);
+            }
+        }
+    }
+
+    public void thaydoitienKH(String mahd){
+        float tongtien = 0;
+        KhachHang[] dskh = DSKhachHang.getdskh();
+        HoaDon[] dshd = DanhSachHoaDon.getDshd();
+        for(KhachHang kh :dskh){
+            for(HoaDon hd :dshd){
+                if(hd.getMaKh().equals(kh.getMakh())){
+                    tongtien += hd.getTongTien();
+                }
+            }
+            kh.setTongtien(tongtien);
         }
     }
 
@@ -169,16 +208,26 @@ public class DanhSachChiTietHoaDon {
                     sc.nextLine();
                     switch (choice) {
                         case 1:
+                            tangslDT(chitiethoadon.getMadt(), chitiethoadon.getSoluong());
                             System.out.print("Nhập mã điện thoại mới: ");
                             chitiethoadon.setMadt(sc.nextLine());
+                            giamslDT(chitiethoadon.getMadt(), chitiethoadon.getSoluong());
+                            chitiethoadon.setDongia(getDonGia(chitiethoadon.getMadt()));
+                            chitiethoadon.setThanhtien(chitiethoadon.getDongia()* chitiethoadon.getSoluong());
+                            thaydoitienHD(chitiethoadon.getMahd());
+                            thaydoitienKH(chitiethoadon.getMahd());
                             System.out.println("Sửa mã điện thoại thành công.");
                             chitiethoadon.xuatCTHD();
                             break;
                         case 2:
+                            tangslDT(chitiethoadon.getMadt(), chitiethoadon.getSoluong());
                             System.out.print("Nhập số lượng mới: ");
                             chitiethoadon.setSoluong(sc.nextInt());
                             sc.nextLine();
                             chitiethoadon.setThanhtien(chitiethoadon.getSoluong() * chitiethoadon.getDongia());
+                            thaydoitienHD(chitiethoadon.getMahd());
+                            thaydoitienKH(chitiethoadon.getMahd());
+                            giamslDT(chitiethoadon.getMadt(), chitiethoadon.getSoluong());
                             System.out.println("Sửa số lượng thành công.");
                             chitiethoadon.xuatCTHD();
                             break;

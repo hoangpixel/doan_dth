@@ -71,7 +71,7 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 				return a.getSoluong();
 			}
 		}
-		return -1;
+		return 0;
 	}
 
 	public DienThoai kiemTraTrungMaDT(DienThoai dt) {
