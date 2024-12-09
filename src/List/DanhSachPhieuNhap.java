@@ -202,10 +202,9 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
                 System.out.println("1. Sửa đổi mã nhà cung cấp");
                 System.out.println("2. Sửa đổi ngày nhập hàng");
                 System.out.println("3. Sửa đổi mã nhân viên");
-                System.out.println("4. Sửa đổi tổng tiền hàng");
-                System.out.println("5. Thoát");
+                System.out.println("0. Thoát");
                 System.out.println("----------------------------------");
-                System.out.print("Vui lòng nhập lựa chọn của bạn (1->5) : ");
+                System.out.print("Vui lòng nhập lựa chọn của bạn (1->3) : ");
                 choice=sc.nextInt();
                 sc.nextLine();
                 switch (choice)
@@ -217,9 +216,20 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
                         break;
                     }
                     case 2: {
-                        System.out.print("Nhập ngày nhập hàng cẩn sửa đổi (yyyy/mm/dd) : ");
-                        String newNgayNhap = sc.nextLine();
-                        dspn[index].setNgayNhap(newNgayNhap);
+                        while(true)
+                        {
+                            System.out.print("Nhập ngày nhập hàng cẩn sửa đổi (yyyy/mm/dd) : ");
+                            String newNgayNhap = sc.nextLine();
+                            if(newNgayNhap.matches("\\d{4}/\\d{2}/\\d{2}"))
+                            {
+                                dspn[index].setNgayNhap(newNgayNhap);
+                                break;
+                            }
+                            else
+                            {
+                                System.out.println("Vui lòng nhập theo đúng định dạng (yyyy/mm/dd) !!!");
+                            }
+                        }
                         break;
                     }
                     case 3: {
@@ -228,21 +238,15 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
                         dspn[index].setMaNV(newMaNV);
                         break;
                     }
-                    case 4: {
-                        System.out.printf("Nhập tổng tiền hàng cẩn sửa : ");
-                        float newTongTien = sc.nextFloat();
-                        dspn[index].setTongTien(newTongTien);
-                        break;
-                    }
-                    case 5: {
+                    case 0: {
                         System.out.println("Tạm biệt !!!");
                         break;
                     }
                     default: {
-                        System.out.println("Lựa chọn không hợp lệ vui lòng chọn từ (1->5) !!!");
+                        System.out.println("Lựa chọn không hợp lệ vui lòng chọn từ (1->3) !!!");
                     }
                 }
-            }while(choice!=5);
+            }while(choice!=0);
         }
         else
         {

@@ -1,5 +1,4 @@
-package TypeNCC;
-import Constructors.NhaCungCap;
+package Constructors;
 import java.util.Scanner;
 public class NhaCungCapQuocTe extends NhaCungCap
 {
@@ -19,7 +18,7 @@ public class NhaCungCapQuocTe extends NhaCungCap
     }
     @Override
     public void xuat() {
-        super.xuat();  // Gọi phương thức xuat() của lớp cha
+        super.xuat();
         System.out.println("Quốc gia: " + this.quocGia);
     }
     @Override

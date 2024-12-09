@@ -1,6 +1,5 @@
 package Constructors;
 import java.util.Scanner;
-import TypeNCC.NhaCungCapQuocTe;
 import Interfaces.InterfaceNCC;
 public class NhaCungCap implements InterfaceNCC {
     protected String maNCC;

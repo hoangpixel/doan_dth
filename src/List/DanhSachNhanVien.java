@@ -340,7 +340,6 @@ public class DanhSachNhanVien
                     writer.write(data); // Ghi dữ liệu vào file
                 }
             }
-            System.out.println("Dữ liệu nhân viên đã được xuất vào ListNhanVien.txt");
         } catch (IOException e) {
             System.out.println("Lỗi khi ghi vào file: " + e.getMessage());
         } finally {

@@ -8,7 +8,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import Interfaces.InterfaceDocGhi;
-import TypeNCC.NhaCungCapQuocTe;
+import Constructors.NhaCungCapQuocTe;
 public class DanhSachNCC implements InterfaceDocGhi
 {
     private NhaCungCap[] dsncc;
@@ -171,7 +171,11 @@ public class DanhSachNCC implements InterfaceDocGhi
                 System.out.println("1. Sửa đổi tên nhà cung cấp");
                 System.out.println("2. Sửa đổi số điện thoại nhà cung cấp");
                 System.out.println("3. Sửa đổi địa chỉ nhà cung cấp");
-                System.out.println("4. Thoát");
+                if(dsncc[index] instanceof NhaCungCapQuocTe)
+                {
+                    System.out.println("4. Sửa đổi quốc gia");
+                }
+                System.out.println("0. Thoát");
                 System.out.println("----------------------------------");
                 System.out.print("Vui lòng nhập lựa chọn của bạn (1->4) : ");
                 choice=sc.nextInt();
@@ -201,13 +205,21 @@ public class DanhSachNCC implements InterfaceDocGhi
                     }
                     case 4:
                     {
+                        NhaCungCapQuocTe nccqt = (NhaCungCapQuocTe) dsncc[index];
+                        System.out.print("Nhập quốc gia mới cho nhà cung cấp : ");
+                        String newQG = sc.nextLine();
+                        nccqt.setQuocGia(newQG);
+                        break;
+                    }
+                    case 0:
+                    {
                         System.out.println("Tạm biệt bạn !!!");
                         break;
                     }
                     default:
                         System.out.println("Lưa chọn của bạn không hơp lệ vui lòng chọn (1->4)");
                 }
-            }while(choice!=4);
+            }while(choice!=0);
         }
         else
         {
