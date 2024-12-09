@@ -383,9 +383,15 @@ public class main {
             DienThoai a;
             do {
                 String ma = sc.nextLine();
-                a = dsdt.timKiem_maDT(ma);
-                if(a == null ) {
+                DienThoai temp = dsdt.timKiem_maDT(ma); // Lấy đối tượng từ danh sách
+                if (temp == null) {
                     System.out.println("Nhập sai mã, vui lòng nhập lại mã điện thoại cần mua: ");
+                } else {
+                	if (temp instanceof DienThoaiThongMinh) {
+                        a = new DienThoaiThongMinh((DienThoaiThongMinh) temp);
+                    } else if (temp instanceof DienThoaiPhim) {
+                        a = new DienThoaiPhim((DienThoaiPhim) temp);
+                    }
                 }
             }while(a == null);
             System.out.println("Nhập số lượng điện thoại:");
@@ -465,13 +471,13 @@ public class main {
             kh.setTongtien(kh.getTongtien() + hd_temp.getTongTien());
             (dskh.timkiemSDT(sdt)).setTongtien(kh.getTongtien());
         }
-
         // Xu ly so luong dien thoai
         for(DienThoai a :dt){
             System.out.println(a.getMaDT()+" sl: "+a.getSoluong());
         }
         for(DienThoai a :dt){
             dsdt.setsl(a.getMaDT(), a.getSoluong());
+            System.out.println("madt: " + a.getMaDT() + "sol: " + a.getSoluong());
         }
 
         dshd.xuatDanhSachHoaDon();
