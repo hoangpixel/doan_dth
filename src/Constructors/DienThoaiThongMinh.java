@@ -15,6 +15,10 @@ public class DienThoaiThongMinh extends DienThoai{
 		this.dungluongluutru = dungluongluutru;
 	}
 
+	public DienThoaiThongMinh(DienThoaiThongMinh dttm) {
+		super((DienThoai) dttm);
+		this.dungluongluutru = dttm.dungluongluutru;
+	}
 	public String getDungluongluutru() {
 		return dungluongluutru;
 	}
