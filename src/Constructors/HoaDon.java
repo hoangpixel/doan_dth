@@ -12,7 +12,7 @@ public class HoaDon {
     private String manv;
     private String makh;
     private float tongtien;
-    public void nhap(String[] danhsachmanv, String[] danhsachmakh){
+    public void nhap(String ma_nv, String[] danhsachmakh){
         Scanner nhap=new Scanner(System.in);
         System.out.println("\nHãy Nhập Thông Tin Hoá Đơn: ");
         System.out.print("Nhập mã hoá đơn: ");
@@ -20,17 +20,8 @@ public class HoaDon {
         LocalDate now = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         ngaylaphd=now.format(formatter);
-        System.out.println("Danh sách mã nhân viên:");
         int choice;
-        for(int i=0; i<danhsachmanv.length; i=i+1)
-        System.out.println("Mã nhân viên thứ "+(i+1)+": "+danhsachmanv[i]);
-        do{
-        System.out.print("Nhập số thứ tự của nhân viên lập hoá đơn: ");
-        choice=nhap.nextInt();
-        if(choice<1||choice>danhsachmanv.length)
-        System.out.println("Vui lòng nhập đúng cấu trúc");
-        }while(choice<1||choice>danhsachmanv.length);
-        manv=danhsachmanv[choice-1];
+        manv=ma_nv;
         System.out.println("Danh sách mã khách hàng:");
         for(int i=0; i<danhsachmakh.length; i=i+1)
         System.out.println("Mã khách hàng thứ "+(i+1)+": "+danhsachmakh[i]);
