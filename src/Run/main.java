@@ -80,7 +80,7 @@ public class main {
                         lc = nhap.nextInt();
                         switch (lc) {
                             case 1: {
-                                danhsachHD.menu(danhsachNV, dskh);
+                                danhsachHD.menu(danhsachNV, dskh, a);
                                 break;
                             }
                             case 2: {
