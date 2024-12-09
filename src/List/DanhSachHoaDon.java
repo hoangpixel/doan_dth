@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import Constructors.ChiTietHoaDon;
 import Constructors.HoaDon;
+import Constructors.NhanVien;
 import Interfaces.InterfaceDocGhi;
 import java.io.IOException;
 import java.io.BufferedReader;
@@ -68,7 +69,7 @@ public String taoMaHd() {
     }
     return "HD" + (maxNumber + 1); 
 }
-public void nhapDanhSachHoaDon(DanhSachNhanVien temp1, DSKhachHang temp2){
+public void nhapDanhSachHoaDon(DanhSachNhanVien temp1, DSKhachHang temp2, NhanVien temp3){
     System.out.print("Nhập số lượng hoá đơn: ");
     Scanner nhap=new Scanner(System.in);
     n=nhap.nextInt();
@@ -81,7 +82,7 @@ public void nhapDanhSachHoaDon(DanhSachNhanVien temp1, DSKhachHang temp2){
     }
     for(int i=0; i<n; i=i+1){
         dshd[i]=new HoaDon();
-        dshd[i].nhap(danhsachmanv, danhsachmakh);
+        dshd[i].nhap(temp3.getMaNv(), danhsachmakh);
         check(dshd[i]);
     }
 }
@@ -100,7 +101,7 @@ public void xuatDanhSachHoaDon(){
     System.out.format(format, dshd[i].getMaHd(), dshd[i].getNgayLapHd(), dshd[i].getMaNv(),dshd[i].getMaKh(), df.format(dshd[i].getTongTien()));
     System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
 }
-public void themHoaDon(DanhSachNhanVien temp1, DSKhachHang temp2){
+public void themHoaDon(DanhSachNhanVien temp1, DSKhachHang temp2, NhanVien temp3){
     String choice;
     Scanner nhap=new Scanner(System.in);
     System.out.println("\nBạn có muốn thêm hoá đơn không? (Y/N)");
@@ -129,7 +130,7 @@ public void themHoaDon(DanhSachNhanVien temp1, DSKhachHang temp2){
         n=dshd.length;
         dshd=Arrays.copyOf(dshd, n+1);
         dshd[n]=new HoaDon();
-        dshd[n].nhap(danhsachmanv, danhsachmakh);
+        dshd[n].nhap(temp3.getMaNv(), danhsachmakh);
         check(dshd[n]);
         n=n+1;
     }
@@ -479,7 +480,7 @@ public void thongKeTheoQuy(){
     }
 }
 
-public void menu(DanhSachNhanVien temp1, DSKhachHang temp2){
+public void menu(DanhSachNhanVien temp1, DSKhachHang temp2, NhanVien temp3){
     int choice;
     Scanner nhap=new Scanner(System.in);
     do
@@ -502,7 +503,7 @@ public void menu(DanhSachNhanVien temp1, DSKhachHang temp2){
             {
             case 1:
             {
-                themHoaDon(temp1, temp2);
+                themHoaDon(temp1, temp2, temp3);
                 break;
             }
             case 2:
