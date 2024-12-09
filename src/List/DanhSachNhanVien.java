@@ -405,7 +405,7 @@ public class DanhSachNhanVien
             System.out.println("| 10. Thống kê lương cao nhất, thấp nhất của nhân viên |");
             System.out.println("| 11. Thoát                                            |");
             System.out.println("------------------------------------------------------");
-            System.out.print("Vui lòng nhập lựa chọn của bạn (1->12): ");
+            System.out.print("Vui lòng nhập lựa chọn của bạn (1->11): ");
             choice = nhap.nextInt();
             switch (choice) {
                 case 1:
