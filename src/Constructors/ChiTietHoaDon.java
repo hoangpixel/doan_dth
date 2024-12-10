@@ -104,6 +104,7 @@ public class ChiTietHoaDon {
                 if(a.getMaDT().equals(this.madt) && a.getSoluong()==0){
                     System.out.println("Số lượng điện thoại còn trong kho đã hết, hủy thao tác tạo chi tiết hóa đơn ");
                     quan = false;
+                    this.mahd = null;
                     return;
                 }else if(a.getMaDT().equals(this.madt) && a.getSoluong()<this.soluong){
                     System.out.println("Số lượng điện thoại còn trong kho không đủ, chỉ còn "+a.getSoluong()+" chiếc, vui lòng nhập số lượng khác ");
