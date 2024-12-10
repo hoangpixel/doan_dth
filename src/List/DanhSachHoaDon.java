@@ -250,11 +250,10 @@ public void suaTheoMa(DanhSachNhanVien temp1, DSKhachHang temp2){
         }
         int position=timTheoMa(ma);
         System.out.println("\n----------- MENU -----------");
-        System.out.println("| 1. Sửa đổi mã nhân viên    |   ");
-        System.out.println("| 2. Sửa đổi mã khách hàng   |");
-        System.out.println("| 3. Thoát                   |");
+        System.out.println("| 1. Sửa đổi mã nhân viên    |");
+        System.out.println("| 2. Thoát                   |");
         System.out.println("----------------------------");
-        System.out.print("Vui lòng nhập lựa chọn của bạn (1->3): ");
+        System.out.print("Vui lòng nhập lựa chọn của bạn (1->2): ");
         int choice;
         choice=nhap.nextInt();
         nhap.nextLine();
@@ -277,26 +276,11 @@ public void suaTheoMa(DanhSachNhanVien temp1, DSKhachHang temp2){
             }
             case 2:
             {
-                String[] ma_kh=temp2.layDanhSachMaKh();
-                for(int i=0; i<ma_kh.length; i=i+1)
-                System.out.println("Mã khách hàng thứ "+(i+1)+": "+ma_kh[i]);
-                int lc;
-                do{
-                System.out.print("Nhập số thứ tự của khách hàng: ");
-                lc=nhap.nextInt();
-                if(lc<1||lc>ma_kh.length)
-                System.out.println("Vui lòng nhập đúng cấu trúc");
-                }while(lc<1||lc>ma_kh.length);
-                dshd[position-1].setMaKh(ma_kh[lc-1]);
-                break;
-            }
-            case 3:
-            {
                 System.out.println("Thoát");
                 break;
             }
             default:
-                System.out.println("Lưa chọn không hợp lệ (1 -> 3)");
+                System.out.println("Lưa chọn không hợp lệ (1 -> 2)");
             }
 }
 public void thongKe(){
@@ -469,10 +453,10 @@ public void thongKeTheoQuy(){
         HoaDon[] quyII=quyII(year[i]);
         HoaDon[] quyIII=quyIII(year[i]);
         HoaDon[] quyIV=quyIV(year[i]);
-        float tong1=0;
-        float tong2=0;
-        float tong3=0;
-        float tong4=0;
+        double tong1=0;
+        double tong2=0;
+        double tong3=0;
+        double tong4=0;
         System.out.println("Năm "+year[i]+": ");
         for(int temp=0; temp<quyI.length; temp=temp+1)
             tong1=tong1+quyI[temp].getTongTien();
@@ -482,10 +466,11 @@ public void thongKeTheoQuy(){
             tong3=tong3+quyIII[temp].getTongTien();
         for(int temp=0; temp<quyIV.length; temp=temp+1)
             tong4=tong4+quyIV[temp].getTongTien();
-        System.out.println("Tổng tiền theo quý I: "+tong1);
-        System.out.println("Tổng tiền theo quý II: "+tong2);
-        System.out.println("Tổng tiền theo quý III: "+tong3);
-        System.out.println("Tổng tiền theo quý IV: "+tong4);
+        DecimalFormat df = new DecimalFormat("#,###");
+        System.out.println("Tổng tiền theo quý I: "+df.format(tong1));
+        System.out.println("Tổng tiền theo quý II: "+df.format(tong2));
+        System.out.println("Tổng tiền theo quý III: "+df.format(tong3));
+        System.out.println("Tổng tiền theo quý IV: "+df.format(tong4));
         System.out.println("---\n");
     }
 }

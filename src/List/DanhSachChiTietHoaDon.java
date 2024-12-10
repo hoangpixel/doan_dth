@@ -1,7 +1,6 @@
 package List;
 import List.*;
 import Constructors.*;
-import Constructors.ChiTietHoaDon;
 import Interfaces.InterfaceDocGhi;
 
 import java.util.Arrays;
@@ -115,7 +114,6 @@ public class DanhSachChiTietHoaDon implements InterfaceDocGhi{
         }
     }
 
-
     public void nhapDSCTHD(){
         System.out.println("Nhập số lượng chi tiết hóa đơn muốn thêm: ");
         int soluong = sc.nextInt();
@@ -135,7 +133,6 @@ public class DanhSachChiTietHoaDon implements InterfaceDocGhi{
         if(a.getMahd() != null) {
         	cthd = Arrays.copyOf(cthd, cthd.length + 1);
         	cthd[cthd.length - 1] = a;
-        	
         }
     }
 
@@ -169,17 +166,14 @@ public class DanhSachChiTietHoaDon implements InterfaceDocGhi{
         }
         System.out.println("Nhập mã điện thoại của chi tiết cần xóa");
         String madt = sc.nextLine();
-        String mahd_temp;
         for(int i = 0; i < cthd.length; i++){
             if(cthd[i].getMahd().equals(mahd) && cthd[i].getMadt().equals(madt)){
                 tangslDT(cthd[i].getMadt(), cthd[i].getSoluong());
-                mahd_temp = cthd[i].getMahd();
                 for (int j = i; j < cthd.length - 1; j++) {
                     cthd[j] = cthd[j + 1];
                 }
                 cthd = Arrays.copyOf(cthd, cthd.length - 1);
-                thaydoitienHD(mahd_temp);
-                thaydoitienKH(mahd_temp);
+                thaydoitienHD(mahd);
                 System.out.println("Xóa chi tiết hóa đơn thành công thành công.");
                 return;
             }
@@ -251,9 +245,22 @@ public class DanhSachChiTietHoaDon implements InterfaceDocGhi{
                             break;
                         case 2:
                             tangslDT(chitiethoadon.getMadt(), chitiethoadon.getSoluong());
-                            System.out.print("Nhập số lượng mới: ");
-                            chitiethoadon.setSoluong(sc.nextInt());
-                            sc.nextLine();
+                            boolean quan = true;
+                            int soLuong = -1;
+                            do {
+                            	quan = true;
+                            	System.out.print("Nhập số lượng mới: ");
+                            	soLuong = sc.nextInt();
+                            	sc.nextLine();
+                            	DienThoai[] dsdt = DanhSachDienThoai.getDsdt();
+                            	for(DienThoai a : dsdt) {
+                            		if(a.getMaDT().equals(chitiethoadon.getMadt()) && a.getSoluong()<soLuong){
+                            			System.out.println("Số lượng điện thoại còn trong kho không đủ, chỉ còn "+a.getSoluong()+" chiếc, vui lòng nhập số lượng khác ");
+                            			quan = false;
+                            		}
+                            	}
+                            }while(!quan);
+                            chitiethoadon.setSoluong(soLuong);
                             chitiethoadon.setThanhtien(chitiethoadon.getSoluong() * chitiethoadon.getDongia());
                             thaydoitienHD(chitiethoadon.getMahd());
                             thaydoitienKH(chitiethoadon.getMahd());
