@@ -6,5 +6,3 @@ NCC05;Jame Bold;1497733;34 Sunny Isles Beach;Vương Quốc Anh
 NCC06;Trương Thế Quân;1800 9234;124 Hương Lộ 2, P.Bình Thạnh, Bình Tân, Hồ Chí Minh;
 NCC07;Leonardo DiCaprio;3782 2381;11, 1974, Los Angeles, California;Mỹ
 NCC08;Leonardo da Vinci;0381 8186;12 , Amboise, Pháp;Pháp
-1;1;1;1;
-2;2;2;2;2

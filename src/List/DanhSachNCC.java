@@ -12,7 +12,7 @@ import Constructors.NhaCungCapQuocTe;
 import Constructors.NhaCungCapNoiDia;
 public class DanhSachNCC implements InterfaceDocGhi
 {
-    private NhaCungCap[] dsncc;
+    private static NhaCungCap[] dsncc;
     public DanhSachNCC()
     {
         dsncc=new NhaCungCap[0];
@@ -21,7 +21,16 @@ public class DanhSachNCC implements InterfaceDocGhi
     {
         this.dsncc=dsncc;
     }
-    public boolean trungMaNcc(String maNCC)
+    
+    public static NhaCungCap[] getDsncc() {
+		return dsncc;
+	}
+    
+	public void setDsncc(NhaCungCap[] dsncc) {
+		this.dsncc = dsncc;
+	}
+	
+	public boolean trungMaNcc(String maNCC)
     {
         for (NhaCungCap ds : dsncc)
         {
@@ -340,7 +349,7 @@ public class DanhSachNCC implements InterfaceDocGhi
         System.out.format("+--------------+--------------+\n");
         System.out.println();
     }
-    public void xuat() {
+    public static void xuat() {
         if (dsncc.length == 0) {
             System.out.println("Danh sách nhà cung cấp trống.");
             return;

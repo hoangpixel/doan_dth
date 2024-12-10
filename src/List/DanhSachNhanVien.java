@@ -10,8 +10,8 @@ import java.io.FileWriter;
 import java.text.DecimalFormat;
 public class DanhSachNhanVien
 {
-    private int n=0;
     public static NhanVien[] dsnv=new NhanVien[0];
+    private int n=0;
     public DanhSachNhanVien(){
     }
     public DanhSachNhanVien(int n, NhanVien[] dsnv){
@@ -52,9 +52,9 @@ public class DanhSachNhanVien
             check(dsnv[i]);
         }
     }
-    public void xuatdsnv(){
+    public static void xuatdsnv(){
         System.out.print("\n");
-        if(n==0){
+        if(dsnv.length==0){
         System.out.println("Danh sách nhân viên trống");
         return;
         }
@@ -63,7 +63,7 @@ public class DanhSachNhanVien
         System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+----------------------+-----------------+--------------------------------+\n");
         System.out.format(format, "Mã nhân viên", "Họ nhân viên", "Tên nhân viên", "Lương", "Chức vụ", "Số điện thoại", "Số căn cước", "Địa chỉ");
         System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+----------------------+-----------------+--------------------------------+\n");
-        for(int i=0; i<n; i=i+1)
+        for(int i=0; i<dsnv.length; i=i+1)
         System.out.format(format, dsnv[i].getMaNv(), dsnv[i].getHoNv(), dsnv[i].getTenNv(),df.format(dsnv[i].getLuong()), dsnv[i].getChucVu(), dsnv[i].getSdtNv(), dsnv[i].getSoCanCuoc(), dsnv[i].getDiaChiNv());
         System.out.format("+-----------------+----------------------+-----------------+--------------------------------+-----------------+----------------------+-----------------+--------------------------------+\n");
     }

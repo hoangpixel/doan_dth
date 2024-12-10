@@ -58,14 +58,13 @@ public class PhieuNhap
                 System.out.println("Vui lòng nhập theo (yyyy/mm/dd)");
             }
         }
-        DanhSachNCC dsncc = new DanhSachNCC();
-        dsncc.docFile();
-        dsncc.xuat();
+        
+        NhaCungCap[] dsncc = DanhSachNCC.getDsncc();
+        DanhSachNCC.xuat();
         System.out.print("Nhập mã nhà cung cấp : ");
         this.maNCC=sc.nextLine();
-        DanhSachNhanVien dsnv = new DanhSachNhanVien();
-        dsnv.docTuFile();
-        dsnv.xuatdsnv();
+        NhanVien[] dsnv = DanhSachNhanVien.getDsnv();
+        DanhSachNhanVien.xuatdsnv();
         System.out.print("Nhập mã nhân viên : ");
         this.maNV=sc.nextLine();
         this.tinhTong();

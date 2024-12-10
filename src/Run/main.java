@@ -136,7 +136,6 @@ public class main {
             switch (choice) {
                 case 1:
                     danhSachNCC.nhapK();
-                    danhSachNCC.ghiFile();
                     break;
                 case 2:
                     danhSachNCC.xuat();
