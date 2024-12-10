@@ -96,6 +96,7 @@ public class ChiTietHoaDon {
         madt = sc.nextLine();
         boolean quan = true;
         do {
+        	quan = true;
             System.out.print("Số lượng: ");
             soluong = sc.nextInt();
             sc.nextLine();
