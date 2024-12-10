@@ -1,7 +1,6 @@
 package List;
 import List.*;
 import Constructors.*;
-import Constructors.ChiTietHoaDon;
 import Interfaces.InterfaceDocGhi;
 
 import java.util.Arrays;
@@ -245,9 +244,22 @@ public class DanhSachChiTietHoaDon implements InterfaceDocGhi{
                             break;
                         case 2:
                             tangslDT(chitiethoadon.getMadt(), chitiethoadon.getSoluong());
-                            System.out.print("Nhập số lượng mới: ");
-                            chitiethoadon.setSoluong(sc.nextInt());
-                            sc.nextLine();
+                            boolean quan = true;
+                            int soLuong = -1;
+                            do {
+                            	quan = true;
+                            	System.out.print("Nhập số lượng mới: ");
+                            	soLuong = sc.nextInt();
+                            	sc.nextLine();
+                            	DienThoai[] dsdt = DanhSachDienThoai.getDsdt();
+                            	for(DienThoai a : dsdt) {
+                            		if(a.getMaDT().equals(chitiethoadon.getMadt()) && a.getSoluong()<soLuong){
+                            			System.out.println("Số lượng điện thoại còn trong kho không đủ, chỉ còn "+a.getSoluong()+" chiếc, vui lòng nhập số lượng khác ");
+                            			quan = false;
+                            		}
+                            	}
+                            }while(!quan);
+                            chitiethoadon.setSoluong(soLuong);
                             chitiethoadon.setThanhtien(chitiethoadon.getSoluong() * chitiethoadon.getDongia());
                             thaydoitienHD(chitiethoadon.getMahd());
                             thaydoitienKH(chitiethoadon.getMahd());

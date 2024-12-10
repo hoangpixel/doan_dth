@@ -457,10 +457,11 @@ public void thongKeTheoQuy(){
             tong3=tong3+quyIII[temp].getTongTien();
         for(int temp=0; temp<quyIV.length; temp=temp+1)
             tong4=tong4+quyIV[temp].getTongTien();
-        System.out.println("Tổng tiền theo quý I: "+tong1);
-        System.out.println("Tổng tiền theo quý II: "+tong2);
-        System.out.println("Tổng tiền theo quý III: "+tong3);
-        System.out.println("Tổng tiền theo quý IV: "+tong4);
+        DecimalFormat df = new DecimalFormat("#,###");
+        System.out.println("Tổng tiền theo quý I: "+df.format(tong1));
+        System.out.println("Tổng tiền theo quý II: "+df.format(tong2));
+        System.out.println("Tổng tiền theo quý III: "+df.format(tong3));
+        System.out.println("Tổng tiền theo quý IV: "+df.format(tong4));
         System.out.println("---\n");
     }
 }
