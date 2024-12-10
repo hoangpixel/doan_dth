@@ -241,11 +241,10 @@ public void suaTheoMa(DanhSachNhanVien temp1, DSKhachHang temp2){
         }
         int position=timTheoMa(ma);
         System.out.println("\n----------- MENU -----------");
-        System.out.println("| 1. Sửa đổi mã nhân viên    |   ");
-        System.out.println("| 2. Sửa đổi mã khách hàng   |");
-        System.out.println("| 3. Thoát                   |");
+        System.out.println("| 1. Sửa đổi mã nhân viên    |");
+        System.out.println("| 2. Thoát                   |");
         System.out.println("----------------------------");
-        System.out.print("Vui lòng nhập lựa chọn của bạn (1->3): ");
+        System.out.print("Vui lòng nhập lựa chọn của bạn (1->2): ");
         int choice;
         choice=nhap.nextInt();
         nhap.nextLine();
@@ -268,26 +267,11 @@ public void suaTheoMa(DanhSachNhanVien temp1, DSKhachHang temp2){
             }
             case 2:
             {
-                String[] ma_kh=temp2.layDanhSachMaKh();
-                for(int i=0; i<ma_kh.length; i=i+1)
-                System.out.println("Mã khách hàng thứ "+(i+1)+": "+ma_kh[i]);
-                int lc;
-                do{
-                System.out.print("Nhập số thứ tự của khách hàng: ");
-                lc=nhap.nextInt();
-                if(lc<1||lc>ma_kh.length)
-                System.out.println("Vui lòng nhập đúng cấu trúc");
-                }while(lc<1||lc>ma_kh.length);
-                dshd[position-1].setMaKh(ma_kh[lc-1]);
-                break;
-            }
-            case 3:
-            {
                 System.out.println("Thoát");
                 break;
             }
             default:
-                System.out.println("Lưa chọn không hợp lệ (1 -> 3)");
+                System.out.println("Lưa chọn không hợp lệ (1 -> 2)");
             }
 }
 public void thongKe(){

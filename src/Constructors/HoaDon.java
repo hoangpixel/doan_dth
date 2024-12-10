@@ -12,6 +12,7 @@ public class HoaDon {
     private String manv;
     private String makh;
     private float tongtien;
+    
     public void nhap(String ma_nv, String[] danhsachmakh){
         Scanner nhap=new Scanner(System.in);
         System.out.println("\nHãy Nhập Thông Tin Hoá Đơn: ");
