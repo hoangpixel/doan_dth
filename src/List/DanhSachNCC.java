@@ -29,7 +29,7 @@ public class DanhSachNCC implements InterfaceDocGhi
 	public void setDsncc(NhaCungCap[] dsncc) {
 		this.dsncc = dsncc;
 	}
-	
+	//kiểm tra mã ncc
 	public boolean trungMaNcc(String maNCC)
     {
         for (NhaCungCap ds : dsncc)
@@ -46,7 +46,7 @@ public class DanhSachNCC implements InterfaceDocGhi
         int n = sc.nextInt();
         sc.nextLine();
         dsncc = new NhaCungCap[n];
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) { //khởi tạo đối tượng ncc
             NhaCungCap ncc = new NhaCungCap();
             do {
                 ncc.nhap();
@@ -76,7 +76,7 @@ public class DanhSachNCC implements InterfaceDocGhi
         for(int i=0;i<k;i++)
         {
             NhaCungCap ncc;
-            System.out.println("1. Nhà cung cấp nội địa");
+            System.out.println("1. Nhà cung cấp nội địa"); //nếu như 1 thì khởi tạo ncc nội địa , 2 thì ncc quốc tế còn không thì mặc định là nội địa
             System.out.println("2. Nhà cung cấp quốc tế");
             System.out.print("Nhập lựa chọn của bạn : ");
             choice=sc.nextInt();
@@ -114,6 +114,7 @@ public class DanhSachNCC implements InterfaceDocGhi
         System.out.print("Nhập mã nhà cung cấp muốn xóa : ");
         String xoaMa=sc.nextLine();
         int index=-1;
+	    //kiểm tra mã rồi trả về vị trí index
         for(int i=0;i<n;i++)
         {
             if(dsncc[i].getMaNCC().equals(xoaMa))
@@ -155,13 +156,13 @@ public class DanhSachNCC implements InterfaceDocGhi
             System.out.format("+-------+-----------------+----------------------+-----------------+---------------------------------------------------------+-----------------+\n");
             System.out.format(format, "STT", "Mã NCC", "Tên NCC", "SĐT", "Địa chỉ", "Quốc gia");
             System.out.format("+-------+-----------------+----------------------+-----------------+---------------------------------------------------------+-----------------+\n");
-            if(dsncc[index] instanceof NhaCungCapNoiDia)
+            if(dsncc[index] instanceof NhaCungCapNoiDia) //kiểm tra nếu là nội địa thì quocGia sẽ được get từ đối tượng nccND
             {
                 quocGia = ((NhaCungCapNoiDia) dsncc[index]).getQuocgia();
             }
             else if(dsncc[index] instanceof NhaCungCapQuocTe)
             {
-                quocGia = ((NhaCungCapQuocTe) dsncc[index]).getQuocGia();
+                quocGia = ((NhaCungCapQuocTe) dsncc[index]).getQuocGia(); //kiểm tra nếu là quốc tế thì quocGia sẽ được get từ đối tượng nccQT
             }
             System.out.format(format,index+1,dsncc[index].getMaNCC(),dsncc[index].getTenNCC(),dsncc[index].getSdtNCC(),dsncc[index].getDiachiNCC(),quocGia);
             System.out.format("+-------+-----------------+----------------------+-----------------+---------------------------------------------------------+-----------------+\n");
@@ -195,6 +196,7 @@ public class DanhSachNCC implements InterfaceDocGhi
                 System.out.println("1. Sửa đổi tên nhà cung cấp");
                 System.out.println("2. Sửa đổi số điện thoại nhà cung cấp");
                 System.out.println("3. Sửa đổi địa chỉ nhà cung cấp");
+		//kiểm tra nếu dsncc[index] nó thược quốc tế hoặc nội địa thì sẽ xuất ra dòng sửa quốc gia
                 if((dsncc[index] instanceof NhaCungCapQuocTe) || (dsncc[index] instanceof NhaCungCapNoiDia))
                 {
                     System.out.println("4. Sửa đổi quốc gia");
@@ -229,6 +231,7 @@ public class DanhSachNCC implements InterfaceDocGhi
                     }
                     case 4:
                     {
+			    //nếu là quốc tế thì ép kiểu dsncc "cha" thành con là "nccqt""
                         if(dsncc[index] instanceof NhaCungCapQuocTe)
                         {
                             NhaCungCapQuocTe nccqt = (NhaCungCapQuocTe) dsncc[index];
@@ -236,6 +239,7 @@ public class DanhSachNCC implements InterfaceDocGhi
                             String qgMoi = sc.nextLine();
                             nccqt.setQuocGia(qgMoi);
                         }
+			//nếu là nội địa thì ép kiểu dsncc "cha" thành con là "nccnd""
                         else if(dsncc[index] instanceof NhaCungCapNoiDia)
                         {
                             NhaCungCapNoiDia nccnd = (NhaCungCapNoiDia) dsncc[index];
@@ -301,13 +305,16 @@ public class DanhSachNCC implements InterfaceDocGhi
         System.out.format("+-------+-----------------+----------------------+-----------------+---------------------------------------------------------+-----------------+\n");
         for(int i=0;i<dsncc.length;i++)
         {
+		//kiểm tra tên và xét luôn cả chữ thường và chữ hoa
             if(dsncc[i].getTenNCC().toLowerCase().contains(findName.toLowerCase()))
             {
+		    //nếu là đối tượng nccQT thì ép kiểu dsncc bên cha thành con bên NhaCungCapQuocTe
                 String quocGia="";
                 if(dsncc[i] instanceof NhaCungCapQuocTe)
                 {
                     quocGia = ((NhaCungCapQuocTe) dsncc[i]).getQuocGia();
                 }
+		//nếu là đối tượng nccND thì ép kiểu dsncc bên cha thành con bên NhaCungCapQuocTe
                 else if(dsncc[i] instanceof NhaCungCapNoiDia)
                 {
                     quocGia = ((NhaCungCapNoiDia) dsncc[i]).getQuocgia();
@@ -374,12 +381,16 @@ public class DanhSachNCC implements InterfaceDocGhi
         int dQT=0;
         for(int i=0;i<dsncc.length;i++)
         {
+		//ktra nếu là qt thì tăng dQT
             if(dsncc[i] instanceof NhaCungCapQuocTe)
             {
                 dQT++;
             }
-            else if(dsncc[i] instanceof NhaCungCapNoiDia)
+            else if(dsncc[i] instanceof NhaCungCapNoiDia) 
             {
+
+		    //nếu là nội địa và quocGia có "Nội địa" thì tăng biến dND và nếu sau khi
+		    //đổi quốc gia từ nội đia sang khác thì dnd sẽ giảm và tăng dqt
                 NhaCungCapNoiDia nccnd = (NhaCungCapNoiDia) dsncc[i];
                 if(nccnd.getQuocgia().equalsIgnoreCase("Nội địa"))
                 {

@@ -90,16 +90,31 @@ public class ChiTietHoaDon {
         DienThoai[] dsdt = DanhSachDienThoai.getDsdt();
         Scanner sc = new Scanner(System.in);
         System.out.println("Nhập thông tin chi tiết hóa đơn");
-        System.out.print("Mã hóa đơn: ");
-        mahd = sc.nextLine();
-        System.out.print("Mã điện thoại: ");
-        madt = sc.nextLine();
+        do {
+            System.out.print("Mã hóa đơn: ");
+            mahd = sc.nextLine();
+            if(!DanhSachHoaDon.checkmaHD(mahd)){
+                System.out.println("Không tìm thấy mã hóa đơn này, vui lòng nhập lại ");
+            }
+        }while(!DanhSachHoaDon.checkmaHD(mahd));
+        do {
+            System.out.print("Mã điện thoại: ");
+            madt = sc.nextLine();
+            if(!DanhSachDienThoai.checkmaDT(madt)){
+                System.out.println("Mã điện thoại không tồn tại, vui lòng nhập lại");
+            }
+        }while(!DanhSachDienThoai.checkmaDT(madt));
         boolean quan = true;
         do {
         	quan = true;
-            System.out.print("Số lượng: ");
-            soluong = sc.nextInt();
-            sc.nextLine();
+            do {
+                System.out.print("Số lượng: ");
+                soluong = sc.nextInt();
+                sc.nextLine();
+                if(soluong == 0 || soluong < 0){
+                    System.out.println("Số lượng không hợp lệ, vui lòng nhập lại");
+                }
+            }while(soluong == 0 || soluong < 0);
             for(DienThoai a :dsdt){
                 if(a.getMaDT().equals(this.madt) && a.getSoluong()==0){
                     System.out.println("Số lượng điện thoại còn trong kho đã hết, hủy thao tác tạo chi tiết hóa đơn ");

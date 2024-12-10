@@ -31,6 +31,15 @@ public DanhSachHoaDon(DanhSachHoaDon temp){
         return dshd;
     }
 
+    public static boolean checkmaHD(String mahd){
+        for(HoaDon a :dshd){
+            if(a.getMaHd().equals(mahd)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 public void check(HoaDon temp){
     for(int i=0; i<n; i=i+1)
         if(dshd[i]!=temp)

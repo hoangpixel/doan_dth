@@ -166,14 +166,17 @@ public class DanhSachChiTietHoaDon implements InterfaceDocGhi{
         }
         System.out.println("Nhập mã điện thoại của chi tiết cần xóa");
         String madt = sc.nextLine();
+        String mahd_temp;
         for(int i = 0; i < cthd.length; i++){
             if(cthd[i].getMahd().equals(mahd) && cthd[i].getMadt().equals(madt)){
                 tangslDT(cthd[i].getMadt(), cthd[i].getSoluong());
+                mahd_temp = cthd[i].getMahd();
                 for (int j = i; j < cthd.length - 1; j++) {
                     cthd[j] = cthd[j + 1];
                 }
                 cthd = Arrays.copyOf(cthd, cthd.length - 1);
-                thaydoitienHD(mahd);
+                thaydoitienHD(mahd_temp);
+                thaydoitienKH(mahd_temp);
                 System.out.println("Xóa chi tiết hóa đơn thành công thành công.");
                 return;
             }
