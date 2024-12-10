@@ -470,11 +470,8 @@ public class main {
             cthd_list_temp = Arrays.copyOf(cthd_list_temp, cthd_list_temp.length + 1);
             cthd_list_temp[cthd_list_temp.length - 1] = cthd_new;
         }
-
         // Them hoa don va chi tiet hoa don va khach hang vao he thong
-
         dshd.add(hd_temp);
-
         for (ChiTietHoaDon a :cthd_list_temp){
             dscthd.add(a);
         }

@@ -114,6 +114,15 @@ public class DanhSachChiTietHoaDon implements InterfaceDocGhi{
         }
     }
 
+    public Boolean checkmaDT(String madt, String mahd){
+        for(ChiTietHoaDon a :cthd){
+            if(a.getMahd().equals(mahd) && a.getMadt().equals(madt)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void nhapDSCTHD(){
         System.out.println("Nhập số lượng chi tiết hóa đơn muốn thêm: ");
         int soluong = sc.nextInt();
@@ -136,11 +145,6 @@ public class DanhSachChiTietHoaDon implements InterfaceDocGhi{
         }
     }
 
-    public void themCTHD(ChiTietHoaDon a){
-        cthd = Arrays.copyOf(cthd, cthd.length + 1);
-        cthd[cthd.length - 1] = a;
-    }
-
     public void xuatDSCTHD() {
         if (cthd.length == 0) {
             System.out.println("Danh sách chi tiết hóa đơn trống.");
@@ -157,15 +161,32 @@ public class DanhSachChiTietHoaDon implements InterfaceDocGhi{
 
     public void xoaCTHD(){
         System.out.println("Xóa chi tiết hóa đơn");
-        System.out.println("Nhập mã hóa đơn của chi tiết cần xóa");
-        String mahd = sc.nextLine();
-        for(ChiTietHoaDon chitiethoadon : cthd){
-            if(chitiethoadon.getMahd().equals(mahd)){
-                chitiethoadon.xuatCTHD();
+        Boolean found = false;
+        String mahd;
+        do {
+            System.out.print("Nhập mã hóa đơn của chi tiết cần xóa: ");
+            mahd = sc.nextLine();
+            for (ChiTietHoaDon chitiethoadon : cthd) {
+                if (chitiethoadon.getMahd().equals(mahd)) {
+                    chitiethoadon.xuatCTHD();
+                    found = true;
+                }
             }
-        }
-        System.out.println("Nhập mã điện thoại của chi tiết cần xóa");
-        String madt = sc.nextLine();
+            if(!found){
+                System.out.println("Mã hóa đơn sai, vui lòng nhập lại");
+            }
+        }while(!found);
+        found = false;
+        String madt;
+        do {
+            System.out.println("Nhập mã điện thoại của chi tiết cần xóa");
+            madt = sc.nextLine();
+            if(!checkmaDT(madt, mahd)){
+                System.out.println("Mã điện thoại sai, vui lòng nhập lại");
+            } else{
+                found = true;
+            }
+        }while(!found);
         String mahd_temp;
         for(int i = 0; i < cthd.length; i++){
             if(cthd[i].getMahd().equals(mahd) && cthd[i].getMadt().equals(madt)){
