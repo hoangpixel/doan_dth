@@ -163,6 +163,7 @@ public void xoaTheoMa(){
         dshd[i]=dshd[i+1];
     dshd=Arrays.copyOf(dshd, dshd.length-1);
     n=n-1;
+    DanhSachChiTietHoaDon.xoaCTHD(ma);
 }
 public int timTheoMa(String ma){
     for(int i=0; i<n; i=i+1)
