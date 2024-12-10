@@ -38,6 +38,15 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 	public void setDsdt(DienThoai[] dsdt) {
 		this.dsdt = dsdt;
 	}
+
+	public static int getsl(String madt){
+		for(DienThoai a :dsdt){
+			if(a.getMaDT().equals(madt)){
+				return a.getSoluong();
+			}
+		}
+		return -1;
+	}
 	
 	public static int laySoLuongTonKho() {
 		int tong = 0;
@@ -72,6 +81,15 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 			}
 		}
 		return 0;
+	}
+
+	public static Boolean checkmaDT(String madt){
+		for(DienThoai a :dsdt){
+			if(a.getMaDT().equals(madt)){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public DienThoai kiemTraTrungMaDT(DienThoai dt) {
