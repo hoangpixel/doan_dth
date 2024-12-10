@@ -100,7 +100,7 @@ public class DanhSachChiTietHoaDon implements InterfaceDocGhi{
         }
     }
 
-    public void thaydoitienKH(String mahd){
+    public static void thaydoitienKH(String mahd){
         float tongtien = 0;
         KhachHang[] dskh = DSKhachHang.getdskh();
         HoaDon[] dshd = DanhSachHoaDon.getDshd();
@@ -189,6 +189,7 @@ public class DanhSachChiTietHoaDon implements InterfaceDocGhi{
             if(timTheoMa(ma_hd)!=-1){
                 int position=timTheoMa(ma_hd);
                 tangslDT(cthd[position-1].getMadt(), cthd[position-1].getSoluong());
+		thaydoitienKH(ma_hd);
                 for(int i=position-1; i<cthd.length-1; i=i+1){
                     cthd[i]=cthd[i+1];
                 }
