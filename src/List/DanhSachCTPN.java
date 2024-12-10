@@ -213,7 +213,9 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 
 	public void suaCTPN() {
 		System.out.print("Nhập mã phiếu nhập và mã điện thoại của CTPN cần sửa: ");
+		System.out.print("Nhập mã phiếu nhập: ");
 		String maPN = sc.nextLine();
+		System.out.print("Nhập mã điện thoại: ");
 		String maDT = sc.nextLine();
 		int index = timKiemCTPN(maPN, maDT);
 		if(index == -1) {
@@ -234,17 +236,20 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 				switch (luaChon) {
 				case 1: {
 					System.out.print("Nhập mã điện thoại mới: ");
-					ChiTietPhieuNhap ctpn = dsctpn[index];
+					ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap(dsctpn[index]);
 					String ma = sc.nextLine();
 					ctpn.setMaDT(ma);
 					ctpn = kiemTraMaDT(ctpn);
+					capNhatSoLuong_giam(dsctpn[index].getMaDT(), ctpn.getSoluong());
 					dsctpn[index].setMaDT(ctpn.getMaDT());
+					capNhatSoLuong_tang(dsctpn[index].getMaDT(), ctpn.getSoluong());
 					break;
 				}
 				case 2: {
 					System.out.print("Nhập số lượng điện thoại mới: ");
 					int soluong = sc.nextInt();
 					sc.nextLine();
+					capNhatSoLuong_tang(dsctpn[index].getMaDT(), soluong - dsctpn[index].getSoluong());
 					dsctpn[index].setSoluong(soluong);
 					break;
 				}
