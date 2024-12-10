@@ -173,6 +173,7 @@ public class DanhSachChiTietHoaDon implements InterfaceDocGhi{
                     cthd[j] = cthd[j + 1];
                 }
                 cthd = Arrays.copyOf(cthd, cthd.length - 1);
+                thaydoitienHD(mahd);
                 System.out.println("Xóa chi tiết hóa đơn thành công thành công.");
                 return;
             }
