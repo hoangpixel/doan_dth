@@ -4,8 +4,10 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Scanner;
 import Constructors.PhieuNhap;
@@ -269,7 +271,10 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 	}
 	
 	
-	public void thongke_maDT() {
+	public void thongke_topSoLuongNhap() {
+		System.out.print("Top điện thoại được nhập nhiều nhất: ");
+		int n = sc.nextInt();
+		
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		for(int i = 0; i < dsctpn.length; i++) {
 			String maDT = dsctpn[i].getMaDT();
@@ -277,9 +282,19 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 			
 			map.put(maDT, map.getOrDefault(maDT, 0) + soLuong);
 		}
-		for (Entry<String, Integer> entry : map.entrySet()) {
-		    System.out.println("Mã điện thoại: " + entry.getKey() + ", Tổng số lượng: " + entry.getValue());
-		}
+		
+		// Chuyển HashMap sang danh sách các Entry
+	    ArrayList<Entry<String, Integer>> entryList = new ArrayList<>(map.entrySet());
+
+	    // Sắp xếp danh sách theo tổng số lượng giảm dần
+	    entryList.sort((a, b) -> b.getValue() - a.getValue());
+
+	    // In ra top n phần tử đầu tiên
+	    System.out.println("Top " + n + " điện thoại nhập nhiều nhất:");
+	    for (int i = 0; i < Math.min(n, entryList.size()); i++) {
+	        Entry<String, Integer> entry = entryList.get(i);
+	        System.out.println("Mã điện thoại: " + entry.getKey() + ", Tổng số lượng: " + entry.getValue());
+	    }
 	}
 	
 	@Override

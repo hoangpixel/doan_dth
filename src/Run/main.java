@@ -300,7 +300,7 @@ public class main {
 			System.out.println("| 3.Xóa CTPN theo mã PN + mã điện thoại.             |");
 			System.out.println("| 4.Sửa thông tin CTPN theo mã PN + mã điện thoại.   |");
 			System.out.println("| 5.Tìm kiếm CTPN theo mã PN + mã điện thoại.        |");
-			System.out.println("| 6.Thống kê theo mã điện thoại.                     |");
+			System.out.println("| 6.Thống kê top điện thoại được nhập nhiều nhất.    |");
 			System.out.println("| 0.Thoát.                                           |");
 			System.out.println("------------------------------------------------------");
 			System.out.print("Nhập lựa chọn: ");
@@ -318,8 +318,6 @@ public class main {
 			}
 			case 3: {
 				danhSachCTPN.xoaCTPN();
-
-//				danhSachCTPN.capNhatTongTien();
 				break;
 			}
 			case 4: {
@@ -333,7 +331,7 @@ public class main {
 				break;
 			}
 			case 6: {
-				danhSachCTPN.thongke_maDT();
+				danhSachCTPN.thongke_topSoLuongNhap();
 				break;
 			}
 			case 0: {
