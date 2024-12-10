@@ -444,10 +444,10 @@ public void thongKeTheoQuy(){
         HoaDon[] quyII=quyII(year[i]);
         HoaDon[] quyIII=quyIII(year[i]);
         HoaDon[] quyIV=quyIV(year[i]);
-        float tong1=0;
-        float tong2=0;
-        float tong3=0;
-        float tong4=0;
+        double tong1=0;
+        double tong2=0;
+        double tong3=0;
+        double tong4=0;
         System.out.println("Năm "+year[i]+": ");
         for(int temp=0; temp<quyI.length; temp=temp+1)
             tong1=tong1+quyI[temp].getTongTien();

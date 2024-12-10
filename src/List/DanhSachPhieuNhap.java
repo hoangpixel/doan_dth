@@ -221,16 +221,16 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
                     case 2: {
                         while(true)
                         {
-                            System.out.print("Nhập ngày nhập hàng cẩn sửa đổi (yyyy/mm/dd) : ");
+                            System.out.print("Nhập ngày nhập hàng cẩn sửa đổi (yyyy-MM-dd) : ");
                             String newNgayNhap = sc.nextLine();
-                            if(newNgayNhap.matches("\\d{4}/\\d{2}/\\d{2}"))
+                            if(newNgayNhap.matches("\\d{4}-\\d{2}-\\d{2}"))
                             {
                                 dspn[index].setNgayNhap(newNgayNhap);
                                 break;
                             }
                             else
                             {
-                                System.out.println("Vui lòng nhập theo đúng định dạng (yyyy/mm/dd) !!!");
+                                System.out.println("Vui lòng nhập theo đúng định dạng (yyyy-MM-dd) !!!");
                             }
                         }
                         break;
@@ -360,7 +360,7 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
         Scanner sc=new Scanner(System.in);
         String maNV=null,maNCC=null,ngayBatDau=null,ngayKetThuc=null;
         DecimalFormat df = new DecimalFormat("#,###");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         Float min=null,max=null;
         System.out.print("Nhập mã nhà cung cập : ");
         maNCC=sc.nextLine().trim().toUpperCase();
@@ -377,7 +377,7 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
         LocalDate ngayBatDauDate = null;
         LocalDate ngayKetThucDate = null;
         while (true) {
-            System.out.print("Nhập ngày bắt đầu (yyyy/MM/dd): ");
+            System.out.print("Nhập ngày bắt đầu (yyyy-MM-dd): ");
             ngayBatDau = sc.nextLine().trim();
             if(ngayBatDau.isEmpty())
             {
@@ -387,11 +387,11 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
                 ngayBatDauDate = LocalDate.parse(ngayBatDau, formatter);
                 break;
             } catch (Exception e) {
-                System.out.println("Vui lòng nhập ngày theo dạng (yyyy/MM/dd) !!!");
+                System.out.println("Vui lòng nhập ngày theo dạng (yyyy-MM-dd) !!!");
             }
         }
         while (true) {
-            System.out.print("Nhập ngày kết thúc (yyyy/MM/dd): ");
+            System.out.print("Nhập ngày kết thúc (yyyy-MM-dd): ");
             ngayKetThuc = sc.nextLine().trim();
             if(ngayKetThuc.isEmpty())
             {
@@ -405,7 +405,7 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
                     break;
                 }
             } catch (Exception e) {
-                System.out.println("Vui lòng nhập ngày theo dạng (yyyy/MM/dd) !!!");
+                System.out.println("Vui lòng nhập ngày theo dạng (yyyy-MM-dd) !!!");
             }
         }
         System.out.print("Nhập tổng tiền thấp nhất : ");

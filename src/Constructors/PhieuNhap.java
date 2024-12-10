@@ -50,12 +50,12 @@ public class PhieuNhap
         {
             System.out.print("Nhập ngày nhập phiếu : ");
             this.ngayNhap=sc.nextLine();
-            if(this.ngayNhap.matches("\\d{4}/\\d{2}/\\d{2}"))
+            if(this.ngayNhap.matches("\\d{4}-\\d{2}-\\d{2}"))
             {
                 break;
             }else
             {
-                System.out.println("Vui lòng nhập theo (yyyy/mm/dd)");
+                System.out.println("Vui lòng nhập theo (yyyy-mm-dd)");
             }
         }
         
