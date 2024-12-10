@@ -8,7 +8,7 @@ public abstract class DienThoai {
 	private String tenDT;
 	private String hang;
 	private float dongia;
-	private int soluong;
+	private int soluong = 0;
 	private String hedieuhanh;
 	private String mau;
 	
@@ -106,10 +106,6 @@ public abstract class DienThoai {
 		
 		System.out.println("Nhập đơn giá: ");
 		this.dongia = sc.nextFloat();
-		sc.nextLine();
-		
-		System.out.println("Nhập số lượng: ");
-		this.soluong = sc.nextInt();
 		sc.nextLine();
 		
 		System.out.println("Nhập hệ điều hành: ");
