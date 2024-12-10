@@ -134,7 +134,6 @@ public class DanhSachChiTietHoaDon implements InterfaceDocGhi{
         if(a.getMahd() != null) {
         	cthd = Arrays.copyOf(cthd, cthd.length + 1);
         	cthd[cthd.length - 1] = a;
-        	
         }
     }
 
