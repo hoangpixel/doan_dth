@@ -94,18 +94,22 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 		}
 	}
 	
-	// Hàm kiểm tra khi nhập vào số lượng điện thoại không được quá số lượng đang có trong cửa hàng
-	public void kiemTraSoLuongDT (ChiTietPhieuNhap ctpn) {
+	// Cập nhật số lượng điện thoại (tăng)
+	public void capNhatSoLuong_tang(String maDT, int soLuong) {
 		DienThoai[] dsdt = DanhSachDienThoai.getDsdt();
-		for(int i = 0; i < dsdt.length; i++) {
-			if(ctpn.getMaDT().equals(dsdt[i].getMaDT())) {
-				while(ctpn.getSoluong() > dsdt[i].getSoluong()) {
-					System.out.print("Số lượng điện thoại \"" + dsdt[i].getTenDT() 
-							+ "\" trong cửa hàng không đủ (" + dsdt[i].getSoluong() 
-							+ "), vui lòng nhập lại số lượng: ");
-					int soLuong = sc.nextInt();
-					ctpn.setSoluong(soLuong);
-				}
+		for(DienThoai dt : dsdt) {
+			if(dt.getMaDT().equals(maDT)) {
+				dt.setSoluong(dt.getSoluong() + soLuong);
+			}
+		}
+	}
+	
+	// Cập nhật số lượng điện thoại (giảm)
+	public void capNhatSoLuong_giam(String maDT, int soLuong) {
+		DienThoai[] dsdt = DanhSachDienThoai.getDsdt();
+		for(DienThoai dt : dsdt) {
+			if(dt.getMaDT().equals(maDT)) {
+				dt.setSoluong(dt.getSoluong() - soLuong);
 			}
 		}
 	}
@@ -120,12 +124,14 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 			ctpn.nhap();
 			ctpn.setMaPN(kiemTraMaPN(ctpn.getMaPN()));
 			ctpn = kiemTraMaDT(ctpn);
-			kiemTraSoLuongDT(ctpn);
 			dsctpn[i] = ctpn;
 			PhieuNhap pn = DanhSachPhieuNhap.timMaPhieu(ctpn.getMaPN());
 			if(pn != null) {
 				pn.tinhTong();
 			}
+			
+			// Cập nhật dsdt tăng
+			capNhatSoLuong_tang(ctpn.getMaDT(), ctpn.getSoluong());
 		}
 	}
 	
@@ -142,12 +148,13 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 			ctpn.nhap();
 			ctpn.setMaPN(kiemTraMaPN(ctpn.getMaPN()));
 			ctpn = kiemTraMaDT(ctpn);
-			kiemTraSoLuongDT(ctpn);
 			dsctpn[i] = ctpn;
 			PhieuNhap pn = DanhSachPhieuNhap.timMaPhieu(ctpn.getMaPN());
 			if(pn != null) {
 				pn.tinhTong();
 			}
+			// Cập nhật dsdt tăng
+			capNhatSoLuong_tang(ctpn.getMaDT(), ctpn.getSoluong());
 		}
 	}
 	
@@ -191,6 +198,8 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 		if(index != -1) {
 			System.out.println("Đã xóa chi tiết phiếu nhập \"" + dsctpn[index].getMaPN() 
 					+ "\" chứa mã điện thoại: " + dsctpn[index].getMaDT() + "\n");
+			// Cập nhật dsdt giảm
+			capNhatSoLuong_giam(dsctpn[index].getMaDT(), dsctpn[index].getSoluong());
 			for(int i = index; i < dsctpn.length - 1; i++) {
 				dsctpn[i] = dsctpn[i + 1];
 			}
@@ -236,7 +245,6 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 					System.out.print("Nhập số lượng điện thoại mới: ");
 					int soluong = sc.nextInt();
 					sc.nextLine();
-					kiemTraSoLuongDT(dsctpn[index]);
 					dsctpn[index].setSoluong(soluong);
 					break;
 				}
@@ -264,19 +272,7 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 		    System.out.println("Mã điện thoại: " + entry.getKey() + ", Tổng số lượng: " + entry.getValue());
 		}
 	}
-	public void capNhatTongTien()
-	{
-		PhieuNhap[] danhSachPhieuNhap = DanhSachPhieuNhap.getDspn();
-		for (PhieuNhap pn : danhSachPhieuNhap) {
-			float tongTienMoi = 0;
-			for (ChiTietPhieuNhap ctpn : dsctpn) {
-				if (ctpn.getMaPN().equals(pn.getMaPN())) {
-					tongTienMoi += ctpn.getThanhtien();
-				}
-			}
-			pn.setTongTien(tongTienMoi);
-		}
-	}
+	
 	@Override
 	public void docFile() {
 		try {
@@ -321,21 +317,6 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-	}
-	
-	public static void main(String[] args) {
-		DanhSachDienThoai dsdt = new DanhSachDienThoai();
-		dsdt.docFile();
-		DanhSachPhieuNhap dspn = new DanhSachPhieuNhap();
-		dspn.docFile();
-		
-		DanhSachCTPN dsctpn = new DanhSachCTPN();
-		dsctpn.docFile();
-		dsctpn.them_K_CTPN();
-		dsctpn.xuatDS();
-		dsctpn.ghiFile();
-		dspn.ghiFile();
-		System.out.println("finish");
 	}
 	
 }
