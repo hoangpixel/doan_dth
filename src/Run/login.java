@@ -14,19 +14,8 @@ public class login {
         int d=0;
         do {
             System.out.println();
-            while(true)
-            {
-                System.out.print("Nhập tài khoản : ");
-                taikhoan=sc.nextLine().trim().toUpperCase();
-                if(taikhoan.matches("NV\\d{2}"))
-                {
-                    break;
-                }
-                else
-                {
-                    System.out.println("Vui lòng nhập tài khoản của nhân viên (NV..) !!!");
-                }
-            }
+            System.out.print("Nhập tài khoản : ");
+            taikhoan=sc.nextLine().trim().toUpperCase();
             System.out.print("Nhập mật khẩu : ");
             matkhau=sc.nextLine().trim();
             for(int i=0;i<nv.length;i++)

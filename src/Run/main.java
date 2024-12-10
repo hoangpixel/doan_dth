@@ -102,6 +102,7 @@ public class main {
                     danhSachPhieuNhap.ghiFile();
                     danhsachNV.xuatRaFile();
                     danhsachHD.ghiFile();
+                    dsct.ghiFile();
                     System.out.println("Ghi file thành công !!!");
                     System.out.println("\n");
                     break;
@@ -300,7 +301,6 @@ public class main {
 			System.out.println("| 4.Sửa thông tin CTPN theo mã PN + mã điện thoại.   |");
 			System.out.println("| 5.Tìm kiếm CTPN theo mã PN + mã điện thoại.        |");
 			System.out.println("| 6.Thống kê theo mã điện thoại.                     |");
-			System.out.println("| 7.Ghi danh sách CTPN vào file.                     |");
 			System.out.println("| 0.Thoát.                                           |");
 			System.out.println("------------------------------------------------------");
 			System.out.print("Nhập lựa chọn: ");
@@ -318,6 +318,8 @@ public class main {
 			}
 			case 3: {
 				danhSachCTPN.xoaCTPN();
+
+//				danhSachCTPN.capNhatTongTien();
 				break;
 			}
 			case 4: {
@@ -332,10 +334,6 @@ public class main {
 			}
 			case 6: {
 				danhSachCTPN.thongke_maDT();
-				break;
-			}
-			case 7: {
-				danhSachCTPN.ghiFile();
 				break;
 			}
 			case 0: {

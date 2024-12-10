@@ -204,7 +204,7 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 				dsctpn[i] = dsctpn[i + 1];
 			}
 			dsctpn = Arrays.copyOf(dsctpn, dsctpn.length - 1);
-			
+			capNhatTongTien();
 		}
 		else {
 			System.out.println("Không tìm thấy chi tiết phiếu nhập!");
@@ -243,6 +243,8 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 					capNhatSoLuong_giam(dsctpn[index].getMaDT(), ctpn.getSoluong());
 					dsctpn[index].setMaDT(ctpn.getMaDT());
 					capNhatSoLuong_tang(dsctpn[index].getMaDT(), ctpn.getSoluong());
+					dsctpn[index].setThanhtien(dsctpn[index].getSoluong() * dsctpn[index].getDongia());
+					capNhatTongTien();
 					break;
 				}
 				case 2: {
@@ -251,6 +253,8 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 					sc.nextLine();
 					capNhatSoLuong_tang(dsctpn[index].getMaDT(), soluong - dsctpn[index].getSoluong());
 					dsctpn[index].setSoluong(soluong);
+					dsctpn[index].setThanhtien(soluong * dsctpn[index].getDongia());
+					capNhatTongTien();
 					break;
 				}
 				case 0: {
@@ -321,6 +325,20 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+		}
+	}
+	
+	public void capNhatTongTien()
+	{
+		PhieuNhap[] danhSachPhieuNhap = DanhSachPhieuNhap.getDspn();
+		for (PhieuNhap pn : danhSachPhieuNhap) {
+			float tongTienMoi = 0;
+			for (ChiTietPhieuNhap ctpn : dsctpn) {
+				if (ctpn.getMaPN().equals(pn.getMaPN())) {
+					tongTienMoi += ctpn.getThanhtien();
+				}
+			}
+			pn.setTongTien(tongTienMoi);
 		}
 	}
 	
