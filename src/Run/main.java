@@ -125,9 +125,11 @@ public class main {
             System.out.println("| 1. Nhập danh sách nhà cung cấp             |");
             System.out.println("| 2. Xuất danh sách nhà cung cấp             |");
             System.out.println("| 3. Sửa thông tin nhà cung cấp              |");
-            System.out.println("| 4. Tìm kiếm nhà cung cấp                   |");
-            System.out.println("| 5. Xóa một nhà cung cấp                    |");
-            System.out.println("| 6. Thống kê số lượng nhà cung cấp          |");
+            System.out.println("| 4. Tìm kiếm tên nhà cung cấp               |");
+            System.out.println("| 5. Tìm kiếm mã nhà cung cấp                |");
+            System.out.println("| 6. Xóa một nhà cung cấp                    |");
+            System.out.println("| 7. Thống kê số lượng nhà cung cấp          |");
+            System.out.println("| 8. Thống kê theo quận                      |");
             System.out.println("| 0. Quay lại menu chính                     |");
             System.out.println("----------------------------------------------");
             System.out.print("Vui lòng chọn một tùy chọn: ");
@@ -148,11 +150,17 @@ public class main {
                     danhSachNCC.timKiemGanDung();
                     break;
                 case 5:
-                    danhSachNCC.xoaMotNCC();
+                    danhSachNCC.timMaNCC();
                     break;
                 case 6:
+                    danhSachNCC.xoaMotNCC();
+                    break;
+                case 7:
                     danhSachNCC.thongKeSoNCC();
                     break;
+                case 8:
+                danhSachNCC.thongKeTheoQuan();
+                break;
                 case 0:
                     return;
                 default:

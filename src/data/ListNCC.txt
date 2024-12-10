@@ -1,8 +1,8 @@
-NCC01;Phạm Minh Hoàng;1900 6743;128 Trần Quang Khải, P.Tân Định, Q.1, TP.Hồ Chí Minh;Nhật Bản
-NCC02;Nguyễn Tấn Khang;1900 6677;208 Phạm Hùng, P.Bình Thạnh, Q.1, TP.Hồ Chí Minh;
+NCC01;Phạm Minh Hoàng;1900 6743;128 Trần Quang Khải, P.Tân Định, Quận 1, TP.Hồ Chí Minh;Nhật Bản
+NCC02;Nguyễn Tấn Khang;1900 6677;208 Phạm Hùng, P.Bình Thạnh, Quận 1, TP.Hồ Chí Minh;
 NCC03;Nguyễn Khiết Đan;1900 4589;350-352 Võ Văn Kiệt, P.Cô Giang, Quận 1, Hồ Chí Minh;
-NCC04;Cristiano Messi;51754491;St. Regis Red Sea, Saudi Arabia;Bồ Đào Nha
-NCC05;Jame Bold;1497733;34 Sunny Isles Beach;Vương Quốc Anh
-NCC06;Trương Thế Quân;1800 9234;124 Hương Lộ 2, P.Bình Thạnh, Bình Tân, Hồ Chí Minh;
+NCC04;Cristiano Messi;5175 4491;St. Regis Red Sea, Saudi Arabia;Bồ Đào Nha
+NCC05;Jame Bold;1497 0077;34 Sunny Isles Beach;Vương Quốc Anh
+NCC06;Trương Thế Quân;1800 9234;124 Hương Lộ, P.Bình Thạnh, Quận Bình Tân, Hồ Chí Minh;
 NCC07;Leonardo DiCaprio;3782 2381;11, 1974, Los Angeles, California;Mỹ
 NCC08;Leonardo da Vinci;0381 8186;12 , Amboise, Pháp;Pháp

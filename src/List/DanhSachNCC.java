@@ -150,8 +150,22 @@ public class DanhSachNCC implements InterfaceDocGhi
         }
         if(index!=-1)
         {
-            System.out.println("Vị trí của nhà cung cấp là : " + index);
-            dsncc[index].xuat();
+            String quocGia="";
+            String format = "| %-5s | %-15s | %-20s | %-15s | %-55s | %-15s |\n";
+            System.out.format("+-------+-----------------+----------------------+-----------------+---------------------------------------------------------+-----------------+\n");
+            System.out.format(format, "STT", "Mã NCC", "Tên NCC", "SĐT", "Địa chỉ", "Quốc gia");
+            System.out.format("+-------+-----------------+----------------------+-----------------+---------------------------------------------------------+-----------------+\n");
+            if(dsncc[index] instanceof NhaCungCapNoiDia)
+            {
+                quocGia = ((NhaCungCapNoiDia) dsncc[index]).getQuocgia();
+            }
+            else if(dsncc[index] instanceof NhaCungCapQuocTe)
+            {
+                quocGia = ((NhaCungCapQuocTe) dsncc[index]).getQuocGia();
+            }
+            System.out.format(format,index+1,dsncc[index].getMaNCC(),dsncc[index].getTenNCC(),dsncc[index].getSdtNCC(),dsncc[index].getDiachiNCC(),quocGia);
+            System.out.format("+-------+-----------------+----------------------+-----------------+---------------------------------------------------------+-----------------+\n");
+            System.out.println("\n");
         }
         else
         {
@@ -279,7 +293,7 @@ public class DanhSachNCC implements InterfaceDocGhi
     {
         Scanner sc=new Scanner(System.in);
         System.out.print("Vui lòng nhập tên cần tìm kiếm : ");
-        String findName=sc.nextLine().toLowerCase();
+        String findName=sc.nextLine().trim();
         boolean found=false;
         String format = "| %-5s | %-15s | %-20s | %-15s | %-55s | %-15s |\n";
         System.out.format("+-------+-----------------+----------------------+-----------------+---------------------------------------------------------+-----------------+\n");
@@ -287,7 +301,7 @@ public class DanhSachNCC implements InterfaceDocGhi
         System.out.format("+-------+-----------------+----------------------+-----------------+---------------------------------------------------------+-----------------+\n");
         for(int i=0;i<dsncc.length;i++)
         {
-            if(dsncc[i].getTenNCC().toLowerCase().contains(findName))
+            if(dsncc[i].getTenNCC().toLowerCase().contains(findName.toLowerCase()))
             {
                 String quocGia="";
                 if(dsncc[i] instanceof NhaCungCapQuocTe)
@@ -308,6 +322,42 @@ public class DanhSachNCC implements InterfaceDocGhi
         if(!found)
         {
             System.out.println("Không tìm thấy nhà cung cấp cần tìm !!!");
+        }
+    }
+
+    public void thongKeTheoQuan()
+    {
+        Scanner sc=new Scanner(System.in);
+        boolean dk=false;
+        System.out.print("Nhập quận cần thống kê : ");
+        String findQuan = sc.nextLine().trim();
+        String format = "| %-5s | %-15s | %-20s | %-15s | %-55s | %-15s |\n";
+        System.out.format("+-------+-----------------+----------------------+-----------------+---------------------------------------------------------+-----------------+\n");
+        System.out.format(format, "STT", "Mã NCC", "Tên NCC", "SĐT", "Địa chỉ", "Quốc gia");
+        System.out.format("+-------+-----------------+----------------------+-----------------+---------------------------------------------------------+-----------------+\n");
+        for(int i=0;i<dsncc.length;i++)
+        {
+            if(dsncc[i].getDiachiNCC().toLowerCase().contains(findQuan.toLowerCase()))
+            {
+                String quocGia = "";
+                if(dsncc[i] instanceof NhaCungCapNoiDia)
+                {
+                    quocGia = ((NhaCungCapNoiDia) dsncc[i]).getQuocgia();
+                }
+                else if(dsncc[i] instanceof NhaCungCapQuocTe)
+                {
+                    quocGia = ((NhaCungCapQuocTe) dsncc[i]).getQuocGia();
+                }
+
+                System.out.format(format,i+1,dsncc[i].getMaNCC(),dsncc[i].getTenNCC(),dsncc[i].getSdtNCC(),dsncc[i].getDiachiNCC(),quocGia);
+                dk=true;
+            }
+        }
+        System.out.format("+-------+-----------------+----------------------+-----------------+---------------------------------------------------------+-----------------+\n");
+        System.out.println("\n");
+        if(!dk)
+        {
+            System.out.println("Không tìm thấy nhà cung cấp nào ở : " + findQuan);
         }
     }
     public NhaCungCap timNhaCungCapTheoMa(String maNCC) {
