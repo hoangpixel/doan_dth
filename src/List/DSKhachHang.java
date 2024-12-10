@@ -261,7 +261,6 @@ public class DSKhachHang implements InterfaceDocGhi{
     }
 }
     public void ghiFile() {
-    	System.out.println("docfilekhnè!");
     	String filePath = "src/data/danhsachkhachhang.txt";
     try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
         for (KhachHang khach : kh) {

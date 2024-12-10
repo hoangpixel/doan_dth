@@ -356,7 +356,6 @@ public class DanhSachChiTietHoaDon implements InterfaceDocGhi{
     }
 
     public void ghiFile() {
-    	System.out.println("docfilecthdnè!");
     	String filePath = "src/data/danhsachchitiethoadon.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (ChiTietHoaDon ct : cthd) {

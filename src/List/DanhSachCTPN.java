@@ -107,7 +107,7 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 	}
 	
 	// Cập nhật số lượng điện thoại (giảm)
-	public void capNhatSoLuong_giam(String maDT, int soLuong) {
+	public static void capNhatSoLuong_giam(String maDT, int soLuong) {
 		DienThoai[] dsdt = DanhSachDienThoai.getDsdt();
 		for(DienThoai dt : dsdt) {
 			if(dt.getMaDT().equals(maDT)) {
@@ -185,8 +185,8 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 		return -1;
 	}
 	
-	public int timKiemCTPN(String maPN, String maDT) {		// Mã phiếu nhập + mã điện thoại
-		for(int i = 0; i < this.dsctpn.length; i++) {
+	public static int timKiemCTPN(String maPN, String maDT) {		// Mã phiếu nhập + mã điện thoại
+		for(int i = 0; i < dsctpn.length; i++) {
 			if(dsctpn[i].getMaPN().equals(maPN) && dsctpn[i].getMaDT().equals(maDT)) {
 				return i;
 			}
@@ -211,6 +211,29 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 		else {
 			System.out.println("Không tìm thấy chi tiết phiếu nhập!");
 		}
+	}
+	
+	
+	public static void xoaCTPN(String maPN) {
+		int i = 0;
+	    while (i < dsctpn.length) {
+	        if (dsctpn[i].getMaPN().equals(maPN)) {
+	            // Cập nhật số lượng giảm
+	            capNhatSoLuong_giam(dsctpn[i].getMaDT(), dsctpn[i].getSoluong());
+
+	            for (int j = i; j < dsctpn.length - 1; j++) {
+	                dsctpn[j] = dsctpn[j + 1];
+	            }
+
+	            // Giảm kích thước mảng
+	            dsctpn = Arrays.copyOf(dsctpn, dsctpn.length - 1);
+
+	            // Cập nhật tổng tiền
+	            capNhatTongTien();
+	        } else {
+	            i++;
+	        }
+	    }
 	}
 
 	public void suaCTPN() {
@@ -343,7 +366,7 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 		}
 	}
 	
-	public void capNhatTongTien()
+	public static void capNhatTongTien()
 	{
 		PhieuNhap[] danhSachPhieuNhap = DanhSachPhieuNhap.getDspn();
 		for (PhieuNhap pn : danhSachPhieuNhap) {

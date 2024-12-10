@@ -2,6 +2,7 @@ package List;
 import java.util.Scanner;
 import java.util.Arrays;
 import Constructors.PhieuNhap;
+import Constructors.ChiTietPhieuNhap;
 import Constructors.NhaCungCap;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -91,6 +92,7 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
             dspn[n+i]=pn;
         }
     }
+    
     public void xoaPhanTu()
     {
         Scanner sc=new Scanner(System.in);
@@ -107,6 +109,7 @@ public class DanhSachPhieuNhap implements InterfaceDocGhi
         }
         if(index!=-1)
         {
+        	DanhSachCTPN.xoaCTPN(maXoa);
             for(int i=index;i<n-1;i++)
             {
                 dspn[i]=dspn[i+1];
