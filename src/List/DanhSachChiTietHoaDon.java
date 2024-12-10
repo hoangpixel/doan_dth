@@ -67,7 +67,7 @@ public class DanhSachChiTietHoaDon implements InterfaceDocGhi{
         }
     }
 
-    public void tangslDT(String madt, int sl){
+    public static void tangslDT(String madt, int sl){
         DienThoai[] dt = DanhSachDienThoai.getDsdt();
         for(DienThoai a :dt){
             if(a.getMaDT().equals(madt)){
@@ -181,7 +181,27 @@ public class DanhSachChiTietHoaDon implements InterfaceDocGhi{
         }
         System.out.println("Không tìm thấy chi tiết hóa đơn với mã điện thoại " + madt);
     }
-
+	
+	public static void xoaCTHD(String ma_hd){
+        do{
+            if(timTheoMa(ma_hd)!=-1){
+                int position=timTheoMa(ma_hd);
+                tangslDT(cthd[position-1].getMadt(), cthd[position-1].getSoluong());
+                for(int i=position-1; i<cthd.length-1; i=i+1){
+                    cthd[i]=cthd[i+1];
+                }
+                cthd=Arrays.copyOf(cthd, cthd.length-1);
+        }
+        }while(timTheoMa(ma_hd)!=-1);
+    }
+    
+    public static int timTheoMa(String ma){
+    for(int i=0; i<cthd.length; i=i+1)
+        if(cthd[i].getMahd().equals(ma))
+            return i+1;
+    return -1;
+}
+	
     public void suaCTHD(){
         System.out.print("Nhập mã hóa đơn của chi tiết cần sửa: ");
         String mahd = sc.nextLine();
