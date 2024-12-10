@@ -77,6 +77,12 @@ public class NhaCungCap implements InterfaceNCC {
             System.out.format("+-----------------+----------------------+-----------------+--------------------------------+\n");
             System.out.format("| %-69s |\n", "Quốc gia: " + nccQt.getQuocGia());
         }
+        else if(this instanceof  NhaCungCapNoiDia)
+        {
+            NhaCungCapNoiDia nccNd = (NhaCungCapNoiDia) this;
+            System.out.format("+-----------------+----------------------+-----------------+--------------------------------+\n");
+            System.out.format("| %-69s |\n", "Quốc gia: " + nccNd.getQuocgia());
+        }
         System.out.format("+-----------------+----------------------+-----------------+--------------------------------+\n");
     }
 
