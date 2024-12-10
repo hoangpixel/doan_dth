@@ -2,6 +2,8 @@ package List;
 import List.*;
 import Constructors.*;
 import Constructors.ChiTietHoaDon;
+import Interfaces.InterfaceDocGhi;
+
 import java.util.Arrays;
 import java.util.Scanner;
 import java.io.BufferedReader;
@@ -9,7 +11,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-public class DanhSachChiTietHoaDon {
+public class DanhSachChiTietHoaDon implements InterfaceDocGhi{
     Scanner sc = new Scanner(System.in);
     private static ChiTietHoaDon[] cthd;
 
@@ -353,11 +355,13 @@ public class DanhSachChiTietHoaDon {
         }
     }
 
-    public void ghiFile(String filePath) {
+    public void ghiFile() {
+    	System.out.println("docfilecthdnè!");
+    	String filePath = "src/data/danhsachchitiethoadon.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            for (ChiTietHoaDon cthd : cthd) {
-                writer.write(cthd.getMahd() + "," + cthd.getMadt() + "," + cthd.getSoluong() + ","
-                        + cthd.getDongia() + "," + cthd.getThanhtien());
+            for (ChiTietHoaDon ct : cthd) {
+                writer.write(ct.getMahd() + "," + ct.getMadt() + "," + ct.getSoluong() + ","
+                        + ct.getDongia() + "," + ct.getThanhtien());
                 writer.newLine();
             }
 
@@ -366,7 +370,8 @@ public class DanhSachChiTietHoaDon {
         }
     }
 
-    public void docFile(String filePath) {
+    public void docFile() {
+    	String filePath = "src/data/danhsachchitiethoadon.txt";
         ChiTietHoaDon[] danhSach = new ChiTietHoaDon[0];
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -389,11 +394,5 @@ public class DanhSachChiTietHoaDon {
         } catch (NumberFormatException e) {
             System.out.println("Dữ liệu trong file không hợp lệ: " + e.getMessage());
         }
-    }
-
-    public static void main(String[] args){
-        DanhSachChiTietHoaDon cthd = new DanhSachChiTietHoaDon();
-        cthd.docFile("dschitiethoadon.txt");
-        cthd.menu();
     }
 }

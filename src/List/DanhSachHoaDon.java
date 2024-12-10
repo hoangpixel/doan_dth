@@ -556,4 +556,5 @@ public void menu(DanhSachNhanVien temp1, DSKhachHang temp2, NhanVien temp3){
             }
     }while(choice!=10);
 }
+
 }

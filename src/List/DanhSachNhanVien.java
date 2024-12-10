@@ -2,13 +2,15 @@ package List;
 import java.util.Scanner;
 import java.util.Arrays;
 import Constructors.NhanVien;
+import Interfaces.InterfaceDocGhi;
+
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.text.DecimalFormat;
-public class DanhSachNhanVien
+public class DanhSachNhanVien implements InterfaceDocGhi
 {
     public static NhanVien[] dsnv=new NhanVien[0];
     private int n=0;
@@ -278,7 +280,7 @@ public class DanhSachNhanVien
         }
         return maNVs;
     }
-    public void docTuFile() {
+    public void docFile() {
         NhanVien[] temp=new NhanVien[0];
         BufferedReader reader = null;
         try {
@@ -325,7 +327,7 @@ public class DanhSachNhanVien
             }
         }
     }
-    public void xuatRaFile() {
+    public void ghiFile() {
         BufferedWriter writer = null;
 
         try {

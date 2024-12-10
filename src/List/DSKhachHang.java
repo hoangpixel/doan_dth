@@ -1,5 +1,6 @@
 package List;
 import Constructors.KhachHang;
+import Interfaces.InterfaceDocGhi;
 
 import java.text.DecimalFormat;
 import java.util.Arrays;
@@ -13,7 +14,7 @@ import java.io.IOException;
  *
  * @author winan
  */
-public class DSKhachHang {
+public class DSKhachHang implements InterfaceDocGhi{
     private static KhachHang[] kh;
     
     public DSKhachHang(int n){
@@ -230,7 +231,8 @@ public class DSKhachHang {
 
 }
     
-    public void docFile(String filePath) {
+    public void docFile() {
+    	String filePath = "src/data/danhsachkhachhang.txt";
     try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
         String line;
         while ((line = br.readLine()) != null) {
@@ -258,7 +260,9 @@ public class DSKhachHang {
         System.out.println("Lỗi định dạng số: " + e.getMessage());
     }
 }
-    public void xuatFile(String filePath) {
+    public void ghiFile() {
+    	System.out.println("docfilekhnè!");
+    	String filePath = "src/data/danhsachkhachhang.txt";
     try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
         for (KhachHang khach : kh) {
             if (khach != null) { // Kiểm tra khách hàng không null

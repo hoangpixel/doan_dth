@@ -6,7 +6,7 @@ public class login {
     public static void main(String[] args)
     {
         DanhSachNhanVien dsnv = new DanhSachNhanVien();
-        dsnv.docTuFile();
+        dsnv.docFile();
         Scanner sc = new Scanner(System.in);
         NhanVien[] nv=DanhSachNhanVien.getDsnv();
         boolean dn=false;

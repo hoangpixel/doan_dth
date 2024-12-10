@@ -23,11 +23,11 @@ public class main {
         System.out.println();
         danhSachNCC.docFile();
         danhSachPhieuNhap.docFile();
-        danhsachNV.docTuFile();
+        danhsachNV.docFile();
         danhsachHD.docFile();
         dsct.docFile();
-        dskh.docFile("src/data/danhsachkhachhang.txt");
-        dscthd.docFile("src/data/danhsachchitiethoadon.txt");
+        dskh.docFile();
+        dscthd.docFile();
         dsdt.docFile();
         System.out.println("Tất cả dữ liệu đã được khôi phục !!!");
         System.out.println();
@@ -100,9 +100,12 @@ public class main {
                 case 8:
                     danhSachNCC.ghiFile();
                     danhSachPhieuNhap.ghiFile();
-                    danhsachNV.xuatRaFile();
+                    danhsachNV.ghiFile();
                     danhsachHD.ghiFile();
                     dsct.ghiFile();
+                    dscthd.ghiFile();
+                    dsdt.ghiFile();
+                    dskh.ghiFile();
                     System.out.println("Ghi file thành công !!!");
                     System.out.println("\n");
                     break;
