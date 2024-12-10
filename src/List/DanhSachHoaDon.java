@@ -110,6 +110,8 @@ public void xuatDanhSachHoaDon(){
     System.out.format(format, dshd[i].getMaHd(), dshd[i].getNgayLapHd(), dshd[i].getMaNv(),dshd[i].getMaKh(), df.format(dshd[i].getTongTien()));
     System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
 }
+
+//Hàm thêm hoá đơn, lấy mã nhân viên từ mã nhân viên login, lấy mã khách hàng từ danh sách khách hàng
 public void themHoaDon(DanhSachNhanVien temp1, DSKhachHang temp2, NhanVien temp3){
     String choice;
     Scanner nhap=new Scanner(System.in);
@@ -139,8 +141,8 @@ public void themHoaDon(DanhSachNhanVien temp1, DSKhachHang temp2, NhanVien temp3
         n=dshd.length;
         dshd=Arrays.copyOf(dshd, n+1);
         dshd[n]=new HoaDon();
-        dshd[n].nhap(temp3.getMaNv(), danhsachmakh);
-        check(dshd[n]);
+        dshd[n].nhap(temp3.getMaNv(), danhsachmakh); //Đưa mã nhân viên, danh sách mã khách hàng vào hàm nhập bên hoá đơn
+        check(dshd[n]); //Kiểm tra mã hoá đơn có trùng không
         n=n+1;
     }
 }
@@ -167,12 +169,12 @@ public void xoaTheoMa(){
         System.out.println("Không tìm thấy mã hoá đơn muốn xoá");
         return;
     }
-    int position=timTheoMa(ma)-1;
+    int position=timTheoMa(ma)-1; //Tìm vị trí của mã hoá đơn muốn xoá
     for(int i=position; i<dshd.length-1; i=i+1)
         dshd[i]=dshd[i+1];
     dshd=Arrays.copyOf(dshd, dshd.length-1);
     n=n-1;
-    DanhSachChiTietHoaDon.xoaCTHD(ma);
+    DanhSachChiTietHoaDon.xoaCTHD(ma); //Xoá hết các chi tiết hoá đơn liên quan
 }
 public int timTheoMa(String ma){
     for(int i=0; i<n; i=i+1)
@@ -198,8 +200,8 @@ public void timTheoMaKh(){
     System.out.print("\nNhập mã khách hàng muốn tìm hoá đơn: ");
     Scanner nhap=new Scanner(System.in);
     ma=nhap.nextLine();
-    HoaDon[] find=new HoaDon[0];
-    int dai=0;
+    HoaDon[] find=new HoaDon[0]; //Khởi tạo một mảng hoá đơn lưu các hoá đơn có cùng mã khách hàng
+    int dai=0; //Độ dài của mảng
     for(int i=0; i<n; i=i+1)
         if(dshd[i].getMaKh().equals(ma)){
             find=Arrays.copyOf(find, dai+1);
@@ -220,8 +222,8 @@ public void timTheoMaNv(){
     System.out.print("\nNhập mã nhân viên muốn tìm hoá đơn: ");
     Scanner nhap=new Scanner(System.in);
     ma=nhap.nextLine();
-    HoaDon[] find=new HoaDon[0];
-    int dai=0;
+    HoaDon[] find=new HoaDon[0]; //Khởi tạo một mảng hoá đơn lưu các hoá đơn có cùng mã nhân viên lập hoá đơn
+    int dai=0; //Độ dài của mảng mới tạo
     for(int i=0; i<n; i=i+1)
         if(dshd[i].getMaNv().equals(ma))
         {
@@ -261,17 +263,17 @@ public void suaTheoMa(DanhSachNhanVien temp1, DSKhachHang temp2){
             {
             case 1:
             {
-                String[] ma_nv=temp1.layDanhSachMaNV();
+                String[] ma_nv=temp1.layDanhSachMaNV(); //Lấy danh sách mã nhân viên
                 for(int i=0; i<ma_nv.length; i=i+1)
                 System.out.println("Mã nhân viên thứ "+(i+1)+": "+ma_nv[i]);
                 int lc;
                 do{
                 System.out.print("Nhập số thứ tự của nhân viên lập hoá đơn: ");
                 lc=nhap.nextInt();
-                if(lc<1||lc>ma_nv.length)
+                if(lc<1||lc>ma_nv.length) //Nếu lựa chọn <1 hoặc >độ dài mảng, thông báo nhập lại
                 System.out.println("Vui lòng nhập đúng cấu trúc");
                 }while(lc<1||lc>ma_nv.length);
-                dshd[position-1].setMaNv(ma_nv[lc-1]);
+                dshd[position-1].setMaNv(ma_nv[lc-1]); //Set lại mã nhân viên
                 break;
             }
             case 2:
@@ -352,6 +354,8 @@ public void ghiFile() {
         }
     }
 
+// Hàm tạo độ dài của mảng quý, input là số quý và số năm, output là độ dài của mảng
+// VD input: 3, 2023; output: 2
 public int kiemtraQuy(int quy, int nam){
     int dai=0;
     for(int i=0; i<n; i=i+1){
@@ -377,6 +381,7 @@ public int kiemtraQuy(int quy, int nam){
     return dai;
 }
 
+// Hàm kiểm tra năm đã tồn tại trong mảng năm có độ dài num chưa, nếu có rồi thì false, chưa thì true
 public boolean checkNam(int[] mangnam, int num, int nam){
     for(int i=0; i<num; i=i+1){
         if(mangnam[i]==nam)
@@ -385,19 +390,21 @@ public boolean checkNam(int[] mangnam, int num, int nam){
     return true;
 }
 
+// Hàm tạo mảng năm
 public int[] taoMangNam(){
     int[] nam=new int[100];
     nam[0]=dshd[0].getYear();
     int dai=1;
     for(int i=1; i<n; i=i+1)
-        if(checkNam(nam, dai, dshd[i].getYear())){
+        if(checkNam(nam, dai, dshd[i].getYear())){  //Nếu tồn tại rồi, lưu vào mảng và tăng độ dài lên 1
             nam[dai]=dshd[i].getYear();
             dai=dai+1;
         }
-    int[] year=Arrays.copyOf(nam, dai);
+    int[] year=Arrays.copyOf(nam, dai); // Vì khởi tạo mảng năm với 100 phần tử nên sẽ có phần tử rỗng, nên copy mảng năm thành mảng năm có dai phân tử, rồi return về
     return year;
 }
 
+// Hàm tạo mảng quý của một năm, lưu các hoá đơn trong một quý của một năm
 public HoaDon[] quyI(int nam){
     HoaDon[] quyI=new HoaDon[kiemtraQuy(1, nam)];
     int j=0;
@@ -409,6 +416,7 @@ public HoaDon[] quyI(int nam){
     return quyI;
 }
 
+// Hàm tạo mảng quý của một năm, lưu các hoá đơn trong một quý của một năm
 public HoaDon[] quyII(int nam){
     HoaDon[] quyII=new HoaDon[kiemtraQuy(2, nam)];
     int j=0;
@@ -420,6 +428,7 @@ public HoaDon[] quyII(int nam){
     return quyII;
 }
 
+// Hàm tạo mảng quý của một năm, lưu các hoá đơn trong một quý của một năm
 public HoaDon[] quyIII(int nam){
     HoaDon[] quyIII=new HoaDon[kiemtraQuy(3, nam)];
     int j=0;
@@ -431,6 +440,7 @@ public HoaDon[] quyIII(int nam){
     return quyIII;
 }
 
+// Hàm tạo mảng quý của một năm, lưu các hoá đơn trong một quý của một năm
 public HoaDon[] quyIV(int nam){
     HoaDon[] quyIV=new HoaDon[kiemtraQuy(4, nam)];
     int j=0;
@@ -447,16 +457,16 @@ public void thongKeTheoQuy(){
         System.out.println("Danh sách hoá đơn trống");
         return;
     }
-    int[] year=taoMangNam();
+    int[] year=taoMangNam(); //Tạo mảng năm
     for(int i=0; i<year.length; i=i+1){
-        HoaDon[] quyI=quyI(year[i]);
-        HoaDon[] quyII=quyII(year[i]);
-        HoaDon[] quyIII=quyIII(year[i]);
-        HoaDon[] quyIV=quyIV(year[i]);
-        double tong1=0;
-        double tong2=0;
-        double tong3=0;
-        double tong4=0;
+        HoaDon[] quyI=quyI(year[i]); //Tạo mảng quý I của năm[i], chứa các hoá đơn thuộc quý I của năm[i]
+        HoaDon[] quyII=quyII(year[i]); //Tạo mảng quý II của năm[i], chứa các hoá đơn thuộc quý II của năm[i]
+        HoaDon[] quyIII=quyIII(year[i]); //Tạo mảng quý III của năm[i], chứa các hoá đơn thuộc quý III của năm[i]
+        HoaDon[] quyIV=quyIV(year[i]); //Tạo mảng quý IV của năm[i], chứa các hoá đơn thuộc quý IV của năm[i]
+        double tong1=0; //Vì kiểu Float giới hạn về kích thước dữ liệu nên sẽ gặp lỗi làm tròn, nên ép kiểu sang double
+        double tong2=0; //Vì kiểu Float giới hạn về kích thước dữ liệu nên sẽ gặp lỗi làm tròn, nên ép kiểu sang double
+        double tong3=0; //Vì kiểu Float giới hạn về kích thước dữ liệu nên sẽ gặp lỗi làm tròn, nên ép kiểu sang double
+        double tong4=0; //Vì kiểu Float giới hạn về kích thước dữ liệu nên sẽ gặp lỗi làm tròn, nên ép kiểu sang double
         System.out.println("Năm "+year[i]+": ");
         for(int temp=0; temp<quyI.length; temp=temp+1)
             tong1=tong1+quyI[temp].getTongTien();
