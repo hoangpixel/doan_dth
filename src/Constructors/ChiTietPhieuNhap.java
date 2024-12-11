@@ -83,8 +83,9 @@ public class ChiTietPhieuNhap {
 		this.maDT = sc.nextLine();
 		System.out.println("Nhập số lượng: ");
 		this.soluong = sc.nextInt();
-		
-		this.dongia = DanhSachDienThoai.getDonGia(maDT);
+		System.out.println("Nhập đơn giá: ");
+		this.dongia = sc.nextFloat();
+		sc.nextLine();
 		
 		this.thanhtien = this.soluong * this.dongia;
 	}

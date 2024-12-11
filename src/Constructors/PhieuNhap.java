@@ -11,7 +11,6 @@ public class PhieuNhap
     private String maNCC;
     private String maNV;
     private float tongTien=0;
-    private ChiTietPhieuNhap[] ctpn;
 
     public PhieuNhap(){}
     public PhieuNhap(String maPN,String ngayNhap,String maNCC,String maNV,float tongTien)

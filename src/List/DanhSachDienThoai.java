@@ -38,7 +38,7 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 	public void setDsdt(DienThoai[] dsdt) {
 		this.dsdt = dsdt;
 	}
-
+	
 	public static int getsl(String madt){
 		for(DienThoai a :dsdt){
 			if(a.getMaDT().equals(madt)){
@@ -63,6 +63,7 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 			}
 		}
 	}
+	
 
 	public static float getDonGia(String maDT) {
 		for(int i = 0; i < dsdt.length; i++) {
@@ -81,7 +82,6 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 		}
 		return 0;
 	}
-
 	public static Boolean checkmaDT(String madt){
 		for(DienThoai a :dsdt){
 			if(a.getMaDT().equals(madt)){
@@ -90,7 +90,7 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 		}
 		return false;
 	}
-
+	
 	public DienThoai kiemTraTrungMaDT(DienThoai dt) {
 		boolean trungMa;
 		do {

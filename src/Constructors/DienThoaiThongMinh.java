@@ -27,10 +27,6 @@ public class DienThoaiThongMinh extends DienThoai{
 		this.dungluongluutru = dungluongluutru;
 	}
 
-	@Override
-	public String layLoaiDienThoai() {
-		return "Điện thoại thông minh";
-	}
 	
 	public void nhap() {
 		Scanner sc = new Scanner(System.in);
@@ -46,5 +42,9 @@ public class DienThoaiThongMinh extends DienThoai{
 		System.out.format("Dung lượng: %-10s |\n", this.dungluongluutru);
 	}
 	
+	@Override
+	public String layLoaiDienThoai() {
+		return "Điện thoại thông minh";
+	}
 	
 }
