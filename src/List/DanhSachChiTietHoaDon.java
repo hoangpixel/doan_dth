@@ -105,6 +105,7 @@ public class DanhSachChiTietHoaDon implements InterfaceDocGhi{
         KhachHang[] dskh = DSKhachHang.getdskh();
         HoaDon[] dshd = DanhSachHoaDon.getDshd();
         for(KhachHang kh :dskh){
+        	tongtien = 0;
             for(HoaDon hd :dshd){
                 if(hd.getMaKh().equals(kh.getMakh())){
                     tongtien += hd.getTongTien();
@@ -210,7 +211,7 @@ public class DanhSachChiTietHoaDon implements InterfaceDocGhi{
             if(timTheoMa(ma_hd)!=-1){
                 int position=timTheoMa(ma_hd);
                 tangslDT(cthd[position-1].getMadt(), cthd[position-1].getSoluong());
-		thaydoitienKH(ma_hd);
+                thaydoitienKH(ma_hd);
                 for(int i=position-1; i<cthd.length-1; i=i+1){
                     cthd[i]=cthd[i+1];
                 }
