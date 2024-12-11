@@ -309,11 +309,10 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 	            case 8:
 	                // Thực hiện tìm kiếm
 	                System.out.println("Kết quả tìm kiếm:");
-	                tenDT = tenDT.trim();
 	                for (DienThoai dt : dsdt) {
 	                    // Kiểm tra từng tiêu chí
 	                    if ((maDT == null || dt.getMaDT().equals(maDT)) &&
-	                        (tenDT == null || dt.getTenDT().toLowerCase().contains(tenDT.toLowerCase())) &&
+	                        (tenDT == null || dt.getTenDT().toLowerCase().contains(tenDT.toLowerCase().trim())) &&
 	                        (hang == null || dt.getHang().toLowerCase().contains(hang.toLowerCase())) &&
 	                        (giaMin == -1 || (dt.getDongia() >= giaMin && dt.getDongia() <= giaMax)) &&
 	                        (heDieuHanh == null || dt.getHedieuhanh().toLowerCase().contains(heDieuHanh.toLowerCase())) &&
@@ -449,25 +448,21 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 	}
 	
 	public void thongKe_gia() {
-		float muc1 = 5000000;
-		float muc2 = 10000000;
-		int gia_muc1 = 0;
-		int gia_muc1_muc2 = 0;
-		int gia_muc2 = 0;
+		System.out.println("Nhập khoảng giá.");
+		System.out.print("Giá thấp nhất: ");
+		float muc1 = sc.nextFloat();
+		System.out.print("Giá cao nhất: ");
+		float muc2 = sc.nextFloat();
+		int sl = 0;
 		for(int i = 0; i < dsdt.length; i++) {
 			float donGia = dsdt[i].getDongia();
-			if(donGia < muc1) {
-				gia_muc1++;
-			}else if(donGia > muc1 && donGia < muc2){
-				gia_muc1_muc2++;
-			}else if(donGia > muc2) {
-				gia_muc2++;
+			if(donGia > muc1 && donGia < muc2){
+				sl++;
 			}
 		}
-		System.out.println("---Thống kê theo giá---");
-		System.out.println("Giá dưới " + muc1 + ": " + gia_muc1);
-		System.out.println("Giá từ " + muc1 + " đến " + muc2 + ": " + gia_muc1_muc2);
-		System.out.println("Giá trên " + muc2 + ": " + gia_muc2 + "\n");
+		DecimalFormat df = new DecimalFormat("#,###");
+		System.out.println("---Kết quả thống kê---");
+		System.out.println("Số lượng điện thoại giá từ " + df.format(muc1) + " đến " + df.format(muc2) + ": " + df.format(sl));
 		
 
 	}

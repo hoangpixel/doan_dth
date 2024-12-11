@@ -235,7 +235,7 @@ public class main {
 			System.out.println("| 5.Tìm kiếm điện thoại theo mã điện thoại.      |");
 			System.out.println("| 6.Thống kê theo loại điện thoại.               |");
 			System.out.println("| 7.Thống kê theo mức giá.                       |");
-			System.out.println("| 8.Ghi danh sách điện thoại vào file.           |");
+			System.out.println("| 8.Tìm kiếm nâng cao.           |");
 			System.out.println("| 9.Xuất số lượng điện thoại tồn kho.            |");
 			System.out.println("| 0.Thoát.                                       |");
 			System.out.println("--------------------------------------------------");
@@ -283,7 +283,7 @@ public class main {
 				break;
 			}
 			case 8: {
-				danhSachDT.ghiFile();
+				danhSachDT.timKiemNangCao();
 				break;
 			}
 			case 9: {
