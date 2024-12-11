@@ -30,11 +30,12 @@ public class DanhSachNCC implements InterfaceDocGhi
 		this.dsncc = dsncc;
 	}
 	//kiểm tra mã ncc
-	public boolean trungMaNcc(String maNCC)
+    public boolean trungMaNcc(String maNCC)
     {
-        for (NhaCungCap ds : dsncc)
+        for(int i=0;i<dsncc.length;i++)
         {
-            if (ds != null && ds.getMaNCC().equals(maNCC)) {
+            if(dsncc[i] !=null && (dsncc[i].getMaNCC().equals(maNCC)))
+            {
                 return true;
             }
         }

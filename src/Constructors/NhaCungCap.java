@@ -54,7 +54,7 @@ public class NhaCungCap implements InterfaceNCC {
     public void nhap() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Nhập mã nhà cung cấp: ");
-        maNCC = sc.nextLine();
+        maNCC = sc.nextLine().toUpperCase();
         System.out.print("Nhập tên nhà cung cấp: ");
         tenNCC = sc.nextLine();
         System.out.print("Nhập số điện thoại nhà cung cấp: ");

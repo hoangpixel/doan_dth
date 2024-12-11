@@ -33,19 +33,8 @@ public class PhieuNhap
     public void nhapPhieu()
     {
         Scanner sc=new Scanner(System.in);
-        while(true)
-        {
-            System.out.print("Nhập mã phiếu : ");
-            this.maPN=sc.nextLine();
-            if(this.maPN.matches("PN\\d{2}"))
-            {
-                break;
-            }
-            else
-            {
-                System.out.println("Vui lòng nhập mã phiếu theo dạng (PN..) !!!");
-            }
-        }
+        System.out.print("Nhập mã phiếu : ");
+        this.maPN=sc.nextLine().toUpperCase();
         while(true)
         {
             System.out.print("Nhập ngày nhập phiếu : ");
