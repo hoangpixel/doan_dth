@@ -85,6 +85,7 @@ public class DSKhachHang implements InterfaceDocGhi{
         System.out.println("Kiểm tra thông tin của khách hàng: ");
         a.xuat();
         kh[kh.length - 1] = a;
+        System.out.println("Thêm khách hàng thành công ");
     }
     
     public void themKH(KhachHang a) {
@@ -130,7 +131,6 @@ public class DSKhachHang implements InterfaceDocGhi{
             a.xuat();
             System.out.println("1. Sửa tên khách hàng");
             System.out.println("2. Sửa số điện thoại khách hàng");
-            System.out.println("3. Sửa tổng tiền của khách hàng");
             System.out.println("\tVui lòng chọn thao tác sửa khách hàng");
             int choice;
             choice = sc.nextInt();
@@ -150,14 +150,6 @@ public class DSKhachHang implements InterfaceDocGhi{
                     a.setSdt(sdt_moi);
                     kh[i] = a;
                     System.out.println("Chỉnh sửa số điện thoại khách hàng thành công");
-                    kh[i].xuat();
-                    break;
-                 case 3:
-                    System.out.println("Nhập tổng tiền của khách hàng");
-                    float tien_moi = sc.nextFloat();
-                    a.setTongtien(tien_moi);
-                    kh[i] = a;
-                    System.out.println("Chỉnh sửa tổng tiền của khách hàng thành công");
                     kh[i].xuat();
                     break;
                 }
