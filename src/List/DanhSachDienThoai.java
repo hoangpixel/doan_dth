@@ -122,17 +122,13 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 		sc.nextLine();
 		switch (luaChon) {
 			case 1: {
-				DienThoaiThongMinh dttm = new DienThoaiThongMinh();
-				dttm.nhap();
-				dttm = (DienThoaiThongMinh) kiemTraTrungMaDT((DienThoai) dttm);
-				dsdt[n] = dttm;
+				dsdt[n] = new DienThoaiThongMinh();
+				dsdt[n].nhap();
 				break;
 			}
 			case 2: {
-				DienThoaiPhim dtp = new DienThoaiPhim();
-				dtp.nhap();
-				dtp = (DienThoaiPhim) kiemTraTrungMaDT(dtp);
-				dsdt[n] = dtp;
+				dsdt[n] = new DienThoaiPhim();
+				dsdt[n].nhap();
 				break;
 			}
 		}
@@ -152,17 +148,13 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 			sc.nextLine();
 			switch (luaChon) {
 				case 1: {
-					DienThoaiThongMinh dttm = new DienThoaiThongMinh();
-					dttm.nhap();
-					dttm = (DienThoaiThongMinh) kiemTraTrungMaDT((DienThoai) dttm);
-					dsdt[i] = dttm;
+					dsdt[n] = new DienThoaiThongMinh();
+					dsdt[n].nhap();
 					break;
 				}
 				case 2: {
-					DienThoaiPhim dtp = new DienThoaiPhim();
-					dtp.nhap();
-					dtp = (DienThoaiPhim) kiemTraTrungMaDT(dtp);
-					dsdt[i] = dtp;
+					dsdt[n] = new DienThoaiPhim();
+					dsdt[n].nhap();
 					break;
 				}
 			}
@@ -222,7 +214,7 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 		return null;
 	}
 	
-	public DienThoai timKiem_maDT(String maDT) {
+	public static DienThoai timKiem_maDT(String maDT) {
 		for(int i = 0; i < dsdt.length; i++) {
 			if(dsdt[i].getMaDT().equals(maDT)) {
 				return dsdt[i];

@@ -47,72 +47,39 @@ public class DanhSachChiTietHoaDon implements InterfaceDocGhi{
         cthd[cthd.length - 1] = a;
     }
 
-    public int kiemtraSL(String madt){
-        DienThoai[] dt = DanhSachDienThoai.getDsdt();
-        for(DienThoai a :dt){
-            if(a.getMaDT().equals(madt)){
-                return a.getSoluong();
-            }
-        }
-        return 0;
-    }
-
-    public void giamslDT(String madt, int sl){
-        DienThoai[] dt = DanhSachDienThoai.getDsdt();
-        for(DienThoai a :dt){
-            if(a.getMaDT().equals(madt)){
-                a.setSoluong(a.getSoluong() - sl);
-            }
-        }
+    public static void giamslDT(String madt, int sl){
+    	DienThoai dt = DanhSachDienThoai.timKiem_maDT(madt);
+    	if(dt != null) {
+    		dt.setSoluong(dt.getSoluong() - sl);
+    	}
     }
 
     public static void tangslDT(String madt, int sl){
-        DienThoai[] dt = DanhSachDienThoai.getDsdt();
-        for(DienThoai a :dt){
-            if(a.getMaDT().equals(madt)){
-                a.setSoluong(a.getSoluong() + sl);
-            }
-        }
+    	DienThoai dt = DanhSachDienThoai.timKiem_maDT(madt);
+    	if(dt != null) {
+    		dt.setSoluong(dt.getSoluong() + sl);
+    	}
     }
 
     public float getDonGia(String madt){
-        DienThoai[] dt = DanhSachDienThoai.getDsdt();
-        for(DienThoai a :dt){
-            if(a.getMaDT().equals(madt)){
-                return a.getDongia();
-            }
-        }
-        return 0;
+    	DienThoai dt = DanhSachDienThoai.timKiem_maDT(madt);
+    	if(dt != null) {
+    		return dt.getDongia();
+    	}
+    	return 0;
     }
 
     public void thaydoitienHD(String mahd){
-        HoaDon[] dshd = DanhSachHoaDon.getDshd();
-        for(HoaDon hd :dshd){
-            float tongtien = 0;
-            if(hd.getMaHd().equals(mahd)){
-                for(ChiTietHoaDon ct :cthd){
-                    if(ct.getMahd().equals(hd.getMaHd())){
-                        tongtien += ct.getThanhtien();
-                    }
-                }
-                hd.setTongTien(tongtien);
-            }
-        }
-    }
-
-    public static void thaydoitienKH(String mahd){
-        float tongtien = 0;
-        KhachHang[] dskh = DSKhachHang.getdskh();
-        HoaDon[] dshd = DanhSachHoaDon.getDshd();
-        for(KhachHang kh :dskh){
-        	tongtien = 0;
-            for(HoaDon hd :dshd){
-                if(hd.getMaKh().equals(kh.getMakh())){
-                    tongtien += hd.getTongTien();
-                }
-            }
-            kh.setTongtien(tongtien);
-        }
+    	HoaDon hd = DanhSachHoaDon.timTheoMaHD(mahd);
+    	if(hd != null) {
+    		float tongtien = 0;
+    		for(ChiTietHoaDon ct : cthd) {
+    			if(ct.getMahd().equals(hd.getMaHd())) {
+    				tongtien += ct.getThanhtien();
+    			}
+    		}
+    		hd.setTongTien(tongtien);
+    	}
     }
 
     public Boolean checkmaDT(String madt, String mahd){
@@ -198,7 +165,8 @@ public class DanhSachChiTietHoaDon implements InterfaceDocGhi{
                 }
                 cthd = Arrays.copyOf(cthd, cthd.length - 1);
                 thaydoitienHD(mahd_temp);
-                thaydoitienKH(mahd_temp);
+                String makh = DanhSachHoaDon.timMaKH(mahd_temp);
+                DanhSachHoaDon.thaydoitienKH(makh);
                 System.out.println("Xóa chi tiết hóa đơn thành công thành công.");
                 return;
             }
@@ -209,9 +177,10 @@ public class DanhSachChiTietHoaDon implements InterfaceDocGhi{
 	public static void xoaCTHD(String ma_hd){
         do{
             if(timTheoMa(ma_hd)!=-1){
+            	String makh = DanhSachHoaDon.timMaKH(ma_hd);
                 int position=timTheoMa(ma_hd);
                 tangslDT(cthd[position-1].getMadt(), cthd[position-1].getSoluong());
-                thaydoitienKH(ma_hd);
+                DanhSachHoaDon.thaydoitienKH(makh);
                 for(int i=position-1; i<cthd.length-1; i=i+1){
                     cthd[i]=cthd[i+1];
                 }
@@ -245,6 +214,7 @@ public class DanhSachChiTietHoaDon implements InterfaceDocGhi{
         String madt = sc.nextLine();
         for (ChiTietHoaDon chitiethoadon : cthd) {
             if (chitiethoadon.getMahd().equals(mahd) && chitiethoadon.getMadt().equals(madt)) {
+            	String makh = DanhSachHoaDon.timMaKH(mahd);
                 System.out.println("Chi tiết hóa đơn tìm thấy:");
                 chitiethoadon.xuatCTHD();
                 while (true) {
@@ -265,7 +235,7 @@ public class DanhSachChiTietHoaDon implements InterfaceDocGhi{
                             chitiethoadon.setDongia(getDonGia(chitiethoadon.getMadt()));
                             chitiethoadon.setThanhtien(chitiethoadon.getDongia()* chitiethoadon.getSoluong());
                             thaydoitienHD(chitiethoadon.getMahd());
-                            thaydoitienKH(chitiethoadon.getMahd());
+                            DanhSachHoaDon.thaydoitienKH(makh);
                             System.out.println("Sửa mã điện thoại thành công.");
                             chitiethoadon.xuatCTHD();
                             break;
@@ -289,7 +259,7 @@ public class DanhSachChiTietHoaDon implements InterfaceDocGhi{
                             chitiethoadon.setSoluong(soLuong);
                             chitiethoadon.setThanhtien(chitiethoadon.getSoluong() * chitiethoadon.getDongia());
                             thaydoitienHD(chitiethoadon.getMahd());
-                            thaydoitienKH(chitiethoadon.getMahd());
+                            DanhSachHoaDon.thaydoitienKH(makh);
                             giamslDT(chitiethoadon.getMadt(), chitiethoadon.getSoluong());
                             System.out.println("Sửa số lượng thành công.");
                             chitiethoadon.xuatCTHD();

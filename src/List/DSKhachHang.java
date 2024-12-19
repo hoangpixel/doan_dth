@@ -182,6 +182,15 @@ public class DSKhachHang implements InterfaceDocGhi{
         return null;
     }
     
+    public static KhachHang timkiemMaKH(String makh){
+        for (int i = 0; i < kh.length; i++){
+            if((kh[i].getMakh()).equals(makh)){
+                return kh[i];
+            }
+        }
+        return null;
+    }
+    
     public void timkiemMA(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Nhập mã khách hàng: ");
