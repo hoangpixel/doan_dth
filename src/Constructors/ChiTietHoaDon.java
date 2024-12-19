@@ -104,6 +104,9 @@ public class ChiTietHoaDon {
                 System.out.println("Mã điện thoại không tồn tại, vui lòng nhập lại");
             }
         }while(!DanhSachDienThoai.checkmaDT(madt));
+        // Lấy điện thoại trong danh sách bằng mã vừa nhập
+        DienThoai dt = DanhSachDienThoai.timKiem_maDT(madt);
+        
         boolean quan = true;
         do {
         	quan = true;
@@ -115,44 +118,34 @@ public class ChiTietHoaDon {
                     System.out.println("Số lượng không hợp lệ, vui lòng nhập lại");
                 }
             }while(soluong == 0 || soluong < 0);
-            for(DienThoai a :dsdt){
-                if(a.getMaDT().equals(this.madt) && a.getSoluong()==0){
-                    System.out.println("Số lượng điện thoại còn trong kho đã hết, hủy thao tác tạo chi tiết hóa đơn ");
+            
+            // Kiểm tra số lượng điện thoại trong cửa hàng
+            if(dt != null) {
+            	if(dt.getSoluong() == 0) {
+            		System.out.println("Số lượng điện thoại còn trong kho đã hết, hủy thao tác tạo chi tiết hóa đơn ");
                     quan = false;
                     this.mahd = null;
                     return;
-                }else if(a.getMaDT().equals(this.madt) && a.getSoluong()<this.soluong){
-                    System.out.println("Số lượng điện thoại còn trong kho không đủ, chỉ còn "+a.getSoluong()+" chiếc, vui lòng nhập số lượng khác ");
-                    quan = false;
-                }
+            	}
+            	else if(dt.getSoluong() < this.soluong) {
+            		System.out.println("Số lượng điện thoại còn trong kho không đủ, chỉ còn "+dt.getSoluong()+" chiếc, vui lòng nhập số lượng khác ");
+            		quan = false;
+            	}
             }
         } while(!quan);
-        for(DienThoai a :dsdt) {
-            if (a.getMaDT().equals(this.madt)) {
-                this.dongia = a.getDongia();
-                this.thanhtien = soluong * dongia;
-                a.setSoluong(a.getSoluong() - this.soluong);
-            }
-        }
+        
+        // Cập nhật số lượng điện thoại
+        this.dongia = dt.getDongia();
+        this.thanhtien = soluong * dongia;
+        dt.setSoluong(dt.getSoluong() - this.soluong);
 
-        HoaDon[] dshd = DanhSachHoaDon.getDshd();
-        for(HoaDon a :dshd){
-            if(a.getMaHd().equals(this.mahd)){
-                for(DienThoai b :dsdt){
-                    if(this.madt.equals(b.getMaDT())){
-                        a.setTongTien(a.getTongTien()+this.thanhtien);
-                        KhachHang[] dskh = DSKhachHang.getdskh();
-                        for(KhachHang kh :dskh){
-                            if(kh.getMakh().equals(a.getMaKh())){
-                                kh.setTongtien(kh.getTongtien() + this.thanhtien);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-
+        // Cập nhật tổng tiền hóa đơn
+        HoaDon hd = DanhSachHoaDon.timTheoMaHD(this.mahd);
+        hd.setTongTien(hd.getTongTien() + this.thanhtien);
+        
+        // Cập nhật tổng tiền khách hàng
+        KhachHang kh = DSKhachHang.timkiemMaKH(DanhSachHoaDon.timMaKH(this.mahd));
+        kh.setTongtien(kh.getTongtien() + this.thanhtien);
     }
 
     public void xuatCTHD() {

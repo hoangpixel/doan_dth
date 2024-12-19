@@ -414,7 +414,7 @@ public class main {
                         a = null; // Đặt lại đối tượng điện thoại để bắt đầu chọn lại
                         break; // Thoát khỏi vòng lặp và quay lại chọn điện thoại
                     } else if (quan_check < quan) {
-                        System.out.println("Số lượng điện thoại không đủ, vui lòng nhập lại số lượng khác");
+                        System.out.println("Số lượng điện thoại không đủ chỉ còn: "+ quan_check + ", vui lòng nhập lại số lượng khác");
                     }
                 } while (quan_check < quan); // Tiếp tục vòng lặp nếu không đủ số lượng hoặc đã hết
             }while(a == null);
