@@ -45,7 +45,7 @@ public class DSKhachHang implements InterfaceDocGhi{
         return kh.length;
     }
 
-    public static KhachHang[]  getdskh(){
+    public KhachHang[] getdskh(){
         return kh;
     }
     public String taoMaKH() {

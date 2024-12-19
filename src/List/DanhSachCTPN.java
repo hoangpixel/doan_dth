@@ -82,12 +82,10 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 	// Hàm kiểm tra mã phiếu nhập đã có chưa (nếu chưa có nhập lại mã phiếu nhập)
 	// Trả về mã phiếu nhập 
 	public String kiemTraMaPN(String maPN) {
-		PhieuNhap[] pn = DanhSachPhieuNhap.getDspn();
 		while(true) {
-			for(int i = 0; i < pn.length; i++) {
-				if(maPN.equals(pn[i].getMaPN())) {
-					return maPN;
-				}
+			PhieuNhap pn = DanhSachPhieuNhap.timMaPhieu(maPN);
+			if(pn != null) {
+				return maPN;
 			}
 			System.out.print("Mã phiếu nhập không tồn tại, vui lòng nhập lại mã phiếu nhập: ");
 			maPN = sc.nextLine();
@@ -179,7 +177,7 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 		return -1;
 	}
 	
-	public static int timKiemCTPN(String maPN, String maDT) {		// Mã phiếu nhập + mã điện thoại
+	public int timKiemCTPN(String maPN, String maDT) {		// Mã phiếu nhập + mã điện thoại
 		for(int i = 0; i < dsctpn.length; i++) {
 			if(dsctpn[i].getMaPN().equals(maPN) && dsctpn[i].getMaDT().equals(maDT)) {
 				return i;

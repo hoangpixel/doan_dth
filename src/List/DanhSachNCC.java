@@ -22,7 +22,7 @@ public class DanhSachNCC implements InterfaceDocGhi
         this.dsncc=dsncc;
     }
     
-    public static NhaCungCap[] getDsncc() {
+    public NhaCungCap[] getDsncc() {
 		return dsncc;
 	}
     

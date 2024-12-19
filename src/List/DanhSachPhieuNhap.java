@@ -1,4 +1,5 @@
 package List;
+
 import java.util.Scanner;
 import java.util.Arrays;
 import Constructors.PhieuNhap;
@@ -13,595 +14,565 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.text.DecimalFormat;
-public class DanhSachPhieuNhap implements InterfaceDocGhi
-{
-    private static PhieuNhap[] dspn;
-    public DanhSachPhieuNhap()
-    {
-        dspn=new PhieuNhap[0];
-    }
-    public DanhSachPhieuNhap(PhieuNhap dspn[])
-    {
-        this.dspn=dspn;
-    }
 
-    public  static PhieuNhap[] getDspn() {
-        return dspn;
-    }
-//hàm ktra mã trùng
-    public boolean trungMa(String maPN)
-    {
-        for(int i=0;i<dspn.length;i++)
-        {
-            if(dspn[i] != null && (dspn[i].getMaPN().equals(maPN)))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
+public class DanhSachPhieuNhap implements InterfaceDocGhi {
+	private static PhieuNhap[] dspn;
 
-    public void nhapPhieu()
-    {
-        Scanner sc=new Scanner(System.in);
-        int n;
-        System.out.print("Nhập số lượng phiếu nhập : ");
-        n=sc.nextInt();
-        sc.nextLine();
-        dspn = new PhieuNhap[n];
-        for(int i=0;i<n;i++)
-        {
-            //khởi tạo đối tượng phieunhap r nhập vào sau đó ktra mã nếu trùng thì báo lỗi và nhập lại mã
-            PhieuNhap pn = new PhieuNhap();
-            pn.nhapPhieu();
-            while(trungMa(pn.getMaPN()))
-            {
-                System.out.println("Mã phiếu đã bị trùng vui lòng nhập lại !!!");
-                System.out.print("Nhập mã phiếu mới : ");
-                String newMa=sc.nextLine();
-                pn.setMaPN(newMa);
-            }
-            dspn[i]=pn;
-        }
-    }
+	public DanhSachPhieuNhap() {
+		dspn = new PhieuNhap[0];
+	}
 
-    public void themK()
-    {
-        Scanner sc=new Scanner(System.in);
-        int n=dspn.length,k;
-        do {
-            System.out.print("Nhập số lượng phiếu nhập : ");
-            k=sc.nextInt();
-            sc.nextLine();
-            if(k<=0)
-            {
-                System.out.println("Vui lòng nhập số nguyên dương !!!");
-            }
-        }while(k<=0);
-        dspn = Arrays.copyOf(dspn,n+k);
-        for(int i=0;i<k;i++)
-        {
-            PhieuNhap pn = new PhieuNhap();
-            pn.nhapPhieu();
-            while(trungMa(pn.getMaPN()))
-            {
-                System.out.println("Mã phiếu đã bị trùng vui lòng nhập lại !!!");
-                System.out.print("Nhập lại mã phiếu mới : ");
-                String newMa=sc.nextLine();
-                pn.setMaPN(newMa);
-            }
-            dspn[n+i]=pn;
-        }
-    }
-    
-    public void xoaPhanTu()
-    {
-        Scanner sc=new Scanner(System.in);
-        int n=dspn.length;
-        int index=-1;
-        System.out.print("Nhập mã phiếu nhập muốn xóa : ");
-        String maXoa=sc.nextLine();
-        for(int i=0;i<n;i++)
-        {
-            if(dspn[i].getMaPN().equals(maXoa))
-            {
-                index=i;
-            }
-        }
-        if(index!=-1)
-        {
-        	DanhSachCTPN.xoaCTPN(maXoa);
-            for(int i=index;i<n-1;i++)
-            {
-                dspn[i]=dspn[i+1];
-            }
-            dspn=Arrays.copyOf(dspn,n-1);
-        }
-        else
-        {
-            System.out.println("Không tìm thấy phiếu nhập cần xóa !!!");
-        }
-    }
-    public void timMaPhieu()
-    {
-        Scanner sc=new Scanner(System.in);
-        DecimalFormat df = new DecimalFormat("#,###");
-        int n=dspn.length;
-        String maTim;
-        System.out.print("Vui lòng nhập mã cần tìm : ");
-        maTim=sc.nextLine();
-        int index=-1;
-        for(int i=0;i<n;i++)
-        {
-            if(dspn[i].getMaPN().equals(maTim))
-            {
-                index=i;
-            }
-        }
-        if(index!=-1)
-        {
-            if(dspn[index] != null)
-            {
-                String format = "| %-15s | %-20s | %-15s | %-15s | %-15s |\n";
-                System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
-                System.out.format(format, "Mã phiếu nhập", "Ngày nhập", "Mã NCC", "Mã NV", "Tổng tiền");
-                System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
-                System.out.format(format, dspn[index].getMaPN(), dspn[index].getNgayNhap(), dspn[index].getMaNCC(), dspn[index].getMaNV(), df.format(dspn[index].getTongTien()));
-                System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
-                System.out.println();
-            }
-            else
-            {
-                System.out.println("Không có dữ liệu từ mã cần tìm");
-            }
-        }
-        else
-        {
-            System.out.println("Không thể tìm thấy mã : " + maTim + " trong danh sách !!!");
-        }
-    }
-    
-    public static PhieuNhap timMaPhieu(String maPN) {
-    	for(int i = 0; i < dspn.length; i++) {
-    		if(maPN.equals(dspn[i].getMaPN())) {
-    			return dspn[i];
-    		}
-    	}
-    	return null;
-    }
-    
-    public void thongKeTien()
-    {
-        DecimalFormat df = new DecimalFormat("#,###");
-        int s=0;
-        for(int i=0;i<dspn.length;i++)
-        {
-            s+=dspn[i].getTongTien();
-        }
-        System.out.print("\n");
-        System.out.println("Tổng số tiền của tất cả các phếu nhập : " + df.format(s));
-        System.out.print("\n");
-    }
-    public void suaPhieuNhap()
-    {
-        Scanner sc=new Scanner(System.in);
-        int n=dspn.length;
-        int index=-1;
-        String timMa;
-        System.out.print("Nhập mã phiếu cần sửa đổi : ");
-        timMa=sc.nextLine();
-        for(int i=0;i<n;i++)
-        {
-            if(dspn[i].getMaPN().equals(timMa))
-            {
-                index=i;
-            }
-        }
-        if(index!=-1)
-        {
-            int choice;
-            do
-            {
-                System.out.println("---------------Menu---------------");
-                System.out.println("1. Sửa đổi mã nhà cung cấp");
-                System.out.println("2. Sửa đổi ngày nhập hàng");
-                System.out.println("3. Sửa đổi mã nhân viên");
-                System.out.println("0. Thoát");
-                System.out.println("----------------------------------");
-                System.out.print("Vui lòng nhập lựa chọn của bạn (1->3) : ");
-                choice=sc.nextInt();
-                sc.nextLine();
-                switch (choice)
-                {
-                    case 1: {
-                        System.out.print("Nhập mã nhà cung cấp cần sửa : ");
-                        String newMaNCC = sc.nextLine();
-                        dspn[index].setMaNCC(newMaNCC);
-                        break;
-                    }
-                    case 2: {
-                        while(true)
-                        {
-                            System.out.print("Nhập ngày nhập hàng cẩn sửa đổi (yyyy-MM-dd) : ");
-                            String newNgayNhap = sc.nextLine();
-                            //định dạng ngày nhập
-                            if(newNgayNhap.matches("\\d{4}-\\d{2}-\\d{2}"))
-                            {
-                                dspn[index].setNgayNhap(newNgayNhap);
-                                break;
-                            }
-                            else
-                            {
-                                System.out.println("Vui lòng nhập theo đúng định dạng (yyyy-MM-dd) !!!");
-                            }
-                        }
-                        break;
-                    }
-                    case 3: {
-                        System.out.printf("Nhập mã nhân viên cần sửa : ");
-                        String newMaNV = sc.nextLine();
-                        dspn[index].setMaNV(newMaNV);
-                        break;
-                    }
-                    case 0: {
-                        System.out.println("Tạm biệt !!!");
-                        break;
-                    }
-                    default: {
-                        System.out.println("Lựa chọn không hợp lệ vui lòng chọn từ (1->3) !!!");
-                    }
-                }
-            }while(choice!=0);
-        }
-        else
-        {
-            System.out.println("Không tìm thấy mã phiếu cần sửa !!!");
-        }
-    }
-    public void thongKe()
-    {
-        int n= dspn.length;
-        int d=0;
-        for(int i=0;i<n;i++)
-        {
-            d++;
-        }
-        System.out.println("Có " + d + " phiếu nhập trong danh sách");
-    }
-    public void thongKeTheoTien()
-    {
-        DecimalFormat df = new DecimalFormat("#,###");
-        Scanner sc=new Scanner(System.in);
-        float min=0;
-        float max=0;
-        System.out.print("Nhập tổng tiền nhỏ nhất : ");
-        min=sc.nextFloat();
-        System.out.print("Nhập tổng tiền lớn nhất : ");
-        max=sc.nextFloat();
-        String format = "| %-15s | %-20s | %-15s | %-15s | %-15s |\n";
-        System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
-        System.out.format(format, "Mã phiếu nhập", "Ngày nhập", "Mã NCC", "Mã NV", "Tổng tiền");
-        System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
+	public DanhSachPhieuNhap(PhieuNhap dspn[]) {
+		this.dspn = dspn;
+	}
+
+	public static PhieuNhap[] getDspn() {
+		return dspn;
+	}
+
+	//hàm ktra mã trùng
+	public boolean trungMa(String maPN) {
+		for (int i = 0; i < dspn.length; i++) {
+			if (dspn[i] != null && (dspn[i].getMaPN().equals(maPN))) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void nhapPhieu() {
+		Scanner sc = new Scanner(System.in);
+		int n;
+		System.out.print("Nhập số lượng phiếu nhập : ");
+		n = sc.nextInt();
+		sc.nextLine();
+		dspn = new PhieuNhap[n];
+		for (int i = 0; i < n; i++) {
+			// khởi tạo đối tượng phieunhap r nhập vào sau đó ktra mã nếu trùng thì báo lỗi
+			// và nhập lại mã
+			PhieuNhap pn = new PhieuNhap();
+			pn.nhapPhieu();
+			while (trungMa(pn.getMaPN())) {
+				System.out.println("Mã phiếu đã bị trùng vui lòng nhập lại !!!");
+				System.out.print("Nhập mã phiếu mới : ");
+				String newMa = sc.nextLine();
+				pn.setMaPN(newMa);
+			}
+			dspn[i] = pn;
+		}
+	}
+
+	public void themK() {
+		Scanner sc = new Scanner(System.in);
+		int n = dspn.length, k;
+		do {
+			System.out.print("Nhập số lượng phiếu nhập : ");
+			k = sc.nextInt();
+			sc.nextLine();
+			if (k <= 0) {
+				System.out.println("Vui lòng nhập số nguyên dương !!!");
+			}
+		} while (k <= 0);
+		dspn = Arrays.copyOf(dspn, n + k);
+		for (int i = 0; i < k; i++) {
+			PhieuNhap pn = new PhieuNhap();
+			pn.nhapPhieu();
+			while (trungMa(pn.getMaPN())) {
+				System.out.println("Mã phiếu đã bị trùng vui lòng nhập lại !!!");
+				System.out.print("Nhập lại mã phiếu mới : ");
+				String newMa = sc.nextLine();
+				pn.setMaPN(newMa);
+			}
+			dspn[n + i] = pn;
+		}
+	}
+
+	public void xoaPhanTu() {
+		Scanner sc = new Scanner(System.in);
+		int n = dspn.length;
+		int index = -1;
+		System.out.print("Nhập mã phiếu nhập muốn xóa : ");
+		String maXoa = sc.nextLine();
+		for (int i = 0; i < n; i++) {
+			if (dspn[i].getMaPN().equals(maXoa)) {
+				index = i;
+			}
+		}
+		if (index != -1) {
+			DanhSachCTPN.xoaCTPN(maXoa);
+			for (int i = index; i < n - 1; i++) {
+				dspn[i] = dspn[i + 1];
+			}
+			dspn = Arrays.copyOf(dspn, n - 1);
+		} else {
+			System.out.println("Không tìm thấy phiếu nhập cần xóa !!!");
+		}
+	}
+
+	public void timMaPhieu() {
+		Scanner sc = new Scanner(System.in);
+		DecimalFormat df = new DecimalFormat("#,###");
+		int n = dspn.length;
+		String maTim;
+		System.out.print("Vui lòng nhập mã cần tìm : ");
+		maTim = sc.nextLine();
+		int index = -1;
+		for (int i = 0; i < n; i++) {
+			if (dspn[i].getMaPN().equals(maTim)) {
+				index = i;
+			}
+		}
+		if (index != -1) {
+			if (dspn[index] != null) {
+				String format = "| %-15s | %-20s | %-15s | %-15s | %-15s |\n";
+				System.out.format(
+						"+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
+				System.out.format(format, "Mã phiếu nhập", "Ngày nhập", "Mã NCC", "Mã NV", "Tổng tiền");
+				System.out.format(
+						"+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
+				System.out.format(format, dspn[index].getMaPN(), dspn[index].getNgayNhap(), dspn[index].getMaNCC(),
+						dspn[index].getMaNV(), df.format(dspn[index].getTongTien()));
+				System.out.format(
+						"+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
+				System.out.println();
+			} else {
+				System.out.println("Không có dữ liệu từ mã cần tìm");
+			}
+		} else {
+			System.out.println("Không thể tìm thấy mã : " + maTim + " trong danh sách !!!");
+		}
+	}
+
+	public static PhieuNhap timMaPhieu(String maPN) {
+		for (int i = 0; i < dspn.length; i++) {
+			if (maPN.equals(dspn[i].getMaPN())) {
+				return dspn[i];
+			}
+		}
+		return null;
+	}
+
+	public void thongKeTien() {
+		DecimalFormat df = new DecimalFormat("#,###");
+		int s = 0;
+		for (int i = 0; i < dspn.length; i++) {
+			s += dspn[i].getTongTien();
+		}
+		System.out.print("\n");
+		System.out.println("Tổng số tiền của tất cả các phếu nhập : " + df.format(s));
+		System.out.print("\n");
+	}
+
+	public void suaPhieuNhap() {
+		Scanner sc = new Scanner(System.in);
+		int n = dspn.length;
+		int index = -1;
+		String timMa;
+		System.out.print("Nhập mã phiếu cần sửa đổi : ");
+		timMa = sc.nextLine();
+		for (int i = 0; i < n; i++) {
+			if (dspn[i].getMaPN().equals(timMa)) {
+				index = i;
+			}
+		}
+		if (index != -1) {
+			int choice;
+			do {
+				System.out.println("---------------Menu---------------");
+				System.out.println("1. Sửa đổi mã nhà cung cấp");
+				System.out.println("2. Sửa đổi ngày nhập hàng");
+				System.out.println("3. Sửa đổi mã nhân viên");
+				System.out.println("0. Thoát");
+				System.out.println("----------------------------------");
+				System.out.print("Vui lòng nhập lựa chọn của bạn (1->3) : ");
+				choice = sc.nextInt();
+				sc.nextLine();
+				switch (choice) {
+				case 1: {
+					System.out.print("Nhập mã nhà cung cấp cần sửa : ");
+					String newMaNCC = sc.nextLine();
+					dspn[index].setMaNCC(newMaNCC);
+					break;
+				}
+				case 2: {
+					while (true) {
+						System.out.print("Nhập ngày nhập hàng cẩn sửa đổi (yyyy-MM-dd) : ");
+						String newNgayNhap = sc.nextLine();
+						// định dạng ngày nhập
+						if (newNgayNhap.matches("\\d{4}-\\d{2}-\\d{2}")) {
+							dspn[index].setNgayNhap(newNgayNhap);
+							break;
+						} else {
+							System.out.println("Vui lòng nhập theo đúng định dạng (yyyy-MM-dd) !!!");
+						}
+					}
+					break;
+				}
+				case 3: {
+					System.out.printf("Nhập mã nhân viên cần sửa : ");
+					String newMaNV = sc.nextLine();
+					dspn[index].setMaNV(newMaNV);
+					break;
+				}
+				case 0: {
+					System.out.println("Tạm biệt !!!");
+					break;
+				}
+				default: {
+					System.out.println("Lựa chọn không hợp lệ vui lòng chọn từ (1->3) !!!");
+				}
+				}
+			} while (choice != 0);
+		} else {
+			System.out.println("Không tìm thấy mã phiếu cần sửa !!!");
+		}
+	}
+
+	public void thongKe() {
+		int n = dspn.length;
+		int d = 0;
+		for (int i = 0; i < n; i++) {
+			d++;
+		}
+		System.out.println("Có " + d + " phiếu nhập trong danh sách");
+	}
+
+	public void thongKeTheoTien() {
+		DecimalFormat df = new DecimalFormat("#,###");
+		Scanner sc = new Scanner(System.in);
+		float min = 0;
+		float max = 0;
+		System.out.print("Nhập tổng tiền nhỏ nhất : ");
+		min = sc.nextFloat();
+		System.out.print("Nhập tổng tiền lớn nhất : ");
+		max = sc.nextFloat();
+		String format = "| %-15s | %-20s | %-15s | %-15s | %-15s |\n";
+		System.out.format(
+				"+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
+		System.out.format(format, "Mã phiếu nhập", "Ngày nhập", "Mã NCC", "Mã NV", "Tổng tiền");
+		System.out.format(
+				"+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
 //ktra nếu tongtien lớn hơn min và nhỏ hơn max thì sẽ xuất ra các phiếu trong khoảng đó
-        for (int i = 0; i < dspn.length; i++)
-        {
-            if(dspn[i].getTongTien() >= min && dspn[i].getTongTien() <= max)
-            {
-                System.out.format(format, dspn[i].getMaPN(), dspn[i].getNgayNhap(), dspn[i].getMaNCC(),
-                        dspn[i].getMaNV(), df.format(dspn[i].getTongTien()));
-            }
-        }
+		for (int i = 0; i < dspn.length; i++) {
+			if (dspn[i].getTongTien() >= min && dspn[i].getTongTien() <= max) {
+				System.out.format(format, dspn[i].getMaPN(), dspn[i].getNgayNhap(), dspn[i].getMaNCC(),
+						dspn[i].getMaNV(), df.format(dspn[i].getTongTien()));
+			}
+		}
 
-        System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
-        System.out.println("\n");
-    }
-    public void docFile() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("src/data/ListPhieuNhap.txt"))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (line.trim().isEmpty()) continue; // Bỏ qua dòng trống
+		System.out.format(
+				"+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
+		System.out.println("\n");
+	}
 
-                // Tách chuỗi bằng dấu `;`
-                String[] parts = line.split(";");
-                if (parts.length == 5) {
-                    try {
-                        // Tạo đối tượng PhieuNhap từ dữ liệu
-                        PhieuNhap pn = new PhieuNhap(
-                                parts[0], // Mã phiếu nhập
-                                parts[1], // Ngày nhập
-                                parts[2], // Mã nhà cung cấp
-                                parts[3], // Mã nhân viên
-                                Float.parseFloat(parts[4]) // Tổng tiền
-                        );
+	public void docFile() {
+		try (BufferedReader reader = new BufferedReader(new FileReader("src/data/ListPhieuNhap.txt"))) {
+			String line;
+			while ((line = reader.readLine()) != null) {
+				if (line.trim().isEmpty())
+					continue; // Bỏ qua dòng trống
 
-                        // Thêm đối tượng vào danh sách
-                        dspn = Arrays.copyOf(dspn, dspn.length + 1);
-                        dspn[dspn.length - 1] = pn;
-                    } catch (NumberFormatException e) {
-                        System.out.println("Dữ liệu tổng tiền không hợp lệ: " + line);
-                    }
-                } else {
-                    System.out.println("Dòng dữ liệu không hợp lệ: " + line);
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("Lỗi khi đọc từ file: " + e.getMessage());
-        }
-    }
+				// Tách chuỗi bằng dấu `;`
+				String[] parts = line.split(";");
+				if (parts.length == 5) {
+					try {
+						// Tạo đối tượng PhieuNhap từ dữ liệu
+						PhieuNhap pn = new PhieuNhap(parts[0], // Mã phiếu nhập
+								parts[1], // Ngày nhập
+								parts[2], // Mã nhà cung cấp
+								parts[3], // Mã nhân viên
+								Float.parseFloat(parts[4]) // Tổng tiền
+						);
 
-    public String[] layDanhSachPN()
-    {
-        String[] ncc=new String[dspn.length];
-        for(int i=0;i< dspn.length;i++)
-        {
-            ncc[i]=dspn[i].getMaPN();
-        }
-        return ncc;
-    }
-    public void ghiFile()
-    {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/data/ListPhieuNhap.txt"))) {
-            for (PhieuNhap pn : dspn)
-            {
-                if (pn != null) {
-                    String data = pn.getMaPN() + ";" +
-                            pn.getNgayNhap() + ";" +
-                            pn.getMaNCC() + ";" +
-                            pn.getMaNV() + ";" +
-                            pn.getTongTien() + "\n";
-                    writer.write(data);  // Ghi dữ liệu vào file
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("Lỗi khi ghi vào file: " + e.getMessage());
-        }
-    }
+						// Thêm đối tượng vào danh sách
+						dspn = Arrays.copyOf(dspn, dspn.length + 1);
+						dspn[dspn.length - 1] = pn;
+					} catch (NumberFormatException e) {
+						System.out.println("Dữ liệu tổng tiền không hợp lệ: " + line);
+					}
+				} else {
+					System.out.println("Dòng dữ liệu không hợp lệ: " + line);
+				}
+			}
+		} catch (IOException e) {
+			System.out.println("Lỗi khi đọc từ file: " + e.getMessage());
+		}
+	}
 
-    // public void timkiemNangCao()
-    // {
-    //     Scanner sc=new Scanner(System.in);
-    //     String maNV=null,maNCC=null,ngayBatDau=null,ngayKetThuc=null;
-    //     DecimalFormat df = new DecimalFormat("#,###");
-    //     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    //     Float min=null,max=null;
-    //     System.out.print("Nhập mã nhà cung cập : ");
-    //     maNCC=sc.nextLine().trim().toUpperCase();
-    //     if(maNCC.isEmpty())
-    //     {
-    //         maNCC=null;
-    //     }
-    //     System.out.print("Nhập mã nhân viên : ");
-    //     maNV=sc.nextLine().trim().toUpperCase();
-    //     if(maNV.isEmpty())
-    //     {
-    //         maNV=null;
-    //     }
-    //     LocalDate ngayBatDauDate = null;
-    //     LocalDate ngayKetThucDate = null;
-    //     while (true) {
-    //         System.out.print("Nhập ngày bắt đầu (yyyy-MM-dd): ");
-    //         ngayBatDau = sc.nextLine().trim();
-    //         if(ngayBatDau.isEmpty())
-    //         {
-    //             break;
-    //         }
-    //         try {
-    //             ngayBatDauDate = LocalDate.parse(ngayBatDau, formatter);
-    //             break;
-    //         } catch (Exception e) {
-    //             System.out.println("Vui lòng nhập ngày theo dạng (yyyy-MM-dd) !!!");
-    //         }
-    //     }
-    //     while (true) {
-    //         System.out.print("Nhập ngày kết thúc (yyyy-MM-dd): ");
-    //         ngayKetThuc = sc.nextLine().trim();
-    //         if(ngayKetThuc.isEmpty())
-    //         {
-    //             break;
-    //         }
-    //         try {
-    //             ngayKetThucDate = LocalDate.parse(ngayKetThuc, formatter);
-    //             if (ngayKetThucDate.isBefore(ngayBatDauDate)) {
-    //                 System.out.println("Ngày kết thúc không thể trước ngày bắt đầu, vui lòng nhập lại.");
-    //             } else {
-    //                 break;
-    //             }
-    //         } catch (Exception e) {
-    //             System.out.println("Vui lòng nhập ngày theo dạng (yyyy-MM-dd) !!!");
-    //         }
-    //     }
-    //     System.out.print("Nhập tổng tiền thấp nhất : ");
-    //     String minInput=sc.nextLine().trim();
-    //     if(!minInput.isEmpty())
-    //     {
-    //         min=Float.parseFloat(minInput);
-    //     }
-    //     System.out.print("Nhập tổng tiền cao nhất : ");
-    //     String maxInput=sc.nextLine().trim();
-    //     if(!maxInput.isEmpty())
-    //     {
-    //         max=Float.parseFloat(maxInput);
-    //     }
-    //     String format = "| %-15s | %-20s | %-15s | %-15s | %-15s |\n";
-    //     System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
-    //     System.out.format(format, "Mã phiếu nhập", "Ngày nhập", "Mã NCC", "Mã NV", "Tổng tiền");
-    //     System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
-    //     for(int i=0;i< dspn.length;i++)
-    //     {
-    //         String ngaynhapStr = dspn[i].getNgayNhap();
-    //         LocalDate ngayNhapDate = LocalDate.parse(ngaynhapStr, formatter);
-    //         boolean dk=true;
-    //         if (maNCC != null && !dspn[i].getMaNCC().equals(maNCC)) {
-    //             dk = false;
-    //         }
-    //         if (maNV != null && !dspn[i].getMaNV().equals(maNV)) {
-    //             dk = false;
-    //         }
-    //         if (min != null && dspn[i].getTongTien() < min) {
-    //             dk = false;
-    //         }
-    //         if (max != null && dspn[i].getTongTien() > max) {
-    //             dk = false;
-    //         }
-    //         if (ngayBatDauDate != null && ngayNhapDate.isBefore(ngayBatDauDate)) {
-    //             dk = false;
-    //         }
-    //         if (ngayKetThucDate != null && ngayNhapDate.isAfter(ngayKetThucDate)) {
-    //             dk = false;
-    //         }
-    //         if(dk)
-    //         {
-    //             System.out.format(format, dspn[i].getMaPN(), dspn[i].getNgayNhap(), dspn[i].getMaNCC(),
-    //                     dspn[i].getMaNV(), df.format(dspn[i].getTongTien()));
-    //         }
-    //     }
-    //     System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
-    //     System.out.println("\n");
-    // }
+	public String[] layDanhSachPN() {
+		String[] ncc = new String[dspn.length];
+		for (int i = 0; i < dspn.length; i++) {
+			ncc[i] = dspn[i].getMaPN();
+		}
+		return ncc;
+	}
 
-    public void timkiemNangCao() {
-    Scanner sc = new Scanner(System.in);
-    String maNV = null, maNCC = null, ngayBatDau = null, ngayKetThuc = null;
-    DecimalFormat df = new DecimalFormat("#,###"); // Định dạng để hiển thị số với dấu phân cách hàng nghìn
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Định dạng ngày nhập xuất
-    Float min = null, max = null; // Biến lưu giá trị tổng tiền tối thiểu và tối đa
+	public void ghiFile() {
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/data/ListPhieuNhap.txt"))) {
+			for (PhieuNhap pn : dspn) {
+				if (pn != null) {
+					String data = pn.getMaPN() + ";" + pn.getNgayNhap() + ";" + pn.getMaNCC() + ";" + pn.getMaNV() + ";"
+							+ pn.getTongTien() + "\n";
+					writer.write(data); // Ghi dữ liệu vào file
+				}
+			}
+		} catch (IOException e) {
+			System.out.println("Lỗi khi ghi vào file: " + e.getMessage());
+		}
+	}
 
-    // Nhập mã nhà cung cấp
-    System.out.print("Nhập mã nhà cung cấp : ");
-    maNCC = sc.nextLine().trim().toUpperCase(); // Đọc và chuyển mã nhà cung cấp thành chữ in hoa
-    if (maNCC.isEmpty()) { // Nếu bỏ trống, gán giá trị null
-        maNCC = null;
-    }
+	// public void timkiemNangCao()
+	// {
+	// Scanner sc=new Scanner(System.in);
+	// String maNV=null,maNCC=null,ngayBatDau=null,ngayKetThuc=null;
+	// DecimalFormat df = new DecimalFormat("#,###");
+	// DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	// Float min=null,max=null;
+	// System.out.print("Nhập mã nhà cung cập : ");
+	// maNCC=sc.nextLine().trim().toUpperCase();
+	// if(maNCC.isEmpty())
+	// {
+	// maNCC=null;
+	// }
+	// System.out.print("Nhập mã nhân viên : ");
+	// maNV=sc.nextLine().trim().toUpperCase();
+	// if(maNV.isEmpty())
+	// {
+	// maNV=null;
+	// }
+	// LocalDate ngayBatDauDate = null;
+	// LocalDate ngayKetThucDate = null;
+	// while (true) {
+	// System.out.print("Nhập ngày bắt đầu (yyyy-MM-dd): ");
+	// ngayBatDau = sc.nextLine().trim();
+	// if(ngayBatDau.isEmpty())
+	// {
+	// break;
+	// }
+	// try {
+	// ngayBatDauDate = LocalDate.parse(ngayBatDau, formatter);
+	// break;
+	// } catch (Exception e) {
+	// System.out.println("Vui lòng nhập ngày theo dạng (yyyy-MM-dd) !!!");
+	// }
+	// }
+	// while (true) {
+	// System.out.print("Nhập ngày kết thúc (yyyy-MM-dd): ");
+	// ngayKetThuc = sc.nextLine().trim();
+	// if(ngayKetThuc.isEmpty())
+	// {
+	// break;
+	// }
+	// try {
+	// ngayKetThucDate = LocalDate.parse(ngayKetThuc, formatter);
+	// if (ngayKetThucDate.isBefore(ngayBatDauDate)) {
+	// System.out.println("Ngày kết thúc không thể trước ngày bắt đầu, vui lòng nhập
+	// lại.");
+	// } else {
+	// break;
+	// }
+	// } catch (Exception e) {
+	// System.out.println("Vui lòng nhập ngày theo dạng (yyyy-MM-dd) !!!");
+	// }
+	// }
+	// System.out.print("Nhập tổng tiền thấp nhất : ");
+	// String minInput=sc.nextLine().trim();
+	// if(!minInput.isEmpty())
+	// {
+	// min=Float.parseFloat(minInput);
+	// }
+	// System.out.print("Nhập tổng tiền cao nhất : ");
+	// String maxInput=sc.nextLine().trim();
+	// if(!maxInput.isEmpty())
+	// {
+	// max=Float.parseFloat(maxInput);
+	// }
+	// String format = "| %-15s | %-20s | %-15s | %-15s | %-15s |\n";
+	// System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
+	// System.out.format(format, "Mã phiếu nhập", "Ngày nhập", "Mã NCC", "Mã NV",
+	// "Tổng tiền");
+	// System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
+	// for(int i=0;i< dspn.length;i++)
+	// {
+	// String ngaynhapStr = dspn[i].getNgayNhap();
+	// LocalDate ngayNhapDate = LocalDate.parse(ngaynhapStr, formatter);
+	// boolean dk=true;
+	// if (maNCC != null && !dspn[i].getMaNCC().equals(maNCC)) {
+	// dk = false;
+	// }
+	// if (maNV != null && !dspn[i].getMaNV().equals(maNV)) {
+	// dk = false;
+	// }
+	// if (min != null && dspn[i].getTongTien() < min) {
+	// dk = false;
+	// }
+	// if (max != null && dspn[i].getTongTien() > max) {
+	// dk = false;
+	// }
+	// if (ngayBatDauDate != null && ngayNhapDate.isBefore(ngayBatDauDate)) {
+	// dk = false;
+	// }
+	// if (ngayKetThucDate != null && ngayNhapDate.isAfter(ngayKetThucDate)) {
+	// dk = false;
+	// }
+	// if(dk)
+	// {
+	// System.out.format(format, dspn[i].getMaPN(), dspn[i].getNgayNhap(),
+	// dspn[i].getMaNCC(),
+	// dspn[i].getMaNV(), df.format(dspn[i].getTongTien()));
+	// }
+	// }
+	// System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
+	// System.out.println("\n");
+	// }
 
-    // Nhập mã nhân viên
-    System.out.print("Nhập mã nhân viên : ");
-    maNV = sc.nextLine().trim().toUpperCase(); // Đọc và chuyển mã nhân viên thành chữ in hoa
-    if (maNV.isEmpty()) { // Nếu bỏ trống, gán giá trị null
-        maNV = null;
-    }
+	public void timkiemNangCao() {
+		Scanner sc = new Scanner(System.in);
+		String maNV = null, maNCC = null, ngayBatDau = null, ngayKetThuc = null;
+		DecimalFormat df = new DecimalFormat("#,###"); // Định dạng để hiển thị số với dấu phân cách hàng nghìn
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Định dạng ngày nhập xuất
+		Float min = null, max = null; // Biến lưu giá trị tổng tiền tối thiểu và tối đa
 
-    LocalDate ngayBatDauDate = null;
-    LocalDate ngayKetThucDate = null;
+		// Nhập mã nhà cung cấp
+		System.out.print("Nhập mã nhà cung cấp : ");
+		maNCC = sc.nextLine().trim().toUpperCase(); // Đọc và chuyển mã nhà cung cấp thành chữ in hoa
+		if (maNCC.isEmpty()) { // Nếu bỏ trống, gán giá trị null
+			maNCC = null;
+		}
 
-    // Nhập ngày bắt đầu
-    while (true) {
-        System.out.print("Nhập ngày bắt đầu (yyyy-MM-dd): ");
-        ngayBatDau = sc.nextLine().trim(); // Đọc giá trị ngày bắt đầu
-        if (ngayBatDau.isEmpty()) { // Nếu bỏ trống, thoát vòng lặp
-            break;
-        }
-        try {
-            ngayBatDauDate = LocalDate.parse(ngayBatDau, formatter); // Chuyển đổi chuỗi sang đối tượng LocalDate
-            break;
-        } catch (Exception e) {
-            System.out.println("Vui lòng nhập ngày theo dạng (yyyy-MM-dd) !!!"); // Thông báo lỗi nếu sai định dạng
-        }
-    }
+		// Nhập mã nhân viên
+		System.out.print("Nhập mã nhân viên : ");
+		maNV = sc.nextLine().trim().toUpperCase(); // Đọc và chuyển mã nhân viên thành chữ in hoa
+		if (maNV.isEmpty()) { // Nếu bỏ trống, gán giá trị null
+			maNV = null;
+		}
 
-    // Nhập ngày kết thúc
-    while (true) {
-        System.out.print("Nhập ngày kết thúc (yyyy-MM-dd): ");
-        ngayKetThuc = sc.nextLine().trim(); // Đọc giá trị ngày kết thúc
-        if (ngayKetThuc.isEmpty()) { // Nếu bỏ trống, thoát vòng lặp
-            break;
-        }
-        try {
-            ngayKetThucDate = LocalDate.parse(ngayKetThuc, formatter); // Chuyển đổi chuỗi sang đối tượng LocalDate
-            if (ngayKetThucDate.isBefore(ngayBatDauDate)) { // Kiểm tra nếu ngày kết thúc trước ngày bắt đầu
-                System.out.println("Ngày kết thúc không thể trước ngày bắt đầu, vui lòng nhập lại.");
-            } else {
-                break;
-            }
-        } catch (Exception e) {
-            System.out.println("Vui lòng nhập ngày theo dạng (yyyy-MM-dd) !!!"); // Thông báo lỗi nếu sai định dạng
-        }
-    }
+		LocalDate ngayBatDauDate = null;
+		LocalDate ngayKetThucDate = null;
 
-    // Nhập tổng tiền thấp nhất
-    System.out.print("Nhập tổng tiền thấp nhất : ");
-    String minInput = sc.nextLine().trim();
-    if (!minInput.isEmpty()) { // Nếu không bỏ trống, chuyển đổi chuỗi sang số thực
-        min = Float.parseFloat(minInput);
-    }
+		// Nhập ngày bắt đầu
+		while (true) {
+			System.out.print("Nhập ngày bắt đầu (yyyy-MM-dd): ");
+			ngayBatDau = sc.nextLine().trim(); // Đọc giá trị ngày bắt đầu
+			if (ngayBatDau.isEmpty()) { // Nếu bỏ trống, thoát vòng lặp
+				break;
+			}
+			try {
+				ngayBatDauDate = LocalDate.parse(ngayBatDau, formatter); // Chuyển đổi chuỗi sang đối tượng LocalDate
+				break;
+			} catch (Exception e) {
+				System.out.println("Vui lòng nhập ngày theo dạng (yyyy-MM-dd) !!!"); // Thông báo lỗi nếu sai định dạng
+			}
+		}
 
-    // Nhập tổng tiền cao nhất
-    System.out.print("Nhập tổng tiền cao nhất : ");
-    String maxInput = sc.nextLine().trim();
-    if (!maxInput.isEmpty()) { // Nếu không bỏ trống, chuyển đổi chuỗi sang số thực
-        max = Float.parseFloat(maxInput);
-    }
+		// Nhập ngày kết thúc
+		while (true) {
+			System.out.print("Nhập ngày kết thúc (yyyy-MM-dd): ");
+			ngayKetThuc = sc.nextLine().trim(); // Đọc giá trị ngày kết thúc
+			if (ngayKetThuc.isEmpty()) { // Nếu bỏ trống, thoát vòng lặp
+				break;
+			}
+			try {
+				ngayKetThucDate = LocalDate.parse(ngayKetThuc, formatter); // Chuyển đổi chuỗi sang đối tượng LocalDate
+				if (ngayKetThucDate.isBefore(ngayBatDauDate)) { // Kiểm tra nếu ngày kết thúc trước ngày bắt đầu
+					System.out.println("Ngày kết thúc không thể trước ngày bắt đầu, vui lòng nhập lại.");
+				} else {
+					break;
+				}
+			} catch (Exception e) {
+				System.out.println("Vui lòng nhập ngày theo dạng (yyyy-MM-dd) !!!"); // Thông báo lỗi nếu sai định dạng
+			}
+		}
 
-    // Định dạng bảng hiển thị kết quả
-    String format = "| %-15s | %-20s | %-15s | %-15s | %-15s |\n";
-    System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
-    System.out.format(format, "Mã phiếu nhập", "Ngày nhập", "Mã NCC", "Mã NV", "Tổng tiền");
-    System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
+		// Nhập tổng tiền thấp nhất
+		System.out.print("Nhập tổng tiền thấp nhất : ");
+		String minInput = sc.nextLine().trim();
+		if (!minInput.isEmpty()) { // Nếu không bỏ trống, chuyển đổi chuỗi sang số thực
+			min = Float.parseFloat(minInput);
+		}
 
-    // Duyệt qua danh sách phiếu nhập
-    for (int i = 0; i < dspn.length; i++) {
-        String ngaynhapStr = dspn[i].getNgayNhap(); // Lấy ngày nhập dạng chuỗi
-        LocalDate ngayNhapDate = LocalDate.parse(ngaynhapStr, formatter); // Chuyển đổi sang LocalDate
-        boolean dk = true; // Biến điều kiện để kiểm tra
+		// Nhập tổng tiền cao nhất
+		System.out.print("Nhập tổng tiền cao nhất : ");
+		String maxInput = sc.nextLine().trim();
+		if (!maxInput.isEmpty()) { // Nếu không bỏ trống, chuyển đổi chuỗi sang số thực
+			max = Float.parseFloat(maxInput);
+		}
 
-        // Kiểm tra từng điều kiện tìm kiếm
-        if (maNCC != null && !dspn[i].getMaNCC().equals(maNCC)) { // Kiểm tra mã nhà cung cấp
-            dk = false;
-        }
-        if (maNV != null && !dspn[i].getMaNV().equals(maNV)) { // Kiểm tra mã nhân viên
-            dk = false;
-        }
-        if (min != null && dspn[i].getTongTien() < min) { // Kiểm tra tổng tiền thấp nhất
-            dk = false;
-        }
-        if (max != null && dspn[i].getTongTien() > max) { // Kiểm tra tổng tiền cao nhất
-            dk = false;
-        }
-        if (ngayBatDauDate != null && ngayNhapDate.isBefore(ngayBatDauDate)) { // Kiểm tra ngày bắt đầu
-            dk = false;
-        }
-        if (ngayKetThucDate != null && ngayNhapDate.isAfter(ngayKetThucDate)) { // Kiểm tra ngày kết thúc
-            dk = false;
-        }
+		// Định dạng bảng hiển thị kết quả
+		String format = "| %-15s | %-20s | %-15s | %-15s | %-15s |\n";
+		System.out.format(
+				"+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
+		System.out.format(format, "Mã phiếu nhập", "Ngày nhập", "Mã NCC", "Mã NV", "Tổng tiền");
+		System.out.format(
+				"+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
 
-        // Nếu tất cả điều kiện thỏa mãn, in ra phiếu nhập
-        if (dk) {
-            System.out.format(format, dspn[i].getMaPN(), dspn[i].getNgayNhap(), dspn[i].getMaNCC(),
-                    dspn[i].getMaNV(), df.format(dspn[i].getTongTien()));
-        }
-    }
+		// Duyệt qua danh sách phiếu nhập
+		for (int i = 0; i < dspn.length; i++) {
+			String ngaynhapStr = dspn[i].getNgayNhap(); // Lấy ngày nhập dạng chuỗi
+			LocalDate ngayNhapDate = LocalDate.parse(ngaynhapStr, formatter); // Chuyển đổi sang LocalDate
+			boolean dk = true; // Biến điều kiện để kiểm tra
 
-    // Kết thúc bảng hiển thị
-    System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
-    System.out.println("\n");
-}
+			// Kiểm tra từng điều kiện tìm kiếm
+			if (maNCC != null && !dspn[i].getMaNCC().equals(maNCC)) { // Kiểm tra mã nhà cung cấp
+				dk = false;
+			}
+			if (maNV != null && !dspn[i].getMaNV().equals(maNV)) { // Kiểm tra mã nhân viên
+				dk = false;
+			}
+			if (min != null && dspn[i].getTongTien() < min) { // Kiểm tra tổng tiền thấp nhất
+				dk = false;
+			}
+			if (max != null && dspn[i].getTongTien() > max) { // Kiểm tra tổng tiền cao nhất
+				dk = false;
+			}
+			if (ngayBatDauDate != null && ngayNhapDate.isBefore(ngayBatDauDate)) { // Kiểm tra ngày bắt đầu
+				dk = false;
+			}
+			if (ngayKetThucDate != null && ngayNhapDate.isAfter(ngayKetThucDate)) { // Kiểm tra ngày kết thúc
+				dk = false;
+			}
 
-    public void xuat()
-    {
-        for(int i=0;i<dspn.length;i++)
-        {
-            dspn[i].xuatPhieuNhap();
-        }
-    }
-    public void xuatDs() {
+			// Nếu tất cả điều kiện thỏa mãn, in ra phiếu nhập
+			if (dk) {
+				System.out.format(format, dspn[i].getMaPN(), dspn[i].getNgayNhap(), dspn[i].getMaNCC(),
+						dspn[i].getMaNV(), df.format(dspn[i].getTongTien()));
+			}
+		}
 
-        DecimalFormat df = new DecimalFormat("#,###");
-        if (dspn.length == 0)
-        {
-            System.out.println("Danh sách phiếu nhập trống.");
-            return;
-        }
-        String format = "| %-15s | %-20s | %-15s | %-15s | %-15s |\n";
-        System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
-        System.out.format(format, "Mã phiếu nhập", "Ngày nhập", "Mã NCC", "Mã NV", "Tổng tiền");
-        System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
+		// Kết thúc bảng hiển thị
+		System.out.format(
+				"+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
+		System.out.println("\n");
+	}
 
-        for (int i = 0; i < dspn.length; i++) {
-            System.out.format(format, dspn[i].getMaPN(), dspn[i].getNgayNhap(), dspn[i].getMaNCC(),
-                    dspn[i].getMaNV(), df.format(dspn[i].getTongTien()));
-        }
+	public void xuat() {
+		for (int i = 0; i < dspn.length; i++) {
+			dspn[i].xuatPhieuNhap();
+		}
+	}
 
-        System.out.format("+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
-        System.out.println("\n");
-    }
+	public void xuatDs() {
+
+		DecimalFormat df = new DecimalFormat("#,###");
+		if (dspn.length == 0) {
+			System.out.println("Danh sách phiếu nhập trống.");
+			return;
+		}
+		String format = "| %-15s | %-20s | %-15s | %-15s | %-15s |\n";
+		System.out.format(
+				"+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
+		System.out.format(format, "Mã phiếu nhập", "Ngày nhập", "Mã NCC", "Mã NV", "Tổng tiền");
+		System.out.format(
+				"+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
+
+		for (int i = 0; i < dspn.length; i++) {
+			System.out.format(format, dspn[i].getMaPN(), dspn[i].getNgayNhap(), dspn[i].getMaNCC(), dspn[i].getMaNV(),
+					df.format(dspn[i].getTongTien()));
+		}
+
+		System.out.format(
+				"+-----------------+----------------------+-----------------+-----------------+-----------------+\n");
+		System.out.println("\n");
+	}
 
 }

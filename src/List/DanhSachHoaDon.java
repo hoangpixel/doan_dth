@@ -32,8 +32,7 @@ public class DanhSachHoaDon implements InterfaceDocGhi {
 		dshd = temp.dshd;
 	}
 
-	// Phương thức static trả về danh sách hóa đơn (HoaDon[])
-	public static HoaDon[] getDshd() {
+	public HoaDon[] getDshd() {
 		return dshd;
 	}
 
