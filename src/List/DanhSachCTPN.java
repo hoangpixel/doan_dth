@@ -64,12 +64,10 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 		} while (trungMa);
 		
 		// Kiểm tra mã đt có tồn tại trong danh sách điện thoại
-		DienThoai[] dsdt = DanhSachDienThoai.getDsdt();
 		do {
-			for(int i = 0 ; i < dsdt.length; i++) {
-				if(ctpn.getMaDT().equals(dsdt[i].getMaDT())) {
-					trungMa = true;
-				}
+			DienThoai dt = DanhSachDienThoai.timKiem_maDT(ctpn.getMaDT());
+			if(dt != null) {
+				trungMa = true;
 			}
 			if(!trungMa) {
 				System.out.print("Mã điện thoại \"" + ctpn.getMaDT() 
@@ -98,21 +96,17 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 	
 	// Cập nhật số lượng điện thoại (tăng)
 	public void capNhatSoLuong_tang(String maDT, int soLuong) {
-		DienThoai[] dsdt = DanhSachDienThoai.getDsdt();
-		for(DienThoai dt : dsdt) {
-			if(dt.getMaDT().equals(maDT)) {
-				dt.setSoluong(dt.getSoluong() + soLuong);
-			}
+		DienThoai dt = DanhSachDienThoai.timKiem_maDT(maDT);
+		if(dt != null) {
+			dt.setSoluong(dt.getSoluong() + soLuong);
 		}
 	}
 	
 	// Cập nhật số lượng điện thoại (giảm)
 	public static void capNhatSoLuong_giam(String maDT, int soLuong) {
-		DienThoai[] dsdt = DanhSachDienThoai.getDsdt();
-		for(DienThoai dt : dsdt) {
-			if(dt.getMaDT().equals(maDT)) {
-				dt.setSoluong(dt.getSoluong() - soLuong);
-			}
+		DienThoai dt = DanhSachDienThoai.timKiem_maDT(maDT);
+		if(dt != null) {
+			dt.setSoluong(dt.getSoluong() - soLuong);
 		}
 	}
 	

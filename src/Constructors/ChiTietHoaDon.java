@@ -87,7 +87,6 @@ public class ChiTietHoaDon {
     }
 
     public void nhapCTHD(){
-        DienThoai[] dsdt = DanhSachDienThoai.getDsdt();
         Scanner sc = new Scanner(System.in);
         System.out.println("Nhập thông tin chi tiết hóa đơn");
         do {

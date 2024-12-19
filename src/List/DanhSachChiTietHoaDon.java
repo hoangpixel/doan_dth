@@ -248,10 +248,10 @@ public class DanhSachChiTietHoaDon implements InterfaceDocGhi{
                             	System.out.print("Nhập số lượng mới: ");
                             	soLuong = sc.nextInt();
                             	sc.nextLine();
-                            	DienThoai[] dsdt = DanhSachDienThoai.getDsdt();
-                            	for(DienThoai a : dsdt) {
-                            		if(a.getMaDT().equals(chitiethoadon.getMadt()) && a.getSoluong()<soLuong){
-                            			System.out.println("Số lượng điện thoại còn trong kho không đủ, chỉ còn "+a.getSoluong()+" chiếc, vui lòng nhập số lượng khác ");
+                            	DienThoai dt = DanhSachDienThoai.timKiem_maDT(chitiethoadon.getMadt());
+                            	if(dt != null) {
+                            		if(dt.getSoluong() < soLuong) {
+                            			System.out.println("Số lượng điện thoại còn trong kho không đủ, chỉ còn "+dt.getSoluong()+" chiếc, vui lòng nhập số lượng khác ");
                             			quan = false;
                             		}
                             	}

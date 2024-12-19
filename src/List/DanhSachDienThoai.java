@@ -26,10 +26,6 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 	public DanhSachDienThoai(DienThoai[] dsdt) {
 		this.dsdt = dsdt;
 	}
-	
-	public DanhSachDienThoai(DanhSachDienThoai dsdt) {
-		this.dsdt = dsdt.getDsdt();
-	}
 
 	public static DienThoai[] getDsdt() {
 		return dsdt;

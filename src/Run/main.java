@@ -324,7 +324,6 @@ public class main {
 			}
 			case 2: {
 				danhSachCTPN.them_K_CTPN();
-				dspn.ghiFile();
 				break;
 			}
 			case 3: {
