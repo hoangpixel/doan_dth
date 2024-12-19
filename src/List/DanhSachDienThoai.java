@@ -132,7 +132,7 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 	
 	public void nhap_n_DienThoai() {
 		//Nhập số lượng cần thêm
-		System.out.println("Nhap so luong: ");
+		System.out.println("Nhap số lượng:");
 		int n = sc.nextInt();
 		dsdt = Arrays.copyOf(dsdt, dsdt.length + n);
 		
@@ -443,9 +443,11 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 		float muc2 = sc.nextFloat();
 		int sl = 0;
 		for(int i = 0; i < dsdt.length; i++) {
-			float donGia = dsdt[i].getDongia();
-			if(donGia > muc1 && donGia < muc2){
-				sl++;
+			if(dsdt[i] != null) {
+				float donGia = dsdt[i].getDongia();
+				if(donGia > muc1 && donGia < muc2){
+					sl++;
+				}
 			}
 		}
 		DecimalFormat df = new DecimalFormat("#,###");
