@@ -56,7 +56,7 @@ public class main {
                     menuNCC(danhSachNCC);
                     break;
                 case 3:
-                    menuPN(danhSachPhieuNhap);
+                    menuPN(danhSachPhieuNhap, dsct);
                     break;
                 case 4:
                 	menuCTPN(dsct,danhSachPhieuNhap);
@@ -80,7 +80,7 @@ public class main {
                         lc = nhap.nextInt();
                         switch (lc) {
                             case 1: {
-                                danhsachHD.menu(danhsachNV, dskh, a);
+                                danhsachHD.menu(danhsachNV, dskh, a, dscthd);
                                 break;
                             }
                             case 2: {
@@ -172,7 +172,7 @@ public class main {
         }
     }
 
-    private static void menuPN(DanhSachPhieuNhap danhSachPhieuNhap)
+    private static void menuPN(DanhSachPhieuNhap danhSachPhieuNhap, DanhSachCTPN dsctpn)
     {
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -193,6 +193,8 @@ public class main {
             switch (choice) {
                 case 1:
                     danhSachPhieuNhap.themK();
+                    System.out.println("------Thêm các chi tiết phiếu nhập------");
+                    dsctpn.them_K_CTPN();
                     break;
                 case 2:
                     danhSachPhieuNhap.xuatDs();
@@ -421,6 +423,7 @@ public class main {
             dt = Arrays.copyOf(dt, dt.length+1);
             dt[dt.length - 1] = a;
             System.out.println("Đã thêm điện thoại.");
+            
             boolean validChoice = false;
             while (!validChoice) {
                 System.out.println("1. Thêm điện thoại khác");
@@ -460,7 +463,8 @@ public class main {
             tongtien += dienthoai.getDongia()*dienthoai.getSoluong();
         }
         HoaDon hd_temp = new HoaDon(dshd.taoMaHd(), getFormattedDateTime(), nv.getMaNv(), kh.getMakh(), tongtien );
-
+        hd_temp.xuat();
+        
         //Tao cthd moi
 
         ChiTietHoaDon[] cthd_list_temp = new ChiTietHoaDon[0];
@@ -481,6 +485,12 @@ public class main {
             kh.setTongtien(kh.getTongtien() + hd_temp.getTongTien());
             (dskh.timkiemSDT(sdt)).setTongtien(kh.getTongtien());
         }
+        
+        // Xuất các chi tiết hóa đơn
+        for(int i = 0 ; i < cthd_list_temp.length; i++) {
+        	cthd_list_temp[i].xuatCTHD();
+        }
+        
         // Xu ly so luong dien thoai
         for(DienThoai a :dt){
             dsdt.setsl(a.getMaDT(), a.getSoluong());

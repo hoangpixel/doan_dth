@@ -532,7 +532,7 @@ public class DanhSachHoaDon implements InterfaceDocGhi {
 		}
 	}
 
-	public void menu(DanhSachNhanVien temp1, DSKhachHang temp2, NhanVien temp3) {
+	public void menu(DanhSachNhanVien temp1, DSKhachHang temp2, NhanVien temp3, DanhSachChiTietHoaDon dscthd) {
 		int choice;
 		Scanner nhap = new Scanner(System.in);
 		do {
@@ -553,6 +553,9 @@ public class DanhSachHoaDon implements InterfaceDocGhi {
 			switch (choice) {
 			case 1: {
 				themHoaDon(temp1, temp2, temp3);
+				System.out.println("------Thêm chi tiết hóa đơn------");
+				dscthd.themCTHD();
+				System.out.println("\nThêm hoàn hóa đơn hoàn tất.");
 				break;
 			}
 			case 2: {

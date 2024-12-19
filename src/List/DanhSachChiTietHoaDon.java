@@ -102,12 +102,16 @@ public class DanhSachChiTietHoaDon implements InterfaceDocGhi {
 	}
 
 	public void themCTHD() {
-		System.out.println("Nhập thông tin chi tiết hóa đơn muốn thêm: ");
-		ChiTietHoaDon a = new ChiTietHoaDon();
-		a.nhapCTHD();
-		if (a.getMahd() != null) {
-			cthd = Arrays.copyOf(cthd, cthd.length + 1);
-			cthd[cthd.length - 1] = a;
+		System.out.print("Nhập số lượng: ");
+		int n = sc.nextInt();
+		sc.nextLine();
+		for(int i = 0; i < n; i++) {
+			ChiTietHoaDon a = new ChiTietHoaDon();
+			a.nhapCTHD();
+			if (a.getMahd() != null) {
+				cthd = Arrays.copyOf(cthd, cthd.length + 1);
+				cthd[cthd.length - 1] = a;
+			}
 		}
 	}
 
