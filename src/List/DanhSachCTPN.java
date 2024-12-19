@@ -380,4 +380,14 @@ public class DanhSachCTPN implements InterfaceDocGhi{
 		}
 	}
 	
+	// Hàm tính tổng tiền của phiếu nhập với mã cho trước
+	public static float tinhTongTienPN(String maPN) {
+		float tong = 0;
+		for(ChiTietPhieuNhap ctpn : dsctpn) {
+			if(ctpn.getMaPN().equals(maPN)) {
+				tong += ctpn.getThanhtien();
+			}
+		}
+		return tong;
+	}
 }

@@ -47,29 +47,17 @@ public class PhieuNhap
             }
         }
         
-        NhaCungCap[] dsncc = DanhSachNCC.getDsncc();
         DanhSachNCC.xuat();
         System.out.print("Nhập mã nhà cung cấp : ");
         this.maNCC=sc.nextLine();
-        NhanVien[] dsnv = DanhSachNhanVien.getDsnv();
+        
         DanhSachNhanVien.xuatdsnv();
         System.out.print("Nhập mã nhân viên : ");
         this.maNV=sc.nextLine();
-        this.tinhTong();
     }
     public void tinhTong()
     {
-
-        tongTien=0;
-        ChiTietPhieuNhap[] ctpn = DanhSachCTPN.getDsctpn();
-        for(int i = 0; i< ctpn.length; i++)
-        {
-            if(this.maPN.equals(ctpn[i].getMaPN()))
-            {
-                tongTien+=ctpn[i].getThanhtien();
-            }
-        }
-        this.setTongTien(tongTien);
+        this.setTongTien(DanhSachCTPN.tinhTongTienPN(this.maPN));
     }
 
     public String getMaPN()

@@ -37,20 +37,6 @@ public class HoaDon {
         System.out.println("---");
     }
     
-public void tinhTong()
-    {
-
-        tongtien=0;
-        ChiTietHoaDon[] temp = DanhSachChiTietHoaDon.getDscthd();
-        for(int i = 0; i<temp.length; i=i+1)
-        {
-            if(mahd.equals(temp[i].getMahd()))
-            {
-                tongtien+=temp[i].getThanhtien();
-            }
-        }
-        setTongTien(tongtien);
-    }
     
     public void xuat(){
         String format = "| %-15s | %-20s | %-15s | %-15s | %-15s |\n";
