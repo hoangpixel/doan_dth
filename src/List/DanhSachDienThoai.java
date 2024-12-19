@@ -249,7 +249,7 @@ public class DanhSachDienThoai implements InterfaceDocGhi{
 	    do {
 	        System.out.println("----------Tìm kiếm nâng cao---------");
 	        System.out.println("| 1. Tìm theo mã điện thoại.       |");
-	        System.out.println("| 2. Tìm theo điện thoại           |");
+	        System.out.println("| 2. Tìm theo tên điện thoại       |");
 	        System.out.println("| 3. Tìm theo hãng                 |");
 	        System.out.println("| 4. Tìm theo khoảng giá           |");
 	        System.out.println("| 5. Tìm theo hệ điều hành         |");
